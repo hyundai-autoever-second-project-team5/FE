@@ -1,7 +1,11 @@
 import React from "react";
+import Layout from "../components/common/Layout";
+import Info from "../components/detail/MovieInfo";
 
 const Detail = () => {
-  return <div>영화상세 test</div>;
+  return (
+      <Info />
+  );
 };
 
 export default Detail;
