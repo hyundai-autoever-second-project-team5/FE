@@ -13,5 +13,5 @@ feature/#이슈번호: 기능 추가
 #### MUI 타이포그라피 사용 참고
 - https://mui.com/material-ui/react-typography/
 
-아이콘 - fontawsome
+아이콘 - fontawsome   
 스타일 - tailwindcss
