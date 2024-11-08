@@ -10,6 +10,6 @@ chore : 빌드 업무 수정, 패키지 매니저 수정
 #### 브랜치 컨벤션
 feature/#이슈번호: 기능 추가
 
-#### 타이포그라피 사용 참고
+#### MUI 타이포그라피 사용 참고
 - https://mui.com/material-ui/react-typography/
 
