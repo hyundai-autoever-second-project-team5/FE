@@ -3,7 +3,7 @@ import React from "react";
 const Layout = ({ children }) => {
   return (
     <div
-      className="bg-contain bg-center w-full"
+      className="bg-contain bg-center w-full px-3"
       style={{
         backgroundImage: `url('/images/wall.png')`,
       }}

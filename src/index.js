@@ -4,9 +4,15 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider } from "react-router-dom";
 import router from "./Router";
+import { ThemeProvider } from "@emotion/react";
+import { globalTheme } from "./styles/globalTheme";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={router} />);
+root.render(
+  <ThemeProvider theme={globalTheme}>
+    <RouterProvider router={router} />
+  </ThemeProvider>
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
