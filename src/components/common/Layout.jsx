@@ -8,7 +8,7 @@ const Layout = ({ children }) => {
         backgroundImage: `url('/images/wall.png')`,
       }}
     >
-      <div className="inset-0 bg-black opacity-20">{children}</div>
+      <div className="inset-0 bg-black opacity-30">{children}</div>
     </div>
   );
 };
