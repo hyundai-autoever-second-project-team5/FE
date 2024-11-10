@@ -6,13 +6,13 @@ import { faBell } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
   return (
-    <div className="flex flex-row justify-between items-center w-full p-3 bg-primary z-10">
+    <div className="z-10 flex flex-row items-center justify-between w-full p-3 bg-primary">
       <Typography variant="h5" color="white">
         CineWall
       </Typography>
       <div className="flex flex-row gap-3">
         <Search />
-        <div className="flex flex-row gap-2 items-center">
+        <div className="flex flex-row items-center gap-2">
           <IconButton>
             <FontAwesomeIcon icon={faBell} color="white" />
           </IconButton>
