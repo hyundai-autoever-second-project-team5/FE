@@ -6,7 +6,7 @@ import { faBell } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
   return (
-    <div className="flex flex-row justify-between items-center w-full p-3 bg-primary">
+    <div className="flex flex-row justify-between items-center w-full p-3 bg-primary z-10">
       <Typography variant="h5" color="white">
         CineWall
       </Typography>

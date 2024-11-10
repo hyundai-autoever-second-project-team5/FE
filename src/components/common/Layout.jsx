@@ -8,7 +8,11 @@ const Layout = ({ children }) => {
         backgroundImage: `url('/images/wall.png')`,
       }}
     >
-      <div className="inset-0 bg-black opacity-30">{children}</div>
+      {/* 배경을 위한 오버레이 */}
+      <div className="absolute inset-0 bg-black opacity-30 pointer-events-none" />
+
+      {/* 실제 콘텐츠 */}
+      <div className="relative z-10">{children}</div>
     </div>
   );
 };
