@@ -37,10 +37,21 @@ const SwiperCommentList = ({ title, data }) => {
         {title}
       </Typography>
       <Swiper
-        slidesPerView={4}
+        slidesPerView={1}
         grid={{ rows: 2, fill: "row" }}
         spaceBetween={20}
         modules={[Grid, Pagination]}
+        breakpoints={{
+          640: {
+            slidesPerView: 2,
+          },
+          1024: {
+            slidesPerView: 3,
+          },
+          1200: {
+            slidesPerView: 4,
+          },
+        }}
       >
         {Array(9)
           .fill(commentDummy)
