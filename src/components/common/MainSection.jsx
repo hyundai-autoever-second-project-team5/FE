@@ -5,7 +5,7 @@ import React from "react";
 
 const MainSection = () => {
   return (
-    <div className="w-full relative h-[90vh]">
+    <div className="w-full relative h-screen">
       <img
         src="https://www.10wallpaper.com/wallpaper/1366x768/1107/America_Science_Fiction_Classic_Movie_-_Avatar_HD_Wallpaper_26_1366x768.jpg"
         alt="poster"
@@ -14,8 +14,11 @@ const MainSection = () => {
       {/* 배경을 위한 오버레이 */}
       <div className="absolute inset-0 bg-black opacity-50 pointer-events-none" />
 
+      {/* 하단 페이드 아웃 그라데이션 오버레이 */}
+      <div className="absolute bottom-0 w-full h-[200px] bg-gradient-to-t from-primary to-transparent pointer-events-none" />
+
       {/* 실제 콘텐츠 */}
-      <div className="relative z-10 px-8 py-10 flex flex-col justify-end h-full">
+      <div className="relative z-10 px-5 m-auto max-w-[1400px] flex flex-col justify-center h-full">
         <div className="flex flex-col gap-3 mb-5">
           <Typography variant="h1" fontWeight={900} color="white">
             아바타

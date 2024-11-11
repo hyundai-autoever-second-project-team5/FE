@@ -44,12 +44,15 @@ const SwiperCommentList = ({ title, data }) => {
         breakpoints={{
           640: {
             slidesPerView: 2,
+            grid: { rows: 2, fill: "row" },
           },
           1024: {
             slidesPerView: 3,
+            grid: { rows: 2, fill: "row" },
           },
           1200: {
             slidesPerView: 4,
+            grid: { rows: 2, fill: "row" },
           },
         }}
       >

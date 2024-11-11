@@ -16,7 +16,7 @@ const Comment = ({
   comments,
 }) => {
   return (
-    <div className="flex flex-col gap-2 p-3 w-full xl:max-w-[350px] bg-white rounded-lg">
+    <div className="flex flex-col gap-2 p-3 w-full xl:max-w-[360px] bg-white rounded-lg">
       <div className="flex flex-row justify-between items-center">
         <div className="flex flex-row gap-2 items-center">
           <img src={profileSrc} className="rounded-full w-10 h-10" />
