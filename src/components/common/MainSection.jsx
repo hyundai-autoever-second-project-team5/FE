@@ -9,13 +9,13 @@ const MainSection = () => {
       <img
         src="https://www.10wallpaper.com/wallpaper/1366x768/1107/America_Science_Fiction_Classic_Movie_-_Avatar_HD_Wallpaper_26_1366x768.jpg"
         alt="poster"
-        className="absolute w-full object-cover h-full"
+        className="absolute object-cover w-full h-full"
       />
       {/* 배경을 위한 오버레이 */}
       <div className="absolute inset-0 bg-black opacity-50 pointer-events-none" />
 
       {/* 실제 콘텐츠 */}
-      <div className="relative z-10 px-8 py-10 flex flex-col justify-end h-full">
+      <div className="relative z-10 flex flex-col justify-end h-full px-8 py-10">
         <div className="flex flex-col gap-3 mb-5">
           <Typography variant="h1" fontWeight={900} color="white">
             아바타
@@ -48,7 +48,7 @@ const MainSection = () => {
       {/* <img
         src="https://www.10wallpaper.com/wallpaper/1366x768/1107/America_Science_Fiction_Classic_Movie_-_Avatar_HD_Wallpaper_26_1366x768.jpg"
         alt="poster"
-        className="absolute w-full object-cover h-full"
+        className="absolute object-cover w-full h-full"
       /> */}
     </div>
   );
