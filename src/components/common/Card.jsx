@@ -7,7 +7,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const Card = ({ title, cineScore = 9.0, netizenScore = 8.56 }) => {
   return (
-    <div className="relative flex flex-col w-[250px] transform transition duration-300 hover:scale-105 hover:shadow-lg">
+    <div className="relative flex flex-col w-max-[250px] transform transition duration-300 hover:scale-105 hover:shadow-lg">
       {/* 영화 포스터 */}
       <img
         src="https://img.sbs.co.kr/newsnet/etv/upload/2023/10/10/30000880790.jpg"
