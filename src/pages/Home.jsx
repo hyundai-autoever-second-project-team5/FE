@@ -1,7 +1,7 @@
 import React from "react";
 import SwiperCardList from "../components/common/SwiperCardList";
 import SwiperCommentList from "../components/common/SwiperCommentList";
-import SwiperHeader from "../components/common/SwiperHeader";
+import SwiperHeader from "../components/main/SwiperHeader";
 import Footer from "../components/common/Footer";
 
 const Home = () => {
