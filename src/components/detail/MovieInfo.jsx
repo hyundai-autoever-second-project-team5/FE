@@ -29,16 +29,16 @@ const MovieInfo = () => {
   }
 
   return (
-    <div className='px-5 py-8 text-white bg-black'>
+    <div className='px-10 py-8'>
       <div className="flex">
         <div className="relative w-2/6">
           <img
             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
             alt={`${movie.title} 포스터`}
           />
-          <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-black to-transparent"></div>
+          {/* <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-black to-transparent"></div> */}
         </div>
-        <div className="w-2/4 pl-2">
+        <div className="w-2/4 mx-7">
           <h1 className="mb-4 text-4xl font-bold">{movie.title}</h1>
           <div className="flex items-center justify-between mb-2 ">
             <strong>| 개봉일: {movie.release_date || '정보 없음'}</strong>
@@ -48,12 +48,11 @@ const MovieInfo = () => {
           <div className="mb-4">
             <strong>| 장르: </strong>
             {movie.genres && movie.genres.length > 0
-              ? movie.genres.map((genre) => genre.name).join(', ')
+              ? movie.genres.map((genre) => genre.name).join('/ ')
               : '정보 없음'}
           </div>
           <div>
             <div className='mb-2 text-2xl font-extrabold'>{movie.tagline}</div>
-            <strong>줄거리</strong>
             <p>{movie.overview || '줄거리 정보가 없습니다.'}</p>
           </div>
         </div>
