@@ -26,7 +26,7 @@ const SwiperCommentList = ({ title, data }) => {
   };
 
   return (
-    <>
+    <div className="text-white">
       <Typography
         variant="h4"
         color="white"
@@ -72,7 +72,7 @@ const SwiperCommentList = ({ title, data }) => {
             </SwiperSlide>
           ))}
       </Swiper>
-    </>
+      </div>
   );
 };
 

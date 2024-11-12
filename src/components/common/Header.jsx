@@ -59,10 +59,10 @@ const Header = () => {
 
   return (
     <>
-      <div
-        className={`fixed flex justify-center items-center w-full py-3 z-30 transition-all duration-300 ${
-          isScrolled ? "bg-primary" : "bg-transparent"
-        }`}
+    <div
+      className={`fixed flex justify-center items-center w-full py-3 z-30 transition-all duration-300 ${
+        isScrolled ? "bg-primary bg-opacity-80 backdrop-blur-lg" : "bg-transparent"
+      }`}
       >
         <div className="flex flex-row justify-between max-w-[1400px] w-full px-5">
           <Typography variant="h4" color="white">
