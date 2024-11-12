@@ -13,9 +13,9 @@ export const getKakaoLogin = async () => {
 };
 
 // 일반 로그인
-export const postSignIn = async () => {
+export const postSignIn = async (loginData) => {
   try {
-    const response = await client.post("/cinewall/auth/sign-in");
+    const response = await client.post("/cinewall/auth/sign-in", loginData);
     return response.data;
   } catch (error) {
     console.error("Failed to login", error);

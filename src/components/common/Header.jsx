@@ -11,20 +11,26 @@ import React, { useEffect, useState } from "react";
 import Search from "./Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faComment } from "@fortawesome/free-solid-svg-icons";
-import { getKakaoLogin, postSignUp } from "../../api/user";
-import axios from "axios";
-import client from "../../api/client";
+import { postSignIn } from "../../api/user";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const isMobile = useMediaQuery("(max-width:550px)");
   const [open, setOpen] = React.useState(false);
+  const [loginData, setLoginData] = React.useState({
+    id: "",
+    password: "",
+  });
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleKakaoLogin = async () => {
-    getKakaoLogin().then((res) => console.log(res));
+  const handleKakaoLogin = () => {
+    window.location.href = "http://3.38.104.1:8080/cinewall/auth/oauth2/kakao";
+  };
+
+  const handleSignIn = () => {
+    postSignIn(loginData).then((res) => console.log(res));
   };
 
   // const handleSignUp = () => {
@@ -91,12 +97,30 @@ const Header = () => {
         >
           <Typography variant="h5">로그인/회원가입</Typography>
           <div className="flex flex-col gap-2 my-2">
-            <TextField label="이메일" className="w-full" />
-            <TextField label="비밀번호" className="w-full" />
+            <TextField
+              label="이메일"
+              className="w-full"
+              value={loginData.id}
+              onChange={(e) =>
+                setLoginData({ ...loginData, id: e.target.value })
+              }
+            />
+            <TextField
+              label="비밀번호"
+              className="w-full"
+              value={loginData.password}
+              onChange={(e) =>
+                setLoginData({ ...loginData, password: e.target.value })
+              }
+            />
           </div>
-
           <div className="flex flex-col gap-2 my-3">
-            <Button variant="contained" color="inherit" className="w-full">
+            <Button
+              variant="contained"
+              color="inherit"
+              className="w-full"
+              onClick={handleSignIn}
+            >
               로그인
             </Button>
             <Button variant="contained" color="inherit" className="w-full">
@@ -108,6 +132,10 @@ const Header = () => {
             onClick={handleKakaoLogin}
             className="w-full"
             startIcon={<FontAwesomeIcon icon={faComment} />}
+            sx={{
+              backgroundColor: "#FEE500",
+              color: "#191919",
+            }}
           >
             카카오로 로그인하기
           </Button>
