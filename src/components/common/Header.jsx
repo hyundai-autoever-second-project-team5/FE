@@ -11,7 +11,9 @@ import React, { useEffect, useState } from "react";
 import Search from "./Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faComment } from "@fortawesome/free-solid-svg-icons";
-import { getKakaoLogin } from "../../api/user";
+import { getKakaoLogin, postSignUp } from "../../api/user";
+import axios from "axios";
+import client from "../../api/client";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -21,9 +23,13 @@ const Header = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleKakaoLogin = () => {
+  const handleKakaoLogin = async () => {
     getKakaoLogin().then((res) => console.log(res));
   };
+
+  // const handleSignUp = () => {
+  //     postSignUp()
+  // }
 
   useEffect(() => {
     const handleScroll = () => {
