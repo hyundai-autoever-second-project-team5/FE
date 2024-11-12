@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import {Avatar} from "@mui/material";
+// import cast from './Cast';
 
 const MovieInfo = () => {
   const { id: movieId } = useParams();
@@ -47,7 +48,7 @@ const MovieInfo = () => {
           />
           <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-black to-transparent"></div>
         </div>
-        <div className="w-2/4 mx-7">
+        <div className="w-3/4 mx-7">
           <h1 className="mb-4 text-4xl font-bold">{movie.title}</h1>
           <div className="flex items-center justify-between mb-2 ">
             <strong>| 개봉일: {movie.release_date || "정보 없음"}</strong>
