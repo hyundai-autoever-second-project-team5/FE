@@ -30,7 +30,7 @@ const Header = () => {
         </Typography>
         <div className="flex flex-row gap-3">
           <Search />
-          <div className="flex flex-row gap-2 items-center">
+          <div className="flex flex-row items-center gap-2">
             <IconButton>
               <FontAwesomeIcon icon={faBell} color="white" />
             </IconButton>
