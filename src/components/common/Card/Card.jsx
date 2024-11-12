@@ -12,7 +12,7 @@ const Card = ({ title, cineScore = 9.0, netizenScore = 8.56 }) => {
       {/* 전구 효과 */}
       <div className="light z-50"></div>
 
-      <div className="card relative flex flex-col w-[250px] transform transition duration-300 hover:scale-105">
+      <div className="card relative flex flex-col w-full transform transition duration-300 hover:scale-105">
         {/* 영화 포스터 */}
         <img
           src="https://img.sbs.co.kr/newsnet/etv/upload/2023/10/10/30000880790.jpg"
