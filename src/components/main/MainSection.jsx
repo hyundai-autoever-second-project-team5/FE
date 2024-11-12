@@ -48,6 +48,7 @@ const MainSection = () => {
           </Button>
         </div>
       </div>
+
       {/* <img
         src="https://www.10wallpaper.com/wallpaper/1366x768/1107/America_Science_Fiction_Classic_Movie_-_Avatar_HD_Wallpaper_26_1366x768.jpg"
         alt="poster"
