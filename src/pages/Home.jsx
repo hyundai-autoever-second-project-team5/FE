@@ -1,12 +1,14 @@
 import React from "react";
 import SwiperCardList from "../components/common/SwiperCardList";
 import SwiperCommentList from "../components/common/SwiperCommentList";
-import SwiperHeader from "../components/main/SwiperHeader";
 import Footer from "../components/common/Footer";
+import SwiperHeader from "../components/common/SwiperHeader";
+import Spotlight from '../components/common/Spotlight';
 
 const Home = () => {
   return (
-    <>
+    <div className="w-full max-w-[1600px] m-auto">
+      <Spotlight />
       <SwiperHeader />
       <div className="relative w-full max-w-[1400px] m-auto px-5 py-5 -mt-40 z-20">
         <SwiperCardList title={"평점순"} />
@@ -16,7 +18,7 @@ const Home = () => {
         <SwiperCommentList title={"최신 댓글"} />
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 
