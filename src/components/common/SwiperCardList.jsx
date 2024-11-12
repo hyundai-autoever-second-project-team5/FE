@@ -8,18 +8,13 @@ import "swiper/css/pagination";
 // import required modules
 import { Pagination } from "swiper/modules";
 import { Typography } from "@mui/material";
-import Card from "./Card";
+import Card from "./Card/Card";
 
 const SwiperCardList = ({ title, data }) => {
   return (
     <>
       {/* 평점순 */}
-      <Typography
-        variant="h4"
-        color="white"
-        fontWeight={700}
-        sx={{ marginBottom: "1rem" }}
-      >
+      <Typography variant="h4" color="white" fontWeight={700}>
         {title}
       </Typography>
       <Swiper

@@ -27,12 +27,11 @@ const SwiperCommentList = ({ title, data }) => {
 
   return (
     <>
-      {/* 평점순 */}
       <Typography
         variant="h4"
         color="white"
         fontWeight={700}
-        sx={{ marginBottom: "1rem" }}
+        sx={{ marginBottom: "20px" }}
       >
         {title}
       </Typography>
@@ -44,12 +43,15 @@ const SwiperCommentList = ({ title, data }) => {
         breakpoints={{
           640: {
             slidesPerView: 2,
+            grid: { rows: 2, fill: "row" },
           },
           1024: {
             slidesPerView: 3,
+            grid: { rows: 2, fill: "row" },
           },
           1200: {
             slidesPerView: 4,
+            grid: { rows: 2, fill: "row" },
           },
         }}
       >
