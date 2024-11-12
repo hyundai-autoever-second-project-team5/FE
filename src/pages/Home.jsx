@@ -2,7 +2,7 @@ import React from "react";
 import SwiperCardList from "../components/common/SwiperCardList";
 import SwiperCommentList from "../components/common/SwiperCommentList";
 import Footer from "../components/common/Footer";
-import SwiperHeader from "../components/common/SwiperHeader";
+import SwiperHeader from "../components/main/SwiperHeader";
 import Spotlight from '../components/common/Spotlight';
 
 const Home = () => {
