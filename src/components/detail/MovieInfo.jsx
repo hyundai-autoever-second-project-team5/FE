@@ -38,7 +38,7 @@ const MovieInfo = () => {
   }
 
   return (
-    <div className='px-10 py-8 text-gray-200'>
+    <div className="px-10 py-8 mt-4 text-gray-200">
       <div className="flex">
         <div className="relative w-2/6">
           <img
@@ -50,32 +50,39 @@ const MovieInfo = () => {
         <div className="w-2/4 mx-7">
           <h1 className="mb-4 text-4xl font-bold">{movie.title}</h1>
           <div className="flex items-center justify-between mb-2 ">
-            <strong>| 개봉일: {movie.release_date || '정보 없음'}</strong>
-            <strong>| 평점: {movie.vote_average || '정보 없음'}</strong>
-            <strong>| 러닝타임: {movie.runtime ? `${movie.runtime}분` : '정보 없음'}</strong>
+            <strong>| 개봉일: {movie.release_date || "정보 없음"}</strong>
+            <strong>| 평점: {movie.vote_average || "정보 없음"}</strong>
+            <strong>
+              | 러닝타임: {movie.runtime ? `${movie.runtime}분` : "정보 없음"}
+            </strong>
           </div>
           <div className="mb-4">
             <strong>| 장르: </strong>
             {movie.genres && movie.genres.length > 0
-              ? movie.genres.map((genre) => genre.name).join('/ ')
-              : '정보 없음'}
+              ? movie.genres.map((genre) => genre.name).join("/ ")
+              : "정보 없음"}
           </div>
           <div>
-            <div className='mb-2 text-2xl font-extrabold'>{movie.tagline}</div>
-            <p>{movie.overview || '줄거리 정보가 없습니다.'}</p>
+            <div className="mb-2 text-2xl font-extrabold">{movie.tagline}</div>
+            <p>{movie.overview || "줄거리 정보가 없습니다."}</p>
           </div>
         </div>
       </div>
       <strong className="block my-4 text-xl">출연진</strong>
-      <div className="flex flex-wrap">
-        {cast.slice(0, 10).map((actor)=> (
-          <div key={actor.cast_id} className="m-2 text-center">
-            <Avatar
-              alt={actor.name}
-              src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
-              sx={{ width: 70, height: 70 }}
-              className="mb-2"
-            />
+      <div className="flex items-center overflow-x-auto whitespace-nowrap">
+        {cast.slice(0, 5).map((actor) => (
+          <div
+            key={actor.cast_id}
+            className="flex flex-col items-center m-2 text-center"
+          >
+            <div className="flex justify-center">
+              <Avatar
+                alt={actor.name}
+                src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
+                sx={{ width: 70, height: 70 }}
+                className="mb-2"
+              />
+            </div>
             <div>{actor.name}</div>
             <div className="text-sm text-gray-400">{actor.character}</div>
           </div>
