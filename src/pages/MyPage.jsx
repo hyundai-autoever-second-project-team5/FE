@@ -5,8 +5,15 @@ import React from "react";
 import ScoreChart from "../components/detail/ScoreChart";
 import ListItem from "../components/mypage/ListItem";
 import SwiperCommentList from "../components/common/SwiperCommentList";
+import ProfileEditModal from "../components/mypage/ProfileEditModal";
+import FollowersModal from "../components/mypage/FollowersModal";
+import LikesModal from "../components/mypage/LikesModal";
 
 const MyPage = () => {
+  const [profileOpen, setProfileOpen] = React.useState(false);
+  const [followerOpen, setFollowerOpen] = React.useState(false);
+  const [likesOpen, setLikesOpen] = React.useState(false);
+
   const data = [
     { name: "1점", count: 30 },
     { name: "2점", count: 50 },
@@ -14,6 +21,13 @@ const MyPage = () => {
     { name: "4점", count: 30 },
     { name: "5점", count: 40 },
   ];
+
+  const handleProfileOpen = () => setProfileOpen(true);
+  const handleProfileClose = () => setProfileOpen(false);
+  const handleFollowerOpen = () => setFollowerOpen(true);
+  const handleFollowerClose = () => setFollowerOpen(false);
+  const handleLikesOpen = () => setLikesOpen(true);
+  const handleLikesClose = () => setLikesOpen(false);
 
   return (
     <div className="relative w-full max-w-[1400px] m-auto px-5 pt-20 pb-5 z-20">
@@ -28,7 +42,7 @@ const MyPage = () => {
               님의 프로필
             </Typography>
           </div>
-          <IconButton>
+          <IconButton onClick={handleProfileOpen}>
             <FontAwesomeIcon
               icon={faPenToSquare}
               color="white"
@@ -58,7 +72,10 @@ const MyPage = () => {
         </div>
         {/* 통계 */}
         <div className="flex flex-row gap-3 w-full mb-3">
-          <div className="flex flex-col w-full p-10 rounded-md bg-white bg-opacity-20 backdrop-blur-md items-center">
+          <div
+            className="flex flex-col w-full p-10 rounded-md bg-white bg-opacity-20 backdrop-blur-md items-center cursor-pointer"
+            onClick={handleFollowerOpen}
+          >
             <Typography variant="h4">10</Typography>
             <Typography variant="h6">팔로워</Typography>
           </div>
@@ -66,7 +83,10 @@ const MyPage = () => {
             <Typography variant="h4">10</Typography>
             <Typography variant="h6">코멘트</Typography>
           </div>
-          <div className="flex flex-col w-full p-10 rounded-md bg-white bg-opacity-20 backdrop-blur-md items-center">
+          <div
+            className="flex flex-col w-full p-10 rounded-md bg-white bg-opacity-20 backdrop-blur-md items-center cursor-pointer"
+            onClick={handleLikesOpen}
+          >
             <Typography variant="h4">10</Typography>
             <Typography variant="h6">찜</Typography>
           </div>
@@ -74,7 +94,7 @@ const MyPage = () => {
       </div>
 
       {/* 도표 */}
-      <div className="flex flex-row gap-16 w-full">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-16 w-full">
         <div className="flex flex-col gap-1 w-full">
           <Typography variant="h5" fontWeight={700} color="white">
             별점 분포
@@ -94,7 +114,7 @@ const MyPage = () => {
       </div>
 
       {/* 선호 감독, 배우 */}
-      <div className="flex flex-row gap-16 w-full mb-8">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-16 w-full mb-8">
         <div className="flex flex-col gap-1 w-full">
           <Typography variant="h5" fontWeight={700} color="white">
             선호 감독
@@ -139,6 +159,9 @@ const MyPage = () => {
       </div>
 
       <SwiperCommentList title={"최신 댓글"} />
+      <LikesModal open={likesOpen} handleClose={handleLikesClose} />
+      <ProfileEditModal open={profileOpen} handleClose={handleProfileClose} />
+      <FollowersModal open={followerOpen} handleClose={handleFollowerClose} />
     </div>
   );
 };
