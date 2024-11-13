@@ -1,18 +1,42 @@
-import { Button, IconButton, Typography } from "@mui/material";
+import { Button, IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Search from "./Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell } from "@fortawesome/free-solid-svg-icons";
+import { faBell, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import LoginModal from "./LoginModal";
 import { useNavigate } from "react-router-dom";
+// import { useGetUserInfo } from "../../hook/useGetUserInfo";
+// import { getCookie, removeCookie } from "../../api/cookie";
 
 const Header = () => {
+  // const { data, refetch } = useGetUserInfo(getCookie("accessToken"));
   const navigation = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [open, setOpen] = React.useState(false);
+  const [isLogin, setIsLogin] = React.useState(true);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const menuOpen = Boolean(anchorEl);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  // 프로필 메뉴 클릭
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+  const handleMenuItemClick = (url) => {
+    handleMenuClose();
+    navigation(url);
+  };
+  const handleLogout = () => {
+    handleMenuClose();
+    // removeCookie("accessToken");
+    navigation("/");
+    // refetch();
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,12 +51,12 @@ const Header = () => {
 
   // 모달이 열릴 때 스크롤 비활성화, 닫힐 때 복구
   useEffect(() => {
-    if (open) {
+    if (open || anchorEl) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
     }
-  }, [open]);
+  }, [open, anchorEl]);
 
   return (
     <>
@@ -58,14 +82,71 @@ const Header = () => {
               <IconButton>
                 <FontAwesomeIcon icon={faBell} color="white" />
               </IconButton>
-              <Button variant="contained" color="inherit" onClick={handleOpen}>
-                로그인
-              </Button>
+              {isLogin ? (
+                <div className="flex flex-row items-center gap-1">
+                  <img
+                    src="https://avatars.githubusercontent.com/u/89841486?v=4"
+                    alt="profile"
+                    className="object-cover w-10 h-10 rounded-full"
+                  />
+                  <IconButton
+                    onClick={handleMenuClick}
+                    size="small"
+                    aria-controls={menuOpen ? "account-menu" : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={menuOpen ? "true" : undefined}
+                  >
+                    <FontAwesomeIcon icon={faCaretDown} color="white" />
+                  </IconButton>
+                </div>
+              ) : (
+                <Button
+                  variant="contained"
+                  color="inherit"
+                  onClick={handleOpen}
+                >
+                  로그인
+                </Button>
+              )}
             </div>
           </div>
         </div>
       </div>
       <LoginModal open={open} handleClose={handleClose} />
+      <Menu
+        anchorEl={anchorEl}
+        id="account-menu"
+        open={menuOpen}
+        onClose={handleMenuClose}
+        onClick={handleMenuClose}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            overflow: "visible",
+            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+            mt: 2,
+            minWidth: "150px",
+          },
+        }}
+        MenuListProps={{
+          sx: {
+            paddingTop: 0,
+            paddingBottom: 0,
+          },
+        }}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+      >
+        <MenuItem
+          sx={{ paddingY: "12px" }}
+          onClick={() => handleMenuItemClick("/mypage")}
+        >
+          마이페이지
+        </MenuItem>
+        <MenuItem sx={{ paddingY: "12px" }} onClick={handleLogout}>
+          로그아웃
+        </MenuItem>
+      </Menu>
     </>
   );
 };

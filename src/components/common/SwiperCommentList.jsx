@@ -28,10 +28,10 @@ const SwiperCommentList = ({ title, data }) => {
   return (
     <div className="text-white">
       <Typography
-        variant="h4"
+        variant="h5"
         color="white"
         fontWeight={700}
-        sx={{ marginBottom: "20px" }}
+        style={{ marginBottom: "16px" }}
       >
         {title}
       </Typography>
@@ -72,7 +72,7 @@ const SwiperCommentList = ({ title, data }) => {
             </SwiperSlide>
           ))}
       </Swiper>
-      </div>
+    </div>
   );
 };
 
