@@ -5,8 +5,10 @@ import React from "react";
 import ScoreChart from "../components/detail/ScoreChart";
 import ListItem from "../components/mypage/ListItem";
 import SwiperCommentList from "../components/common/SwiperCommentList";
+import ProfileEditModal from "../components/mypage/ProfileEditModal";
 
 const MyPage = () => {
+  const [open, setOpen] = React.useState(false);
   const data = [
     { name: "1점", count: 30 },
     { name: "2점", count: 50 },
@@ -14,6 +16,9 @@ const MyPage = () => {
     { name: "4점", count: 30 },
     { name: "5점", count: 40 },
   ];
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <div className="relative w-full max-w-[1400px] m-auto px-5 pt-20 pb-5 z-20">
@@ -28,7 +33,7 @@ const MyPage = () => {
               님의 프로필
             </Typography>
           </div>
-          <IconButton>
+          <IconButton onClick={handleOpen}>
             <FontAwesomeIcon
               icon={faPenToSquare}
               color="white"
@@ -74,7 +79,7 @@ const MyPage = () => {
       </div>
 
       {/* 도표 */}
-      <div className="flex flex-row gap-16 w-full">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-16 w-full">
         <div className="flex flex-col gap-1 w-full">
           <Typography variant="h5" fontWeight={700} color="white">
             별점 분포
@@ -94,7 +99,7 @@ const MyPage = () => {
       </div>
 
       {/* 선호 감독, 배우 */}
-      <div className="flex flex-row gap-16 w-full mb-8">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-16 w-full mb-8">
         <div className="flex flex-col gap-1 w-full">
           <Typography variant="h5" fontWeight={700} color="white">
             선호 감독
@@ -139,6 +144,7 @@ const MyPage = () => {
       </div>
 
       <SwiperCommentList title={"최신 댓글"} />
+      <ProfileEditModal open={open} handleClose={handleClose} />
     </div>
   );
 };
