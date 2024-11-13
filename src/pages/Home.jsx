@@ -1,9 +1,8 @@
 import React from "react";
 import SwiperCardList from "../components/common/SwiperCardList";
 import SwiperCommentList from "../components/common/SwiperCommentList";
-import Footer from "../components/common/Footer";
 import SwiperHeader from "../components/main/SwiperHeader";
-import Spotlight from '../components/common/Spotlight';
+import Spotlight from "../components/common/Spotlight";
 
 const Home = () => {
   return (
@@ -17,7 +16,6 @@ const Home = () => {
         <SwiperCardList title={"효원님의 찜리스트"} />
         <SwiperCommentList title={"최신 댓글"} />
       </div>
-      <Footer />
     </div>
   );
 };

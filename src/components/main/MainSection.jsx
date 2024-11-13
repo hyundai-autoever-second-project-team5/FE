@@ -1,4 +1,4 @@
-import { faCircleInfo, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faCircleInfo, faMagnifyingGlass, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Typography } from "@mui/material";
 import React from "react";
@@ -33,7 +33,7 @@ const MainSection = () => {
           <Button
             variant="contained"
             color="inherit"
-            startIcon={<FontAwesomeIcon icon={faPlay} />}
+            startIcon={<FontAwesomeIcon icon={faMagnifyingGlass} />}
             size="large"
           >
             재생

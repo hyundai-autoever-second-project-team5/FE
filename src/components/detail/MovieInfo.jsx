@@ -7,7 +7,6 @@ import { faHeart, faPen } from "@fortawesome/free-solid-svg-icons";
 import ShareIconButton from "../common/ShareIconButton";
 import ReviewModal from "../common/ReviewModal";
 
-
 const MovieInfo = () => {
   const { id: movieId } = useParams();
   const [movie, setMovie] = useState(null);
@@ -55,7 +54,7 @@ const MovieInfo = () => {
 
   return (
     <>
-      <div className="py-8 mt-4 text-gray-200">
+      <div className=" text-gray-200">
         <div className="flex flex-col items-start justify-start sm:flex-row">
           {/* 영화 포스터 */}
           <div className="relative w-full sm:max-w-[180px] md:max-w-[250px] lg:max-w-[350px] overflow-hidden">
