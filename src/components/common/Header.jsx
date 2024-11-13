@@ -4,8 +4,10 @@ import Search from "./Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import LoginModal from "./LoginModal";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigation = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [open, setOpen] = React.useState(false);
 
@@ -42,7 +44,12 @@ const Header = () => {
         }`}
       >
         <div className="flex flex-row justify-between max-w-[1400px] w-full px-5">
-          <Typography variant="h4" color="white">
+          <Typography
+            variant="h4"
+            color="white"
+            onClick={() => navigation("/")}
+            className="cursor-pointer"
+          >
             CineWall
           </Typography>
           <div className="flex flex-row gap-3">

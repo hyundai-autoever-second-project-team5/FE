@@ -6,8 +6,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import "./Card.css"; // 추가한 CSS 파일을 가져옵니다
 import ReviewModal from "../ReviewModal";
+import { useNavigate } from "react-router-dom";
 
 const Card = ({ title, cineScore = 9.0, netizenScore = 8.56 }) => {
+  const navigation = useNavigate();
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => setOpen(true);
@@ -58,7 +60,12 @@ const Card = ({ title, cineScore = 9.0, netizenScore = 8.56 }) => {
               >
                 리뷰쓰기
               </Button>
-              <Button variant="text" color="inherit" className="w-full h-full">
+              <Button
+                variant="text"
+                color="inherit"
+                className="w-full h-full"
+                onClick={() => navigation(`/detail/238`)}
+              >
                 상세보기
               </Button>
             </div>
