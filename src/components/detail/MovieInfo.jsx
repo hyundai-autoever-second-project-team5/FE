@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Avatar } from "@mui/material";
+import { Avatar, IconButton, Tooltip, Typography } from "@mui/material";
 import ScoreChart from "./ScoreChart";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowUpFromBracket,
+  faHeart,
+  faPen,
+} from "@fortawesome/free-solid-svg-icons";
+import ShareIconButton from "../common/ShareIconButton";
 
 const MovieInfo = () => {
   const { id: movieId } = useParams();
@@ -48,7 +55,7 @@ const MovieInfo = () => {
     <div className="py-8 mt-4 text-gray-200">
       <div className="flex flex-col items-start justify-start sm:flex-row">
         {/* 영화 포스터 */}
-        <div className="relative w-full sm:max-w-[200px] md:max-w-[240px] lg:max-w-[350px] overflow-hidden">
+        <div className="relative w-full sm:max-w-[180px] md:max-w-[250px] lg:max-w-[350px] overflow-hidden">
           <img
             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
             alt={`${movie.title} 포스터`}
@@ -58,7 +65,27 @@ const MovieInfo = () => {
         </div>
         {/* 영화 정보 */}
         <div className="w-full mt-3 sm:mt-0 sm:pl-8">
-          <h1 className="mb-4 text-4xl font-bold">{movie.title}</h1>
+          <div className="flex flex-row justify-between w-full items-center">
+            <Typography variant="h2" fontWeight={800}>
+              {movie.title}
+            </Typography>
+            <div className="flex flex-row gap-1">
+              <Tooltip title="리뷰작성" arrow>
+                <IconButton color="inherit">
+                  <FontAwesomeIcon icon={faPen} style={{ fontSize: "24px" }} />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="찜" arrow>
+                <IconButton color="inherit">
+                  <FontAwesomeIcon
+                    icon={faHeart}
+                    style={{ fontSize: "24px" }}
+                  />
+                </IconButton>
+              </Tooltip>
+              <ShareIconButton />
+            </div>
+          </div>
           <div className="flex flex-row gap-8 sm:gap-8 md:gap-16 mb-2">
             <strong>| 개봉일: {movie.release_date || "정보 없음"}</strong>
             <strong>| 평점: {movie.vote_average || "정보 없음"}</strong>
