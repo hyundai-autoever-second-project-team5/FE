@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import React from "react";
 
-const ProfileEditModal = ({ open, handleClose }) => {
+const FollowersModal = ({ open, handleClose }) => {
   const isTablet = useMediaQuery("(max-width:680px)");
 
   return (
@@ -26,21 +26,25 @@ const ProfileEditModal = ({ open, handleClose }) => {
           borderRadius: "8px",
         }}
       >
-        <Typography variant="h5">프로필 수정</Typography>
+        <Typography variant="h5">효원님을 팔로우한 사람</Typography>
         <div className="flex flex-col gap-5 mt-2">
-          <img
-            src="https://avatars.githubusercontent.com/u/89841486?v=4"
-            alt="profile-image"
-            className="w-[140px] h-[140px] rounded-full object-contain self-center"
-          />
-          <TextField variant="outlined" label="닉네임" />
-          <TextField variant="outlined" label="아이디" />
+          <div className="grid grid-cols-5 gap-2">
+            {Array(9)
+              .fill(0)
+              .map((item) => (
+                <div className="flex flex-col gap-1 items-center p-2">
+                  <img
+                    src="https://avatars.githubusercontent.com/u/89841486?v=4"
+                    alt="profile"
+                    className="rounded-full"
+                  />
+                  <Typography variant="body2">닉네임</Typography>
+                </div>
+              ))}
+          </div>
           <div className="flex flex-row justify-end gap-2 mt-auto">
             <Button variant="contained" color="inherit" onClick={handleClose}>
-              취소
-            </Button>
-            <Button variant="contained" color="inherit">
-              프로필 수정
+              닫기
             </Button>
           </div>
         </div>
@@ -49,4 +53,4 @@ const ProfileEditModal = ({ open, handleClose }) => {
   );
 };
 
-export default ProfileEditModal;
+export default FollowersModal;
