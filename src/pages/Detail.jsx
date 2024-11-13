@@ -10,8 +10,8 @@ const Detail = () => {
     <div>
     <div className="relative w-full max-w-[1400px] m-auto px-5 py-5 z-20">
       <Info />
-      <SwiperCommentList/>
-      <SwiperCardList/>
+      <SwiperCommentList title={"리뷰"}/>
+      <SwiperCardList title={"추천 영화"}/>
       </div>
       <Footer/>
       </div>
