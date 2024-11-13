@@ -7,6 +7,7 @@ import { faHeart, faPen } from "@fortawesome/free-solid-svg-icons";
 import ShareIconButton from "../common/ShareIconButton";
 import ReviewModal from "../common/ReviewModal";
 
+
 const MovieInfo = () => {
   const { id: movieId } = useParams();
   const [movie, setMovie] = useState(null);

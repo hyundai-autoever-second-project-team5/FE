@@ -4,6 +4,7 @@ import SwiperCardList from "../components/common/SwiperCardList";
 import SwiperCommentList from "../components/common/SwiperCommentList";
 import Footer from "../components/common/Footer";
 
+
 const Detail = () => {
   return (
     <div>
