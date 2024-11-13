@@ -7,9 +7,11 @@ const Detail = () => {
   return (
     <div className="relative w-full max-w-[1400px] m-auto px-5 pt-20 pb-5 z-20">
       <Info />
-      <SwiperCommentList />
-      <SwiperCardList />
-    </div>
+      <SwiperCommentList title={"리뷰"}/>
+      <SwiperCardList title={"추천 영화"}/>
+      </div>
+      <Footer/>
+      </div>
   );
 };
 
