@@ -9,13 +9,10 @@ const MainSection = () => {
       <img
         src="https://www.10wallpaper.com/wallpaper/1366x768/1107/America_Science_Fiction_Classic_Movie_-_Avatar_HD_Wallpaper_26_1366x768.jpg"
         alt="poster"
-        className="absolute object-cover w-full h-full"
+        className="absolute object-cover w-full h-full mask-image-gradient"
       />
-      {/* 배경을 위한 오버레이 */}
-      <div className="absolute inset-0 bg-black opacity-50 pointer-events-none" />
 
-      {/* 하단 페이드 아웃 그라데이션 오버레이 */}
-      <div className="absolute bottom-0 w-full h-[200px] bg-gradient-to-t from-primary to-transparent pointer-events-none" />
+<div className="absolute inset-0 bg-black opacity-50 mask-image-gradient"></div>
 
       {/* 실제 콘텐츠 */}
       <div className="relative z-10 px-5 m-auto max-w-[1400px] flex flex-col justify-center h-full">
