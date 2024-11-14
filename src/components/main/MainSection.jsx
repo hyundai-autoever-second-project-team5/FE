@@ -1,9 +1,19 @@
-import { faCircleInfo, faMagnifyingGlass, faPlay } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCircleInfo,
+  faMagnifyingGlass,
+  faPlay,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Typography } from "@mui/material";
 import React from "react";
+import { getUserInfo } from "../../api/user";
 
 const MainSection = () => {
+  const handleGetInfo = () => {
+    getUserInfo().then((res) => {
+      console.log(res);
+    });
+  };
   return (
     <div className="relative w-full h-screen">
       <img
@@ -43,6 +53,7 @@ const MainSection = () => {
             color="inherit"
             startIcon={<FontAwesomeIcon icon={faCircleInfo} />}
             size="large"
+            onClick={handleGetInfo}
           >
             상세 정보
           </Button>

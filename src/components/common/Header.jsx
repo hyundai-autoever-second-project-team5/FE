@@ -5,16 +5,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import LoginModal from "./LoginModal";
 import { useNavigate } from "react-router-dom";
+// import { useGetUserInfo } from "../../hook/useGetUserInfo";
+// import { getUserInfo } from "../../api/user";
+import { removeCookie } from "../../api/cookie";
 
 const Header = () => {
   const navigation = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [open, setOpen] = React.useState(false);
-  const [isLogin, setIsLogin] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const menuOpen = Boolean(anchorEl);
   const [bellAnchorEl, setBellAnchorEl] = React.useState(null);
   const bellModalOpen = Boolean(bellAnchorEl);
+  // const { data, refetch } = useGetUserInfo(getUserInfo());
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -41,7 +44,7 @@ const Header = () => {
 
   const handleLogout = () => {
     handleMenuClose();
-    // removeCookie("accessToken");
+    removeCookie("accessToken");
     navigation("/");
     // refetch();
   };
@@ -90,7 +93,7 @@ const Header = () => {
               <IconButton onClick={handleBellOpen}>
                 <FontAwesomeIcon icon={faBell} color="white" />
               </IconButton>
-              {isLogin ? (
+              {false ? (
                 <div className="flex flex-row items-center gap-1">
                   <img
                     src="https://avatars.githubusercontent.com/u/89841486?v=4"

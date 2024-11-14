@@ -7,14 +7,12 @@ import ScrollToTop from "./components/common/ScrollToTop";
 
 function App() {
   return (
-    <>
-      <Layout>
-        <Header />
-        <ScrollToTop />
-        <Outlet />
-        <Footer />
-      </Layout>
-    </>
+    <Layout>
+      <Header />
+      <ScrollToTop />
+      <Outlet />
+      <Footer />
+    </Layout>
   );
 }
 

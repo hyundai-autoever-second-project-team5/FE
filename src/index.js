@@ -6,12 +6,17 @@ import { RouterProvider } from "react-router-dom";
 import router from "./Router";
 import { ThemeProvider } from "@emotion/react";
 import { globalTheme } from "./styles/globalTheme";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+const queryClient = new QueryClient();
+
 root.render(
-  <ThemeProvider theme={globalTheme}>
-    <RouterProvider router={router} />
-  </ThemeProvider>
+  <QueryClientProvider client={queryClient}>
+    <ThemeProvider theme={globalTheme}>
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  </QueryClientProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
