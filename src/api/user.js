@@ -18,7 +18,18 @@ export const postSignIn = async (loginData) => {
     const response = await client.post("/cinewall/auth/sign-in", loginData);
     return response.data;
   } catch (error) {
-    console.error("Failed to login", error);
+    console.error("Failed to sign in", error);
+    throw error;
+  }
+};
+
+// 일반 회원가입
+export const postSignUp = async (userData) => {
+  try {
+    const response = await axios.post("/cinewall/auth/sign-up", userData);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to sign up", error);
     throw error;
   }
 };
@@ -37,13 +48,13 @@ export const postCheckId = async (id) => {
 // 이메일 인증번호 전송
 export const postCheckEmail = async (id, email) => {
   try {
-    const response = await client.post("/cinewall/auth/sign-in", {
+    const response = await client.post("/cinewall/auth/email-certification", {
       id: id,
       email: email,
     });
     return response.data;
   } catch (error) {
-    console.error("Failed to login", error);
+    console.error("Failed to check email", error);
     throw error;
   }
 };
@@ -55,25 +66,14 @@ export const postCheckCertification = async (
   certificationNumber
 ) => {
   try {
-    const response = await client.post("/cinewall/auth/sign-in", {
+    const response = await client.post("/cinewall/auth/check-certification", {
       id: id,
       email: email,
       certificationNumber: certificationNumber,
     });
     return response.data;
   } catch (error) {
-    console.error("Failed to login", error);
-    throw error;
-  }
-};
-
-// 일반 회원가입
-export const postSignUp = async (userData) => {
-  try {
-    const response = await axios.post("/cinewall/auth/sign-up", userData);
-    return response.data;
-  } catch (error) {
-    console.error("Failed to login", error);
+    console.error("Failed to check certification", error);
     throw error;
   }
 };
