@@ -1,19 +1,10 @@
-import axios from "axios";
 import client from "./client";
 import { getCookie } from "./cookie";
-
-const PROXY = window.location.hostname === "localhost" ? "" : "/proxy";
-let config = {
-  headers: {
-    // Authorization: `Bearer ${getCookie("token")}`,
-    withCredentials: true,
-  },
-};
 
 // 카카오 로그인
 export const getKakaoLogin = async () => {
   try {
-    const response = await axios.get(`${PROXY}/cinewall/auth/oauth2/kakao`);
+    const response = await client.get(`/cinewall/auth/oauth2/kakao`);
     return response.data;
   } catch (error) {
     console.error("Failed to kakao login", error);
@@ -24,9 +15,7 @@ export const getKakaoLogin = async () => {
 // 일반 로그인
 export const postSignIn = async (loginData) => {
   try {
-    const response = await axios.post(
-      `${PROXY}/cinewall/auth/sign-in", loginData`
-    );
+    const response = await client.post(`/cinewall/auth/sign-in", loginData`);
     return response.data;
   } catch (error) {
     console.error("Failed to sign in", error);
@@ -37,10 +26,7 @@ export const postSignIn = async (loginData) => {
 // 일반 회원가입
 export const postSignUp = async (userData) => {
   try {
-    const response = await axios.post(
-      `${PROXY}/cinewall/auth/sign-up`,
-      userData
-    );
+    const response = await client.post(`}/cinewall/auth/sign-up`, userData);
     return response.data;
   } catch (error) {
     console.error("Failed to sign up", error);
@@ -51,13 +37,9 @@ export const postSignUp = async (userData) => {
 // 아이디 중복 확인
 export const postCheckId = async (id) => {
   try {
-    const response = await axios.post(
-      `${PROXY}/cinewall/auth/id-check`,
-      {
-        id: id,
-      },
-      config
-    );
+    const response = await client.post(`/cinewall/auth/id-check`, {
+      id: id,
+    });
     return response.data;
   } catch (error) {
     console.error("Failed to check id", error);
@@ -68,13 +50,10 @@ export const postCheckId = async (id) => {
 // 이메일 인증번호 전송
 export const postCheckEmail = async (id, email) => {
   try {
-    const response = await client.post(
-      `${PROXY}/cinewall/auth/email-certification`,
-      {
-        id: id,
-        email: email,
-      }
-    );
+    const response = await client.post(`/cinewall/auth/email-certification`, {
+      id: id,
+      email: email,
+    });
     return response.data;
   } catch (error) {
     console.error("Failed to check email", error);
@@ -89,14 +68,11 @@ export const postCheckCertification = async (
   certificationNumber
 ) => {
   try {
-    const response = await client.post(
-      `${PROXY}/cinewall/auth/check-certification`,
-      {
-        id: id,
-        email: email,
-        certificationNumber: certificationNumber,
-      }
-    );
+    const response = await client.post(`/cinewall/auth/check-certification`, {
+      id: id,
+      email: email,
+      certificationNumber: certificationNumber,
+    });
     return response.data;
   } catch (error) {
     console.error("Failed to check certification", error);
@@ -107,7 +83,7 @@ export const postCheckCertification = async (
 // 유저 정보 조회
 export const getUserInfo = async () => {
   try {
-    const response = await client.get(`${PROXY}/cinewall/user/info`);
+    const response = await client.get(`/cinewall/user/info`);
     return response.data;
   } catch (error) {
     console.error("Failed to get user info", error);
