@@ -8,7 +8,7 @@ import "./Card.css"; // 추가한 CSS 파일을 가져옵니다
 import ReviewModal from "../ReviewModal";
 import { useNavigate } from "react-router-dom";
 
-const Card = ({ title, cineScore = 9.0, netizenScore = 8.56 }) => {
+const Card = ({ title, cineScore = 9.0, netizenScore = 8.56, order = 1 }) => {
   const navigation = useNavigate();
   const [open, setOpen] = React.useState(false);
 
@@ -29,15 +29,20 @@ const Card = ({ title, cineScore = 9.0, netizenScore = 8.56 }) => {
       <div className="card-wrapper">
         {/* 전구 효과 */}
         <div className="light z-50"></div>
-
         <div className="card relative flex flex-col w-full transform transition duration-300 hover:scale-105">
+          {order && (
+            <div className="absolute top-1 left-1 w-[40px] h-[40px]  bg-black rounded-md flex items-center justify-center bg-opacity-70 backdrop-blur-md">
+              <Typography variant="h6" fontWeight={800} color="white">
+                1
+              </Typography>
+            </div>
+          )}
           {/* 영화 포스터 */}
           <img
             src="https://img.sbs.co.kr/newsnet/etv/upload/2023/10/10/30000880790.jpg"
             alt="poster"
             className="object-cover w-full h-full"
           />
-
           {/* 오버레이 */}
           <div className="absolute inset-0 bg-black bg-opacity-70 flex flex-col items-center opacity-0 hover:opacity-100 transition-opacity duration-300 p-4">
             {/* 상단 평점 */}
