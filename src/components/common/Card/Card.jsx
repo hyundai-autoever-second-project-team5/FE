@@ -77,7 +77,7 @@ const Card = ({ title, cineScore = 9.0, netizenScore = 8.56, order = 1 }) => {
           </div>
 
           {/* 평점 오버레이 */}
-          <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-70 py-2 flex justify-around items-center">
+          <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-70 py-2 flex justify-around items-center hover:hidden">
             <div className="flex flex-col items-center text-white">
               <Typography variant="body2" color="inherit">
                 평점
