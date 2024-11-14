@@ -16,13 +16,21 @@ const MainSection = () => {
   };
   return (
     <div className="relative w-full h-screen">
+      <video
+        src="https://www.10wallpaper.com/wallpaper/1366x768/1107/America_Science_Fiction_Classic_Movie_-_Avatar_HD_Wallpaper_26_1366x768.mp4" // 영상 URL
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute object-cover w-full h-full"
+      />
       <img
         src="https://www.10wallpaper.com/wallpaper/1366x768/1107/America_Science_Fiction_Classic_Movie_-_Avatar_HD_Wallpaper_26_1366x768.jpg"
         alt="poster"
         className="absolute object-cover w-full h-full mask-image-gradient"
       />
 
-<div className="absolute inset-0 bg-black opacity-50 mask-image-gradient"></div>
+      <div className="absolute inset-0 bg-black opacity-50 mask-image-gradient"></div>
 
       {/* 실제 콘텐츠 */}
       <div className="relative z-10 px-5 m-auto max-w-[1400px] flex flex-col justify-center h-full">

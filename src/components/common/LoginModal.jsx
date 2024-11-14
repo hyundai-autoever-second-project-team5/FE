@@ -56,12 +56,10 @@ const LoginModal = ({ open, handleClose }) => {
     formData.append("nickname", signUpData.nickname);
     formData.append("email", signUpData.email);
     formData.append("certificationNumber", signUpData.certificationNumber);
-    if (signUpData.image) {
-      formData.append("image", signUpData.image);
-    }
+    console.log("image", signUpData.image);
+    formData.append("image", signUpData.image);
     postSignUp(formData).then((res) => {
       console.log(res);
-      setIsLogin(true);
     });
   };
 
