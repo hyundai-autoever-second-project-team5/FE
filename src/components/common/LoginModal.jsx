@@ -6,7 +6,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   postCheckCertification,
   postCheckEmail,
@@ -51,18 +51,17 @@ const LoginModal = ({ open, handleClose }) => {
 
   const handleSignUp = () => {
     const formData = new FormData();
-
-    // FormData에 signUpData의 각 필드를 추가
     formData.append("id", signUpData.id);
     formData.append("password", signUpData.password);
     formData.append("nickname", signUpData.nickname);
     formData.append("email", signUpData.email);
     formData.append("certificationNumber", signUpData.certificationNumber);
     if (signUpData.image) {
-      formData.append("image", signUpData.image); // 실제 파일 추가
+      formData.append("image", signUpData.image);
     }
     postSignUp(formData).then((res) => {
       console.log(res);
+      setIsLogin(true);
     });
   };
 
@@ -108,6 +107,21 @@ const LoginModal = ({ open, handleClose }) => {
   const handleCheckId = () => {
     postCheckId(signUpData.id).then((res) => console.log(res));
   };
+
+  useEffect(() => {
+    setLoginData({
+      id: "",
+      password: "",
+    });
+    setSignUpData({
+      id: "",
+      nickname: "",
+      password: "",
+      email: "",
+      certificationNumber: "",
+      image: null,
+    });
+  }, [isLogin]);
 
   // 로그인 페이지
   const renderLoginPage = () => {
