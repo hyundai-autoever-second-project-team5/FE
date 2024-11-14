@@ -5,15 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import LoginModal from "./LoginModal";
 import { useNavigate } from "react-router-dom";
-// import { useGetUserInfo } from "../../hook/useGetUserInfo";
-// import { getCookie, removeCookie } from "../../api/cookie";
 
 const Header = () => {
-  // const { data, refetch } = useGetUserInfo(getCookie("accessToken"));
   const navigation = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [open, setOpen] = React.useState(false);
-  const [isLogin, setIsLogin] = React.useState(true);
+  const [isLogin, setIsLogin] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const menuOpen = Boolean(anchorEl);
   const [bellAnchorEl, setBellAnchorEl] = React.useState(null);
