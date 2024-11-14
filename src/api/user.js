@@ -26,7 +26,7 @@ export const postSignIn = async (loginData) => {
 // 일반 회원가입
 export const postSignUp = async (userData) => {
   try {
-    const response = await client.post(`}/cinewall/auth/sign-up`, userData);
+    const response = await client.post(`/cinewall/auth/sign-up`, userData);
     return response.data;
   } catch (error) {
     console.error("Failed to sign up", error);
