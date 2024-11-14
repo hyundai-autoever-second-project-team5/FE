@@ -3,11 +3,17 @@ import client from "./client";
 import { getCookie } from "./cookie";
 
 const PROXY = window.location.hostname === "localhost" ? "" : "/proxy";
+let config = {
+  headers: {
+    // Authorization: `Bearer ${getCookie("token")}`,
+    withCredentials: true,
+  },
+};
 
 // 카카오 로그인
 export const getKakaoLogin = async () => {
   try {
-    const response = await client.get(`${PROXY}/cinewall/auth/oauth2/kakao`);
+    const response = await axios.get(`${PROXY}/cinewall/auth/oauth2/kakao`);
     return response.data;
   } catch (error) {
     console.error("Failed to kakao login", error);
@@ -18,7 +24,7 @@ export const getKakaoLogin = async () => {
 // 일반 로그인
 export const postSignIn = async (loginData) => {
   try {
-    const response = await client.post(
+    const response = await axios.post(
       `${PROXY}/cinewall/auth/sign-in", loginData`
     );
     return response.data;
@@ -45,9 +51,13 @@ export const postSignUp = async (userData) => {
 // 아이디 중복 확인
 export const postCheckId = async (id) => {
   try {
-    const response = await axios.post(`${PROXY}/cinewall/auth/id-check`, {
-      id: id,
-    });
+    const response = await axios.post(
+      `${PROXY}/cinewall/auth/id-check`,
+      {
+        id: id,
+      },
+      config
+    );
     return response.data;
   } catch (error) {
     console.error("Failed to check id", error);
