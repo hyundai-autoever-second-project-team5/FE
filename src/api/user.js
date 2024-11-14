@@ -45,7 +45,7 @@ export const postSignUp = async (userData) => {
 // 아이디 중복 확인
 export const postCheckId = async (id) => {
   try {
-    const response = await client.post(`${PROXY}/cinewall/auth/id-check`, {
+    const response = await axios.post(`${PROXY}/cinewall/auth/id-check`, {
       id: id,
     });
     return response.data;
