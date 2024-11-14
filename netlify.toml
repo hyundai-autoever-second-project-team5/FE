@@ -1,4 +1,10 @@
 [[redirects]]
+from = "/proxy/*"
+to = "http://3.38.104.1:8080"  
+status = 200
+force = true
+
+[[redirects]]
 from = "/*"
 to = "/index.html" 
 status = 200

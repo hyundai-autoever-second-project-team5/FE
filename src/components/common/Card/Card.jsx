@@ -8,7 +8,14 @@ import "./Card.css"; // 추가한 CSS 파일을 가져옵니다
 import ReviewModal from "../ReviewModal";
 import { useNavigate } from "react-router-dom";
 
-const Card = ({ title, cineScore = 9.0, netizenScore = 8.56, order = 1 }) => {
+const Card = ({
+  id,
+  title,
+  posterSrc,
+  avgScore = 9.0,
+  myScore = 8.56,
+  order = 1,
+}) => {
   const navigation = useNavigate();
   const [open, setOpen] = React.useState(false);
 
@@ -26,7 +33,7 @@ const Card = ({ title, cineScore = 9.0, netizenScore = 8.56, order = 1 }) => {
 
   return (
     <>
-      <div className="card-wrapper">
+      <div className="card-wrapper" id={id}>
         {/* 전구 효과 */}
         <div className="light z-50"></div>
         <div className="card relative flex flex-col w-full transform transition duration-300 hover:scale-105">
@@ -39,9 +46,9 @@ const Card = ({ title, cineScore = 9.0, netizenScore = 8.56, order = 1 }) => {
           )}
           {/* 영화 포스터 */}
           <img
-            src="https://img.sbs.co.kr/newsnet/etv/upload/2023/10/10/30000880790.jpg"
+            src={posterSrc}
             alt="poster"
-            className="object-cover w-full h-full"
+            className="object-cover w-full h-[500px] sm:h-[400px] md:h-[350px]"
           />
           {/* 오버레이 */}
           <div className="absolute inset-0 bg-black bg-opacity-70 flex flex-col items-center opacity-0 hover:opacity-100 transition-opacity duration-300 p-4">
@@ -83,7 +90,7 @@ const Card = ({ title, cineScore = 9.0, netizenScore = 8.56, order = 1 }) => {
                 평점
               </Typography>
               <Typography variant="h6" color="error">
-                {cineScore.toFixed(2)}
+                {avgScore.toFixed(2)}
               </Typography>
             </div>
             <div className="flex flex-col items-center text-white">
@@ -91,7 +98,7 @@ const Card = ({ title, cineScore = 9.0, netizenScore = 8.56, order = 1 }) => {
                 내 평점
               </Typography>
               <Typography variant="h6" color="error">
-                {netizenScore.toFixed(2)}
+                {myScore.toFixed(2)}
               </Typography>
             </div>
           </div>
