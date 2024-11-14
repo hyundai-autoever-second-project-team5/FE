@@ -3,9 +3,9 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="w-full bg-primary mt-10">
+    <div className="w-full mt-10 bg-primary">
       <div className="max-w-[1400px] w-full px-5 py-10 m-auto">
-        <div className="flex flex-col gap-2 w-full">
+        <div className="flex flex-col w-full gap-2">
           <Typography component={"pre"} color="white" variant="body2">
             서비스 이용약관 | 개인정보 처리방침 | 회사 안내 <br />
             <br />

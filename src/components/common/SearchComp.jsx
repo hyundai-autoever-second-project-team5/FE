@@ -13,29 +13,23 @@ const mockSuggestions = [
   { id: 10, title: "Webpack" },
 ];
 
-const SearchComp = ({ query }) => {
+const SearchComp = ({ query = "" }) => {
   const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
     const fetchSuggestions = async () => {
-      if (query.trim().length === 0) {
+      const trimmedQuery = query.trim();
+      if (trimmedQuery.length === 0) {
         setSuggestions([]);
         return;
       }
 
       try {
-
-        const response = await fetch(`/api/search?query=${encodeURIComponent(query)}`);
-        const data = await response.json();
-        setSuggestions(data.results);
-
-
-        // 모의 데이터 필터링
-        const filteredSuggestions = mockSuggestions.filter((item) =>
-          item.title.toLowerCase().includes(query.toLowerCase())
-        );
         // 비동기 동작 시뮬레이션
         setTimeout(() => {
+          const filteredSuggestions = mockSuggestions.filter((item) =>
+            item.title.toLowerCase().includes(trimmedQuery.toLowerCase())
+          );
           setSuggestions(filteredSuggestions);
         }, 300);
       } catch (error) {
@@ -50,19 +44,17 @@ const SearchComp = ({ query }) => {
   if (suggestions.length === 0) return null;
 
   return (
-    <div className="absolute left-0 right-0 z-10 mt-2 overflow-y-auto bg-white border border-gray-300 rounded-md top-full max-h-52">
+    <div className="">
       <ul className="p-0 m-0 list-none">
         {suggestions.map((item) => (
           <li
             key={item.id}
             className="px-4 py-2 cursor-pointer hover:bg-gray-100"
             onClick={() => {
-              // 클릭 시 원하는 동작 추가 (예: 검색어 설정, 페이지 네비게이션 등)
               console.log(`선택된 항목: ${item.title}`);
             }}
           >
-            {item.title}
-          </li>
+            {item.title}          </li>
         ))}
       </ul>
     </div>

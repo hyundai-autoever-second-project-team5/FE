@@ -15,24 +15,49 @@ const Search = () => {
     const initialQuery = searchParams.get("query") || "";
     if (initialQuery) {
       setQuery(initialQuery);
-      navigate(`/detail/${encodeURIComponent(initialQuery)}`);
+      navigate(`/search`);
     }
   }, [searchParams, navigate]);
 
   const handleSearch = () => {
     if (query.trim() !== "") {
-      navigate(`/detail/${encodeURIComponent(query)}`);
+      navigate(`/search`);
     }
   };
+
 
   const debouncedHandleInputChange = useCallback(
     debounce((value) => {
       if (value.trim() !== "") {
-        navigate(`/detail/${encodeURIComponent(value)}`);
+        navigate(`/search`);
       }
     }, 300),
     [navigate]
   );
+
+
+  // const handleSearch = () => {
+  //   if (query.trim() !== "") {
+  //     navigate(`/search?query=${encodeURIComponent(query)}`);
+  //   }
+  // };
+  
+  // const debouncedHandleInputChange = useCallback(
+  //   debounce((value) => {
+  //     if (value.trim() !== "") {
+  //       navigate(`/search?query=${encodeURIComponent(value)}`);
+  //     }
+  //   }, 300),
+  //   [navigate]
+  // );
+  
+  // useEffect(() => {
+  //   const initialQuery = searchParams.get("query") || "";
+  //   if (initialQuery) {
+  //     setQuery(initialQuery);
+  //     navigate(`/search?query=${encodeURIComponent(initialQuery)}`);
+  //   }
+  // }, [searchParams, navigate]);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -40,11 +65,11 @@ const Search = () => {
     debouncedHandleInputChange(value);
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      handleSearch();
-    }
-  };
+  // const handleKeyPress = (e) => {
+  //   if (e.key === "Enter") {
+  //     handleSearch();
+  //   }
+  // };
 
   return (
     <div className="relative flex flex-row rounded-lg px-2 max-w-[210px] items-center bg-white bg-opacity-20 backdrop-blur-md">
@@ -55,7 +80,7 @@ const Search = () => {
         type="text"
         value={query}
         onChange={handleInputChange}
-        onKeyPress={handleKeyPress}
+        // onKeyPress={handleKeyPress}
         className="w-full bg-transparent border-none focus:outline-none"
       />
       {query.length > 0 && <SearchComp query={query} />} 
