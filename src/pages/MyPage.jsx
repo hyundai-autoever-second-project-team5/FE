@@ -8,6 +8,7 @@ import SwiperCommentList from "../components/common/SwiperCommentList";
 import ProfileEditModal from "../components/mypage/ProfileEditModal";
 import FollowersModal from "../components/mypage/FollowersModal";
 import LikesModal from "../components/mypage/LikesModal";
+import PhotoCard from "../components/mypage/PhotoCard";
 
 const MyPage = () => {
   const [profileOpen, setProfileOpen] = React.useState(false);
@@ -33,7 +34,7 @@ const MyPage = () => {
     <div className="relative w-full max-w-[1400px] m-auto px-5 pt-20 pb-5 z-20">
       {/* 프로필 섹션 */}
       <div className="flex flex-col gap-4">
-        <div className="flex flex-row justify-between items-center">
+        <div className="flex flex-row items-center justify-between">
           <div className="flex flex-row gap-1">
             <Typography variant="h4" color="white" fontWeight={700}>
               효원
@@ -52,7 +53,7 @@ const MyPage = () => {
             />
           </IconButton>
         </div>
-        <div className="flex flex-row gap-4 items-center">
+        <div className="flex flex-row items-center gap-4">
           <img
             src="https://avatars.githubusercontent.com/u/89841486?v=4"
             alt="profile-image"
@@ -71,20 +72,20 @@ const MyPage = () => {
           </div>
         </div>
         {/* 통계 */}
-        <div className="flex flex-row gap-3 w-full mb-3">
+        <div className="flex flex-row w-full gap-3 mb-3">
           <div
-            className="flex flex-col w-full p-10 rounded-md bg-white bg-opacity-20 backdrop-blur-md items-center cursor-pointer"
+            className="flex flex-col items-center w-full p-10 bg-white rounded-md cursor-pointer bg-opacity-20 backdrop-blur-md"
             onClick={handleFollowerOpen}
           >
             <Typography variant="h4">10</Typography>
             <Typography variant="h6">팔로워</Typography>
           </div>
-          <div className="flex flex-col w-full p-10 rounded-md bg-white bg-opacity-20 backdrop-blur-md items-center">
+          <div className="flex flex-col items-center w-full p-10 bg-white rounded-md bg-opacity-20 backdrop-blur-md">
             <Typography variant="h4">10</Typography>
             <Typography variant="h6">코멘트</Typography>
           </div>
           <div
-            className="flex flex-col w-full p-10 rounded-md bg-white bg-opacity-20 backdrop-blur-md items-center cursor-pointer"
+            className="flex flex-col items-center w-full p-10 bg-white rounded-md cursor-pointer bg-opacity-20 backdrop-blur-md"
             onClick={handleLikesOpen}
           >
             <Typography variant="h4">10</Typography>
@@ -94,8 +95,8 @@ const MyPage = () => {
       </div>
 
       {/* 도표 */}
-      <div className="flex flex-col sm:flex-row gap-4 sm:gap-16 w-full">
-        <div className="flex flex-col gap-1 w-full">
+      <div className="flex flex-col w-full gap-4 sm:flex-row sm:gap-16">
+        <div className="flex flex-col w-full gap-1">
           <Typography variant="h5" fontWeight={700} color="white">
             별점 분포
           </Typography>
@@ -103,7 +104,7 @@ const MyPage = () => {
             <ScoreChart data={data} />
           </div>
         </div>
-        <div className="flex flex-col gap-1 w-full">
+        <div className="flex flex-col w-full gap-1">
           <Typography variant="h5" fontWeight={700} color="white">
             선호 태그
           </Typography>
@@ -114,8 +115,8 @@ const MyPage = () => {
       </div>
 
       {/* 선호 감독, 배우 */}
-      <div className="flex flex-col sm:flex-row gap-4 sm:gap-16 w-full mb-8">
-        <div className="flex flex-col gap-1 w-full">
+      <div className="flex flex-col w-full gap-4 mb-8 sm:flex-row sm:gap-16">
+        <div className="flex flex-col w-full gap-1">
           <Typography variant="h5" fontWeight={700} color="white">
             선호 감독
           </Typography>
@@ -127,7 +128,7 @@ const MyPage = () => {
               ))}
           </div>
         </div>
-        <div className="flex flex-col gap-1 w-full">
+        <div className="flex flex-col w-full gap-1">
           <Typography variant="h5" fontWeight={700} color="white">
             선호 배우
           </Typography>
@@ -141,19 +142,17 @@ const MyPage = () => {
         </div>
       </div>
 
+
       {/* 포스터 수집 */}
-      <div className="flex flex-col bg-white bg-opacity-20 backdrop-blur-md p-3 rounded-md mb-5">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      <div className="flex flex-col p-3 mb-5">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
           {Array(9)
             .fill(0)
-            .map((item) => (
-              <div className="flex flex-col gap-1 items-center justify-center">
-                <img
-                  src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxOTEyMDVfMTkw%2FMDAxNTc1NTMzNzc4MjAw.n0N5y-fs7YRwWtogpxbHMXZtJPtI7PRptLB9UJPq7E8g._vxS1pa4Zed9jDjmlbZJ7eFTNCnUhdfUqJCH-J5Hk0gg.JPEG.skygoss11%2F1575533777927.jpg&type=sc960_832"
-                  alt="poster"
-                />
-                <Typography variant="body1">08-21</Typography>
-              </div>
+            .map((item, index) => (
+              <PhotoCard
+                src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxOTEyMDVfMTkw%2FMDAxNTc1NTMzNzc4MjAw.n0N5y-fs7YRwWtogpxbHMXZtJPtI7PRptLB9UJPq7E8g._vxS1pa4Zed9jDjmlbZJ7eFTNCnUhdfUqJCH-J5Hk0gg.JPEG.skygoss11%2F1575533777927.jpg&type=sc960_832"
+                alt="poster"
+              />
             ))}
         </div>
       </div>
