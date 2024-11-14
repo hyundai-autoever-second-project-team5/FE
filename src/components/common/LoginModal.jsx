@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  checkboxClasses,
   Modal,
   TextField,
   Typography,
@@ -36,12 +37,42 @@ const LoginModal = ({ open, handleClose }) => {
     image: null,
   });
   const [checked, setChecked] = React.useState({
-    email: false,
-    certificationNumber: false,
-    id: false,
+    id: "pending",
+    email: "pending",
+    certificationNumber: "pending",
   });
-  const [emailError, setEmailError] = useState("");
+  const [emailHelperText, setEmailHelperText] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+
+  const isSignUpDisabled = !(
+    signUpData.id &&
+    signUpData.nickname &&
+    signUpData.password &&
+    signUpData.email &&
+    signUpData.certificationNumber &&
+    signUpData.image &&
+    checked.email &&
+    checked.certificationNumber &&
+    checked.id
+  );
+
+  // 초기화하면서 모달 닫기
+  const handleCloseWithReset = () => {
+    setIsLogin(true);
+    setLoginData({
+      id: "",
+      password: "",
+    });
+    setSignUpData({
+      id: "",
+      nickname: "",
+      password: "",
+      email: "",
+      certificationNumber: "",
+      image: null,
+    });
+    handleClose();
+  };
 
   const handleKakaoLogin = () => {
     window.location.href = "http://3.38.104.1:8080/cinewall/auth/oauth2/kakao";
@@ -58,6 +89,7 @@ const LoginModal = ({ open, handleClose }) => {
     });
   };
 
+  // 회원가입
   const handleSignUp = () => {
     const formData = new FormData();
     formData.append("id", signUpData.id);
@@ -86,20 +118,23 @@ const LoginModal = ({ open, handleClose }) => {
   const handleEmailChange = (e) => {
     const email = e.target.value;
     setSignUpData({ ...signUpData, email });
+    setChecked({ ...checked, email: "pending" });
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setEmailError("올바른 이메일 형식을 입력하세요.");
+    if (!emailRegex.test(email) && checked.email === "pending") {
+      setEmailHelperText("올바른 이메일 형식을 입력하세요.");
     } else {
-      setEmailError("");
+      setEmailHelperText("");
     }
   };
 
   // 이메일 인증번호 전송
   const handleCheckEmail = () => {
-    postCheckEmail(signUpData.id, signUpData.email).then((res) =>
-      console.log(res)
-    );
+    setChecked({ ...checked, email: "sending" });
+    postCheckEmail(signUpData.id, signUpData.email).then((res) => {
+      setChecked({ ...checked, email: res.available });
+      setEmailHelperText("이메일에 인증번호를 전송했습니다.");
+    });
   };
 
   // 이메일 인증 확인
@@ -108,13 +143,19 @@ const LoginModal = ({ open, handleClose }) => {
       signUpData.id,
       signUpData.email,
       signUpData.certificationNumber
-    ).then((res) => console.log(res));
+    ).then((res) =>
+      setChecked({ ...checked, certificationNumber: res.available })
+    );
   };
 
+  // 아이디 중복 확인
   const handleCheckId = () => {
-    postCheckId(signUpData.id).then((res) => console.log(res));
+    postCheckId(signUpData.id).then((res) =>
+      setChecked({ ...checked, id: res.available })
+    );
   };
 
+  // 로그인 회원가입 이동시 값 초기화
   useEffect(() => {
     setLoginData({
       id: "",
@@ -224,9 +265,20 @@ const LoginModal = ({ open, handleClose }) => {
               label="아이디"
               className="w-full"
               value={signUpData.id}
-              onChange={(e) =>
-                setSignUpData({ ...signUpData, id: e.target.value })
+              onChange={(e) => {
+                setSignUpData({ ...signUpData, id: e.target.value });
+                setChecked({ ...checked, id: "pending" });
+              }}
+              helperText={
+                signUpData.id && checked.id && checked.id !== "pending"
+                  ? "사용 가능한 아이디입니다."
+                  : ""
               }
+              FormHelperTextProps={{
+                sx: {
+                  color: checked.id ? "green" : "inherit", // 인증 성공 시 초록색으로 설정
+                },
+              }}
             />
             <Button
               variant="contained"
@@ -246,19 +298,36 @@ const LoginModal = ({ open, handleClose }) => {
               className="w-full"
               value={signUpData.email}
               onChange={handleEmailChange}
-              error={!!emailError && signUpData.email}
-              helperText={signUpData.email && emailError}
+              disabled={!signUpData.id}
+              error={
+                checked.email === "pending" &&
+                !!emailHelperText &&
+                signUpData.email
+              }
+              helperText={
+                (signUpData.email && emailHelperText) ||
+                (signUpData.email && checked.email && emailHelperText)
+              }
+              FormHelperTextProps={{
+                sx: {
+                  color: checked.id ? "green" : "inherit", // 인증 성공 시 초록색으로 설정
+                },
+              }}
             />
             <Button
               variant="contained"
               color="inherit"
-              disabled={!signUpData.email || emailError}
+              disabled={
+                !signUpData.email ||
+                emailHelperText ||
+                checked.email === "sending"
+              }
               sx={{
                 minWidth: "100px",
               }}
               onClick={handleCheckEmail}
             >
-              이메일 인증
+              {checked.email === "sending" ? "전송 중" : "코드 전송"}
             </Button>
           </div>
           <div className="flex flex-row w-full gap-2">
@@ -272,6 +341,25 @@ const LoginModal = ({ open, handleClose }) => {
                   certificationNumber: e.target.value,
                 })
               }
+              helperText={
+                signUpData.certificationNumber &&
+                checked.certificationNumber &&
+                checked.certificationNumber !== "pending"
+                  ? "인증되었습니다."
+                  : signUpData.certificationNumber &&
+                    checked.certificationNumber &&
+                    checked.certificationNumber === "pending"
+                  ? ""
+                  : signUpData.certificationNumber &&
+                    !checked.certificationNumber
+                  ? "잘못된 인증 번호입니다."
+                  : ""
+              }
+              FormHelperTextProps={{
+                sx: {
+                  color: checked.id ? "green" : "inherit", // 인증 성공 시 초록색으로 설정
+                },
+              }}
             />
             <Button
               variant="contained"
@@ -279,7 +367,13 @@ const LoginModal = ({ open, handleClose }) => {
               sx={{
                 minWidth: "100px",
               }}
-              disabled={!signUpData.certificationNumber}
+              disabled={
+                !signUpData.certificationNumber ||
+                !signUpData.id ||
+                !signUpData.email ||
+                !checked.email ||
+                !checked.id
+              }
               onClick={handleCheckCertification}
             >
               인증 확인
@@ -301,6 +395,7 @@ const LoginModal = ({ open, handleClose }) => {
             color="inherit"
             className="w-full"
             onClick={handleSignUp}
+            disabled={isSignUpDisabled}
           >
             회원가입
           </Button>
@@ -330,7 +425,7 @@ const LoginModal = ({ open, handleClose }) => {
   };
 
   return (
-    <Modal open={open} onClose={handleClose}>
+    <Modal open={open} onClose={handleCloseWithReset}>
       <Box
         sx={{
           position: "absolute",

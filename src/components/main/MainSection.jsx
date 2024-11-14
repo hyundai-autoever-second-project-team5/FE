@@ -16,19 +16,19 @@ const MainSection = ({ videoUrl }) => {
   };
   return (
     <div className="relative w-full h-screen">
-      <iframe
+      {/* <iframe
         src={videoUrl}
         className="absolute inset-0 object-cover w-full h-full"
         frameBorder="0"
         allow="autoplay; encrypted-media"
         allowFullScreen
         title="background video"
-      />
-      {/* <img
+      /> */}
+      <img
         src="https://www.10wallpaper.com/wallpaper/1366x768/1107/America_Science_Fiction_Classic_Movie_-_Avatar_HD_Wallpaper_26_1366x768.jpg"
         alt="poster"
         className="absolute object-cover w-full h-full mask-image-gradient"
-      /> */}
+      />
 
       <div className="absolute inset-0 bg-black opacity-50 mask-image-gradient"></div>
 
