@@ -16,8 +16,11 @@ import {
 } from "../../api/user";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
+import { getCookie, setCookie } from "../../api/cookie";
+import { useGetUserInfo } from "../../hook/useGetUserInfo";
 
 const LoginModal = ({ open, handleClose }) => {
+  const { refetch } = useGetUserInfo(getCookie("accessToken"));
   const [isLogin, setIsLogin] = useState(true);
   const isMobile = useMediaQuery("(max-width:550px)");
   const [loginData, setLoginData] = React.useState({
@@ -46,7 +49,13 @@ const LoginModal = ({ open, handleClose }) => {
 
   // 로그인
   const handleSignIn = () => {
-    postSignIn(loginData).then((res) => console.log(res));
+    postSignIn(loginData).then((res) => {
+      const authToken = res.headers["authorization"];
+      const token = authToken.replace("Bearer ", "");
+      setCookie("accessToken", token);
+      handleClose();
+      refetch();
+    });
   };
 
   const handleSignUp = () => {

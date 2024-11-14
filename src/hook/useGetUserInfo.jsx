@@ -7,7 +7,7 @@ export const useGetUserInfo = (token) => {
   const queryFn = async () => {
     if (token) {
       const response = await getUserInfo();
-      return response.data;
+      return response;
     }
     throw new Error("Missing parameters");
   };

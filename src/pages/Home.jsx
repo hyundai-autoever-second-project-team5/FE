@@ -31,9 +31,9 @@ const Home = () => {
     });
   }, []);
   return (
-    <div className="w-full max-w-[1600px] m-auto">
+    <div className="w-full m-auto">
       <Spotlight />
-      <SwiperHeader />
+      <SwiperHeader data={trailers} />
       <div className="relative w-full max-w-[1400px] m-auto px-5 py-5 -mt-40 z-20">
         <SwiperCardList title={"평점순"} data={popluars} />
         <SwiperCardList title={"최신순"} data={latests} />

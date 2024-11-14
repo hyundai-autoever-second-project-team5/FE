@@ -7,7 +7,7 @@ import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 
-const SwiperHeader = () => {
+const SwiperHeader = ({ data }) => {
   return (
     <Swiper
       slidesPerView={1}
@@ -19,13 +19,17 @@ const SwiperHeader = () => {
         disableOnInteraction: false,
       }}
     >
-      {Array(3)
-        .fill(0)
-        .map((item) => (
+      {data?.map((item) => {
+        const url = item.trailer_path.split("=")[1];
+        console.log(url);
+        return (
           <SwiperSlide>
-            <MainSection />
+            <MainSection
+              videoUrl={`https://www.youtube.com/embed/${url}?autoplay=1&mute=1&loop=1&playlist=${url}&controls=0&modestbranding=1&showinfo=0&rel=0`}
+            />
           </SwiperSlide>
-        ))}
+        );
+      })}
     </Swiper>
   );
 };

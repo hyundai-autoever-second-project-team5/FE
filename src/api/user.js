@@ -1,5 +1,4 @@
 import client from "./client";
-import { getCookie } from "./cookie";
 
 // 카카오 로그인
 export const getKakaoLogin = async () => {
@@ -16,7 +15,7 @@ export const getKakaoLogin = async () => {
 export const postSignIn = async (loginData) => {
   try {
     const response = await client.post(`/cinewall/auth/sign-in`, loginData);
-    return response.data;
+    return response;
   } catch (error) {
     console.error("Failed to sign in", error);
     throw error;
