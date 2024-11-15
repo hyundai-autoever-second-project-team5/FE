@@ -54,7 +54,7 @@ const MovieInfo = () => {
 
   return (
     <>
-      <div className=" text-gray-200">
+      <div className="text-gray-200 ">
         <div className="flex flex-col items-start justify-start sm:flex-row">
           {/* 영화 포스터 */}
           <div className="relative w-full sm:max-w-[180px] md:max-w-[250px] lg:max-w-[350px] overflow-hidden">
@@ -67,7 +67,7 @@ const MovieInfo = () => {
           </div>
           {/* 영화 정보 */}
           <div className="w-full mt-3 sm:mt-0 sm:pl-8">
-            <div className="flex flex-row justify-between w-full items-center">
+            <div className="flex flex-row items-center justify-between w-full">
               <Typography variant="h2" fontWeight={800}>
                 {movie.title}
               </Typography>
@@ -91,7 +91,7 @@ const MovieInfo = () => {
                 <ShareIconButton />
               </div>
             </div>
-            <div className="flex flex-row gap-8 sm:gap-8 md:gap-16 mb-2">
+            <div className="flex flex-row gap-8 mb-2 sm:gap-8 md:gap-16">
               <strong>| 개봉일: {movie.release_date || "정보 없음"}</strong>
               <strong>| 평점: {movie.vote_average || "정보 없음"}</strong>
               <strong>
@@ -114,7 +114,7 @@ const MovieInfo = () => {
           </div>
         </div>
         <strong className="block my-4 text-xl">출연진</strong>
-        <div className="flex items-center overflow-x-auto">
+        <div className="flex items-center mb-4 overflow-x-auto">
           {cast?.slice(0, 5).map((actor) => (
             <div
               key={actor.cast_id}
@@ -129,7 +129,7 @@ const MovieInfo = () => {
                 />
               </div>
               <div className="w-full truncate">{actor.name}</div>
-              <div className="text-sm text-gray-400 w-full truncate">
+              <div className="w-full text-sm text-gray-400 truncate">
                 {actor.character}
               </div>
             </div>
