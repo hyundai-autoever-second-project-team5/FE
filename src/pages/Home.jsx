@@ -55,7 +55,7 @@ const Home = () => {
     <div className="w-full m-auto">
       <Spotlight />
       <SwiperHeader data={trailers} />
-      <div className="relative w-full max-w-[1400px] m-auto px-5 py-5 -mt-40 z-20">
+      <div className="relative w-full max-w-[1400px] m-auto px-5 py-5 -mt-40 z-20 min-h-screen">
         {populars.length && <SwiperCardList title={"평점순"} data={populars} />}
         {latests.length && <SwiperCardList title={"최신순"} data={latests} />}
         {recommends.length && (

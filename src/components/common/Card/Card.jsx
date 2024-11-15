@@ -118,6 +118,7 @@ const Card = ({
         rate={newMyScore}
         movieId={id}
         movieTitle={title}
+        posterSrc={posterSrc}
       />
     </>
   );

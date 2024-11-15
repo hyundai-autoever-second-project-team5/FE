@@ -12,13 +12,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { postReview } from "../../api/review";
 
-const ReviewModal = ({ open, handleClose, rate = 0, movieId, movieTitle }) => {
+const ReviewModal = ({
+  open,
+  handleClose,
+  rate = 0,
+  movieId,
+  movieTitle,
+  posterSrc,
+}) => {
   const isTablet = useMediaQuery("(max-width:680px)");
   const [newReviews, setNewReviews] = React.useState({
     id: movieId,
     rate: rate,
     content: "",
   });
+
+  console.log("movie", movieId);
 
   const handlePostReview = () => {
     postReview(newReviews).then((res) => {
@@ -31,6 +40,7 @@ const ReviewModal = ({ open, handleClose, rate = 0, movieId, movieTitle }) => {
       ...newReviews,
       id: movieId,
       rate: rate,
+      content: "",
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movieId, rate]);
@@ -59,7 +69,10 @@ const ReviewModal = ({ open, handleClose, rate = 0, movieId, movieTitle }) => {
         </Typography>
         <div className="flex flex-row gap-5 mt-2">
           <img
-            src="https://img.sbs.co.kr/newsnet/etv/upload/2023/10/10/30000880790.jpg"
+            src={
+              posterSrc ||
+              "https://img.sbs.co.kr/newsnet/etv/upload/2023/10/10/30000880790.jpg"
+            }
             alt="poster"
             className="w-[160px] max-w-[200px] sm:w-full"
           />

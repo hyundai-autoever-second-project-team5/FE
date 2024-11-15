@@ -4,7 +4,7 @@ import client from "./client";
 export const postReview = async (reviews) => {
   try {
     const response = await client.post(
-      `/cinewall/movie/${reviews?.movieId}/reviews`,
+      `/cinewall/movie/${reviews?.id}/reviews`,
       { rating: reviews?.rate, content: reviews?.content }
     );
     return response.data;

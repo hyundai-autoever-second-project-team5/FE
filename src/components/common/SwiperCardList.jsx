@@ -48,6 +48,7 @@ const SwiperCardList = ({ title, data = [] }) => {
                 }
                 avgScore={item?.vote_average}
                 myScore={item?.user_vote}
+                title={item?.movie_title}
               />
             </SwiperSlide>
           ))}
