@@ -1,20 +1,16 @@
 import { Typography } from "@mui/material";
 import React from "react";
-
 import { Swiper, SwiperSlide } from "swiper/react";
-
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/grid";
 import "swiper/css/pagination";
-
 import { Grid, Pagination } from "swiper/modules";
-
 import Comment from "./Comment";
 
 const SwiperCommentList = ({ title, data }) => {
   return (
-    <div className="text-white mb-5">
+    <div className="mb-5 text-white">
       <Typography
         variant="h5"
         color="white"
