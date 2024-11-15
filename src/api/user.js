@@ -93,3 +93,28 @@ export const getUserInfo = async () => {
     throw error;
   }
 };
+
+// 유저 정보 수정
+export const postUserInfoEdit = async () => {
+  try {
+    const response = await client.post(`/cinewall/user/edit`);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to edit user data", error);
+    throw error;
+  }
+};
+
+// 사용자 프로필 수정
+export const postProfileEdit = async (profileData) => {
+  try {
+    const response = await client.post(`/cinewall/user/edit`, {
+      nickname: profileData.nickname,
+      profileImg: profileData.profileImg,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Failed to post profile", error);
+    throw error;
+  }
+};

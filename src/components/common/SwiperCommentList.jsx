@@ -12,7 +12,7 @@ import { Grid, Pagination } from "swiper/modules";
 
 import Comment from "./Comment";
 
-const SwiperCommentList = ({ title, data }) => {
+const SwiperCommentList = ({ title, data, rows = 2 }) => {
   return (
     <div className="text-white mb-5">
       <Typography
@@ -25,7 +25,7 @@ const SwiperCommentList = ({ title, data }) => {
       </Typography>
       <Swiper
         slidesPerView={1}
-        grid={{ rows: 2, fill: "row" }}
+        grid={{ rows: rows, fill: "row" }}
         spaceBetween={20}
         modules={[Grid, Pagination]}
         breakpoints={{

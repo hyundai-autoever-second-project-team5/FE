@@ -21,8 +21,8 @@ const ScoreChart = ({ data }) => {
           left: -30,
         }}
       >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
+        {/* <CartesianGrid strokeDasharray="3 3" /> */}
+        <XAxis dataKey="score" />
         <YAxis />
         <Tooltip />
         <Legend />
