@@ -13,10 +13,8 @@ const Detail = () => {
     const fetchReviews = async () => {
       try {
         const data = await detailgetMovieLatest(movieId);
-        console.log("Fetched Reviews:", data); // 추가
         setReviews(data);
       } catch (error) {
-        console.error("Failed to fetch reviews", error);
       }
     };
   
@@ -29,7 +27,7 @@ const Detail = () => {
   return (
       <div className="relative w-full max-w-[1400px] m-auto px-5 py-20 z-20">
         <Info />
-        <DetailSwiperCommentList title={"리뷰"} />
+        <DetailSwiperCommentList title={"리뷰"} reviews={reviews} />
         <SwiperCardList title={"추천 영화"} />
       </div>
   );

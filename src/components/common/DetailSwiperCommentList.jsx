@@ -9,17 +9,6 @@ import { Grid, Pagination } from "swiper/modules";
 import Comment from "./Comment";
 
 const DetailSwiperCommentList = ({ title, reviews }) => {
-  const commentDummy = {
-    profileSrc: "https://avatars.githubusercontent.com/u/89841486?v=4",
-    writer: "이효원",
-    title: "베놈: 라스트 댄스",
-    content: "이게 무슨 씨알메리야",
-    score: 3.5,
-    posterSrc:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-XrRIlcKcoFd9x-_k6LnatWLr30TvK_20_Q&s",
-    likes: 5,
-    comments: 3,
-  };
 
   return (
     <div className="text-white">
