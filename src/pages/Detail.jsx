@@ -1,13 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Info from "../components/detail/MovieInfo";
 import SwiperCardList from "../components/common/SwiperCardList";
-import SwiperCommentList from "../components/common/SwiperCommentList";
+import DetailSwiperCommentList from "../components/common/DetailSwiperCommentList";
+import { detailgetMovieLatest } from "../api/detail";
 
 const Detail = () => {
+  const { id: movieId } = useParams();
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const data = await detailgetMovieLatest(movieId);
+        console.log("Fetched Reviews:", data); // 추가
+        setReviews(data);
+      } catch (error) {
+        console.error("Failed to fetch reviews", error);
+      }
+    };
+  
+    if (movieId) {
+      fetchReviews();
+    }
+  }, [movieId]);
+
+
   return (
       <div className="relative w-full max-w-[1400px] m-auto px-5 py-20 z-20">
         <Info />
-        <SwiperCommentList title={"리뷰"} />
+        <DetailSwiperCommentList title={"리뷰"} />
         <SwiperCardList title={"추천 영화"} />
       </div>
   );
