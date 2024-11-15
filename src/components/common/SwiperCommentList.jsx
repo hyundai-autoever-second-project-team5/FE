@@ -56,20 +56,20 @@ const SwiperCommentList = ({ title, data }) => {
         }}
       >
         {data?.map((item) => (
-            <SwiperSlide>
+          <SwiperSlide>
             <Comment
               id={item.review_id}
-                profileSrc={item.profile_url}
-                writer={item.nickname}
-                title={item.movie_title}
-                content={item.content}
-                score={item.score}
-                posterSrc={item.poster_path}
-                likes={item.heart_count}
-                comments={item.comments}
-              />
-            </SwiperSlide>
-          ))}
+              profileSrc={item.profile_url}
+              writer={item.nickname}
+              title={item.movie_title}
+              content={item.content}
+              score={item.score}
+              posterSrc={item.poster_path}
+              likes={item.heart_count}
+              // comments={item.comments}
+            />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );

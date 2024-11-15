@@ -6,18 +6,29 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import Rate from "rc-rate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
-const ReviewModal = ({ open, handleClose }) => {
+const ReviewModal = ({ open, handleClose, rate = 0 }) => {
+  console.log("rate", rate);
   const isTablet = useMediaQuery("(max-width:680px)");
+  const [newRate, setNewRate] = React.useState(rate);
+  console.log("newRate", newRate);
+
+  useEffect(() => {
+    setNewRate(rate);
+  }, [rate]);
 
   return (
-    <Modal className="bg-black bg-opacity-40 backdrop-blur-sm"
-    open={open} onClose={handleClose}>
-      <Box className="bg-gray-200 bg-opacity-60 backdrop-blur-md"
+    <Modal
+      className="bg-black bg-opacity-40 backdrop-blur-sm"
+      open={open}
+      onClose={handleClose}
+    >
+      <Box
+        className="bg-gray-200 bg-opacity-60 backdrop-blur-md"
         sx={{
           position: "absolute",
           top: "50%",
@@ -29,7 +40,9 @@ const ReviewModal = ({ open, handleClose }) => {
           borderRadius: "8px",
         }}
       >
-        <Typography variant="h5" style={{ fontWeight: '600' }}>리뷰 작성</Typography>
+        <Typography variant="h5" style={{ fontWeight: "600" }}>
+          리뷰 작성
+        </Typography>
         <div className="flex flex-row gap-5 mt-2">
           <img
             src="https://img.sbs.co.kr/newsnet/etv/upload/2023/10/10/30000880790.jpg"
@@ -37,13 +50,16 @@ const ReviewModal = ({ open, handleClose }) => {
             className="w-[160px] max-w-[200px] sm:w-full"
           />
           <div className="flex flex-col w-full gap-2">
-            <Typography variant="body1" style={{ fontWeight: '600' }}>STAR TREX</Typography>
+            <Typography variant="body1" style={{ fontWeight: "600" }}>
+              STAR TREX
+            </Typography>
             <Rate
+              value={newRate}
               allowHalf
               character={
                 <FontAwesomeIcon icon={faStar} style={{ fontSize: "24px" }} />
               }
-              onChange={(value) => console.log(value)}
+              onChange={(value) => setNewRate(value)}
             />
             <TextField
               multiline

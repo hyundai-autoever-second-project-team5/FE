@@ -42,13 +42,13 @@ const Comment = ({
       <div className="flex flex-row items-center gap-2">
         <div className="flex flex-row items-center">
           <IconButton>
-            <FontAwesomeIcon icon={faThumbsUp} color="white"/>
+            <FontAwesomeIcon icon={faThumbsUp} color="white" />
           </IconButton>
           <Typography variant="caption">{likes}</Typography>
         </div>
         <div className="flex flex-row items-center">
           <IconButton>
-            <FontAwesomeIcon icon={faComment} color="white"/>
+            <FontAwesomeIcon icon={faComment} color="white" />
           </IconButton>
           <Typography variant="caption">{comments}</Typography>
         </div>

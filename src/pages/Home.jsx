@@ -26,9 +26,9 @@ const Home = () => {
       console.log(res);
       setLatests(res);
     });
-    // getMoviePopular().then((res) => {
-    //   console.log(res);
-    // });
+    getMoviePopular().then((res) => {
+      console.log(res);
+    });
     getMovieReview().then((res) => {
       console.log(res);
       setReviews(res);

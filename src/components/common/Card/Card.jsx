@@ -13,14 +13,20 @@ const Card = ({
   title,
   posterSrc,
   avgScore = 9.0,
-  myScore = 8.56,
+  myScore = 0,
   order = 1,
 }) => {
   const navigation = useNavigate();
   const [open, setOpen] = React.useState(false);
+  const [newMyScore, setNewMyScore] = React.useState(myScore);
+
+  console.log("newMyScore", newMyScore);
 
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setNewMyScore(false);
+  };
 
   // 모달이 열릴 때 스크롤 비활성화, 닫힐 때 복구
   useEffect(() => {
@@ -55,11 +61,15 @@ const Card = ({
             {/* 상단 평점 */}
             <div className="flex flex-col justify-center items-center contents-center h-full w-full">
               <Rate
+                value={myScore}
                 allowHalf
                 character={
                   <FontAwesomeIcon icon={faStar} style={{ fontSize: "24px" }} />
                 }
-                onChange={(value) => console.log(value)}
+                onChange={(value) => {
+                  setNewMyScore(value);
+                  setOpen(true);
+                }}
               />
             </div>
             {/* 하단 버튼들 */}
@@ -104,7 +114,7 @@ const Card = ({
           </div>
         </div>
       </div>
-      <ReviewModal open={open} handleClose={handleClose} />
+      <ReviewModal open={open} handleClose={handleClose} rate={newMyScore} />
     </>
   );
 };
