@@ -18,13 +18,13 @@
 .curtain {
   position: fixed;
   top: 0;
-  width: 50%; /* 화면의 절반 너비 */
+  width: 50%; 
   height: 100%;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   transition: transform 2s ease;
-  z-index: 999; /* spotlight-overlay보다 아래에 위치 */
+  z-index: 999; 
 }
 
 /* 좌측 커튼 */
