@@ -112,7 +112,13 @@ const Card = ({
           </div>
         </div>
       </div>
-      <ReviewModal open={open} handleClose={handleClose} rate={newMyScore} />
+      <ReviewModal
+        open={open}
+        handleClose={handleClose}
+        rate={newMyScore}
+        movieId={id}
+        movieTitle={title}
+      />
     </>
   );
 };

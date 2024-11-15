@@ -76,3 +76,14 @@ export const getMovieReview = async () => {
     throw error;
   }
 };
+
+// 영화 제목 검색
+export const getMovieSearch = async (title) => {
+  try {
+    const response = await client.get(`/cinewall/movie/search?title=${title}`);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to get searched movie", error);
+    throw error;
+  }
+};

@@ -56,14 +56,20 @@ const Home = () => {
       <Spotlight />
       <SwiperHeader data={trailers} />
       <div className="relative w-full max-w-[1400px] m-auto px-5 py-5 -mt-40 z-20">
-        <SwiperCardList title={"평점순"} data={populars} />
-        <SwiperCardList title={"최신순"} data={latests} />
-        <SwiperCardList title={"추천순"} data={recommends} />
+        {populars.length && <SwiperCardList title={"평점순"} data={populars} />}
+        {latests.length && <SwiperCardList title={"최신순"} data={latests} />}
+        {recommends.length && (
+          <SwiperCardList title={"추천순"} data={recommends} />
+        )}
         {userLikes.length && (
           <SwiperCardList title={"효원님의 찜리스트"} data={userLikes} />
         )}
-        <SwiperCommentList title={"최신 댓글"} data={reviews} />
-        <SwiperCommentList title={"파워 댓글"} data={powerReviews} />
+        {reviews.length && (
+          <SwiperCommentList title={"최신 댓글"} data={reviews} />
+        )}
+        {powerReviews.length && (
+          <SwiperCommentList title={"파워 댓글"} data={powerReviews} />
+        )}
       </div>
     </div>
   );

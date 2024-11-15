@@ -21,43 +21,26 @@ const Search = () => {
 
   const handleSearch = () => {
     if (query.trim() !== "") {
-      navigate(`/search`);
+      navigate(`/search?query=${encodeURIComponent(query)}`);
     }
   };
-
 
   const debouncedHandleInputChange = useCallback(
     debounce((value) => {
       if (value.trim() !== "") {
-        navigate(`/search`);
+        navigate(`/search?query=${encodeURIComponent(value)}`);
       }
     }, 300),
     [navigate]
   );
 
-
-  // const handleSearch = () => {
-  //   if (query.trim() !== "") {
-  //     navigate(`/search?query=${encodeURIComponent(query)}`);
-  //   }
-  // };
-  
-  // const debouncedHandleInputChange = useCallback(
-  //   debounce((value) => {
-  //     if (value.trim() !== "") {
-  //       navigate(`/search?query=${encodeURIComponent(value)}`);
-  //     }
-  //   }, 300),
-  //   [navigate]
-  // );
-  
-  // useEffect(() => {
-  //   const initialQuery = searchParams.get("query") || "";
-  //   if (initialQuery) {
-  //     setQuery(initialQuery);
-  //     navigate(`/search?query=${encodeURIComponent(initialQuery)}`);
-  //   }
-  // }, [searchParams, navigate]);
+  useEffect(() => {
+    const initialQuery = searchParams.get("query") || "";
+    if (initialQuery) {
+      setQuery(initialQuery);
+      navigate(`/search?query=${encodeURIComponent(initialQuery)}`);
+    }
+  }, [searchParams, navigate]);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -83,7 +66,7 @@ const Search = () => {
         // onKeyPress={handleKeyPress}
         className="w-full bg-transparent border-none focus:outline-none"
       />
-      {query.length > 0 && <SearchComp query={query} />} 
+      {query.length > 0 && <SearchComp query={query} />}
     </div>
   );
 };

@@ -10,14 +10,30 @@ import React, { useEffect } from "react";
 import Rate from "rc-rate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { postReview } from "../../api/review";
 
-const ReviewModal = ({ open, handleClose, rate = 0 }) => {
+const ReviewModal = ({ open, handleClose, rate = 0, movieId, movieTitle }) => {
   const isTablet = useMediaQuery("(max-width:680px)");
-  const [newRate, setNewRate] = React.useState(rate);
+  const [newReviews, setNewReviews] = React.useState({
+    id: movieId,
+    rate: rate,
+    content: "",
+  });
+
+  const handlePostReview = () => {
+    postReview(newReviews).then((res) => {
+      console.log(res);
+    });
+  };
 
   useEffect(() => {
-    setNewRate(rate);
-  }, [rate]);
+    setNewReviews({
+      ...newReviews,
+      id: movieId,
+      rate: rate,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [movieId, rate]);
 
   return (
     <Modal
@@ -49,28 +65,38 @@ const ReviewModal = ({ open, handleClose, rate = 0 }) => {
           />
           <div className="flex flex-col w-full gap-2">
             <Typography variant="body1" style={{ fontWeight: "600" }}>
-              STAR TREX
+              {movieTitle}
             </Typography>
             <Rate
-              value={newRate}
+              value={newReviews.rate}
               allowHalf
               character={
                 <FontAwesomeIcon icon={faStar} style={{ fontSize: "24px" }} />
               }
-              onChange={(value) => setNewRate(value)}
+              onChange={(value) =>
+                setNewReviews({ ...newReviews, rate: value })
+              }
             />
             <TextField
+              value={newReviews?.content}
               multiline
               rows={5} // 원하는 줄 수 설정
               fullWidth
               variant="outlined"
               placeholder="리뷰를 작성해주세요."
+              onChange={(e) =>
+                setNewReviews({ ...newReviews, content: e.target.value })
+              }
             />
             <div className="flex flex-row justify-end gap-2 mt-auto">
               <Button variant="contained" color="inherit" onClick={handleClose}>
                 취소
               </Button>
-              <Button variant="contained" color="inherit">
+              <Button
+                variant="contained"
+                color="inherit"
+                onClick={handlePostReview}
+              >
                 리뷰작성
               </Button>
             </div>
