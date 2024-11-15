@@ -143,12 +143,12 @@ const MyPage = () => {
       </div>
 
       {/* 선호 감독, 배우 */}
-      <div className="flex flex-col w-full gap-4 mb-8 lg:flex-row sm:gap-16">
+      <div className="flex flex-col w-full gap-4 mb-8 lg:flex-row lg:gap-16">
         <div className="flex flex-col w-full gap-1">
           <Typography variant="h5" fontWeight={700} color="white">
             선호 감독
           </Typography>
-          <div className="w-full h-[300px] overflow-auto mt-2 flex flex-col gap-2">
+          <div className="w-full h-[250px] overflow-auto mt-2 flex flex-col gap-2 lg:h-[300px]">
             {directors?.map((item) => (
               <ListItem
                 id={item.id}

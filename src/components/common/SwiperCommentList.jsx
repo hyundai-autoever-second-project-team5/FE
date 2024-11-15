@@ -46,14 +46,15 @@ const SwiperCommentList = ({ title, data, rows = 2 }) => {
         {data?.map((item) => (
           <SwiperSlide>
             <Comment
-              id={item.review_id}
-              profileSrc={item.profile_url}
+              id={item.reviewId}
+              profileSrc={item.profileUrl}
               writer={item.nickname}
-              title={item.movie_title}
+              title={item.title}
               content={item.content}
-              score={item.score}
-              posterSrc={item.poster_path}
-              likes={item.heart_count}
+              score={item.rating}
+              posterSrc={item.posterPath}
+              likes={item.heartCount}
+              liked={item.heart}
               // comments={item.comments}
             />
           </SwiperSlide>
