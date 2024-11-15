@@ -20,8 +20,6 @@ const Card = ({
   const [open, setOpen] = React.useState(false);
   const [newMyScore, setNewMyScore] = React.useState(myScore);
 
-  console.log("newMyScore", newMyScore);
-
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);

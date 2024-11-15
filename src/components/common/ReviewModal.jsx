@@ -12,10 +12,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const ReviewModal = ({ open, handleClose, rate = 0 }) => {
-  console.log("rate", rate);
   const isTablet = useMediaQuery("(max-width:680px)");
   const [newRate, setNewRate] = React.useState(rate);
-  console.log("newRate", newRate);
 
   useEffect(() => {
     setNewRate(rate);

@@ -25,10 +25,43 @@ export const getMovieLatest = async () => {
 // 평점순 영화
 export const getMoviePopular = async () => {
   try {
-    const response = await client.get("/cinewall/movie/poplular");
+    const response = await client.get("/cinewall/movie/popular");
     return response.data;
   } catch (error) {
     console.error("Failed to get popular movie", error);
+    throw error;
+  }
+};
+
+// 찜 목록
+export const getMovieLikes = async () => {
+  try {
+    const response = await client.get("/cinewall/movie/favorite");
+    return response.data;
+  } catch (error) {
+    console.error("Failed to get favorite movie", error);
+    throw error;
+  }
+};
+
+// 평점순 영화
+export const getMovieRecommend = async () => {
+  try {
+    const response = await client.get("/cinewall/movie/recommend");
+    return response.data;
+  } catch (error) {
+    console.error("Failed to get recommended movie", error);
+    throw error;
+  }
+};
+
+// 파워 리뷰 리스트
+export const getPowerReview = async () => {
+  try {
+    const response = await client.get("/cinewall/movie/powerReview");
+    return response.data;
+  } catch (error) {
+    console.error("Failed to get power review", error);
     throw error;
   }
 };

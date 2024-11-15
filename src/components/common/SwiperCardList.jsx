@@ -41,9 +41,9 @@ const SwiperCardList = ({ title, data = [] }) => {
           data?.map((item) => (
             <SwiperSlide>
               <Card
-                id={item?.movieId}
+                id={item?.movie_id}
                 posterSrc={
-                  item?.posterSrc ||
+                  item?.poster_path ||
                   "https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2023%2F11%2Fmarvel-reportedly-considering-reassembling-original-six-avengers-actors-for-new-film-info-1.jpg?q=75&w=800&cbr=1&fit=max"
                 }
                 avgScore={item?.vote_average}
