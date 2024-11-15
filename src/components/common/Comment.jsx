@@ -7,6 +7,7 @@ import React from "react";
 import ReviewModal from "./ReviewModal";
 
 const Comment = ({
+  id,
   profileSrc,
   writer,
   score,
@@ -21,7 +22,10 @@ const Comment = ({
 
   return (
     <>
-      <div className="flex flex-col gap-2 p-3 w-full xl:max-w-[360px] bg-gray-300 bg-opacity-20 rounded-lg backdrop-blur-sm" onClick={() => setOpen(true)}>
+      <div
+        className="flex flex-col gap-2 p-3 w-full xl:max-w-[360px] bg-gray-300 bg-opacity-20 rounded-lg backdrop-blur-sm"
+        onClick={() => setOpen(true)}
+      >
         <div className="flex flex-row items-center justify-between">
           <div className="flex flex-row items-center gap-2">
             <img src={profileSrc} className="w-10 h-10 rounded-full" />
@@ -46,14 +50,15 @@ const Comment = ({
         <hr />
         <div className="flex flex-row items-center gap-2">
           <div className="flex flex-row items-center">
-            {liked ? 
-            <IconButton>
-              <FontAwesomeIcon icon={faThumbsUp} color="white" />
-            </IconButton> :
-            <IconButton>
-              <FontAwesomeIcon icon={faThumbsUp} color="white" />
-            </IconButton>
-            }
+            {liked ? (
+              <IconButton>
+                <FontAwesomeIcon icon={faThumbsUp} color="white" />
+              </IconButton>
+            ) : (
+              <IconButton>
+                <FontAwesomeIcon icon={faThumbsUp} color="white" />
+              </IconButton>
+            )}
             <Typography variant="caption">{likes}</Typography>
           </div>
           {/* <div className="flex flex-row items-center">
@@ -64,7 +69,11 @@ const Comment = ({
           </div> */}
         </div>
       </div>
-      <ReviewModal open={open} closeModal={() => setOpen(false)} />
+      <ReviewModal
+        open={open}
+        closeModal={() => setOpen(false)}
+        reviewId={id}
+      />
     </>
   );
 };

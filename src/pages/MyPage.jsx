@@ -39,6 +39,18 @@ const MyPage = () => {
   const handleLikesOpen = () => setLikesOpen(true);
   const handleLikesClose = () => setLikesOpen(false);
 
+   const handleProfileEdit = () => {
+     const formData = new FormData();
+    //  formData.append("id", signUpData.id);
+    //  formData.append("password", signUpData.password);
+    //  formData.append("nickname", signUpData.nickname);
+    //  formData.append("email", signUpData.email);
+    //  formData.append("certificationNumber", signUpData.certificationNumber);
+    //  console.log("image", signUpData.image);
+    //  formData.append("image", signUpData.image);
+
+   };
+
   useEffect(() => {
     getUserReviews(data?.userId).then((res) => {
       setMyReviews(res);
@@ -179,8 +191,8 @@ const MyPage = () => {
       </div>
 
       {/* 포스터 수집 */}
-      <div className="flex flex-col p-3 mb-5">
-        <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+      <div className="flex flex-col p-3 mb-5 w-full">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {Array(9)
             .fill(0)
             .map((item, index) => (

@@ -14,15 +14,29 @@ const ProfileEditModal = ({ open, handleClose, data }) => {
   const [userData, setUserData] = useState({
     nickname: data?.nickname,
     id: data?.id,
-    profile: data?.profileImg,
+    profile: null,
   });
+  const [imageUrl, setImageUrl] = useState("");
 
-  // const handlePostEdit = () => {
-  //   const formData = new FormData();
-  //   formData.append("nickname", userData.nickname);
-  //   formData.append("id", userData.id);
-  //   postUserInfoEdit();
-  // };
+  const handlePostEdit = () => {
+    const formData = new FormData();
+    formData.append("nickname", userData.nickname);
+    formData.append("id", userData.id);
+    if (userData?.profile) {
+      formData.append("profile", userData.profile);
+    }
+    postUserInfoEdit();
+  };
+
+  // 프로필 이미지 업로드 핸들러
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    const imageUrl = URL.createObjectURL(file);
+    if (file) {
+      setUserData({ ...userData, profile: file });
+      setImageUrl(imageUrl);
+    }
+  };
 
   return (
     <Modal
@@ -47,6 +61,26 @@ const ProfileEditModal = ({ open, handleClose, data }) => {
           프로필 수정
         </Typography>
         <div className="flex flex-col gap-5 mt-2">
+          {imageUrl ? (
+            <img
+              src={imageUrl}
+              alt="프로필 이미지"
+              className="w-24 h-24 rounded-full object-cover"
+            />
+          ) : (
+            <img
+              src={
+                userData?.profile ||
+                "https://blog.kakaocdn.net/dn/bfZZQd/btrua3HciZ9/jSnHklZw9ekuzV8YGLZ9zK/%EC%B9%B4%ED%86%A1%20%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84%20%EC%82%AC%EC%A7%84%28%EC%97%B0%EC%B4%88%EB%A1%9Dver%29.jpg?attach=1&knm=img.jpg"
+              }
+              className="w-24 h-24 rounded-full"
+              alt="no-profile"
+            />
+          )}
+          <Button variant="contained" component="label" color="inherit">
+            파일 업로드
+            <input type="file" hidden onChange={handleImageUpload} />
+          </Button>
           <img
             src={
               userData?.profileUrl ||

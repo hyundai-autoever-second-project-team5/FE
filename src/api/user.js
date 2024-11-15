@@ -108,10 +108,7 @@ export const postUserInfoEdit = async () => {
 // 사용자 프로필 수정
 export const postProfileEdit = async (profileData) => {
   try {
-    const response = await client.post(`/cinewall/user/edit`, {
-      nickname: profileData.nickname,
-      profileImg: profileData.profileImg,
-    });
+    const response = await client.patch(`/cinewall/user/edit`, profileData);
     return response.data;
   } catch (error) {
     console.error("Failed to post profile", error);

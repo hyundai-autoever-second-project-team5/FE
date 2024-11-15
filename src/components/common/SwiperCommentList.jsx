@@ -47,7 +47,7 @@ const SwiperCommentList = ({ title, data, rows = 2 }) => {
           <SwiperSlide>
             <Comment
               id={item.reviewId}
-              profileSrc={item.profileUrl}
+              profileSrc={item.profileUrl || item.user.profile_url}
               writer={item.nickname}
               title={item.title}
               content={item.content}
@@ -55,7 +55,6 @@ const SwiperCommentList = ({ title, data, rows = 2 }) => {
               posterSrc={item.posterPath}
               likes={item.heartCount}
               liked={item.heart}
-              // comments={item.comments}
             />
           </SwiperSlide>
         ))}

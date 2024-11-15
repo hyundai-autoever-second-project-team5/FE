@@ -10,7 +10,7 @@ import React, { useEffect } from "react";
 import Rate from "rc-rate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { postReview } from "../../api/review";
+import { getReviewDetail, postReview } from "../../api/review";
 
 const ReviewModal = ({
   open,
@@ -26,8 +26,6 @@ const ReviewModal = ({
     rate: rate,
     content: "",
   });
-
-  console.log("movie", movieId);
 
   const handlePostReview = () => {
     postReview(newReviews).then((res) => {
