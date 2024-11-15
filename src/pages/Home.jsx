@@ -19,15 +19,18 @@ const Home = () => {
 
   useEffect(() => {
     getMovieTrailer().then((res) => {
+      console.log(res);
       setTrailers(res);
     });
     getMovieLatest().then((res) => {
+      console.log(res);
       setLatests(res);
     });
     // getMoviePopular().then((res) => {
     //   console.log(res);
     // });
     getMovieReview().then((res) => {
+      console.log(res);
       setReviews(res);
     });
   }, []);

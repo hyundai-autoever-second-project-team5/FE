@@ -10,7 +10,7 @@ import { Pagination } from "swiper/modules";
 import { Typography } from "@mui/material";
 import Card from "./Card/Card";
 
-const SwiperCardList = ({ title, data }) => {
+const SwiperCardList = ({ title, data = [] }) => {
   return (
     <>
       {/* 평점순 */}
@@ -37,19 +37,20 @@ const SwiperCardList = ({ title, data }) => {
         modules={[Pagination]}
         className="mb-8"
       >
-        {data?.map((item) => (
-          <SwiperSlide>
-            <Card
-              id={item?.movieId}
-              posterSrc={
-                item?.posterSrc ||
-                "https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2023%2F11%2Fmarvel-reportedly-considering-reassembling-original-six-avengers-actors-for-new-film-info-1.jpg?q=75&w=800&cbr=1&fit=max"
-              }
-              avgScore={item?.vote_average}
-              myScore={item?.user_vote}
-            />
-          </SwiperSlide>
-        ))}
+        {data &&
+          data?.map((item) => (
+            <SwiperSlide>
+              <Card
+                id={item?.movieId}
+                posterSrc={
+                  item?.posterSrc ||
+                  "https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2023%2F11%2Fmarvel-reportedly-considering-reassembling-original-six-avengers-actors-for-new-film-info-1.jpg?q=75&w=800&cbr=1&fit=max"
+                }
+                avgScore={item?.vote_average}
+                myScore={item?.user_vote}
+              />
+            </SwiperSlide>
+          ))}
       </Swiper>
     </>
   );
