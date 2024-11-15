@@ -8,7 +8,7 @@ import "swiper/css/pagination";
 import { Grid, Pagination } from "swiper/modules";
 import Comment from "./Comment";
 
-const SwiperCommentList = ({ title, data }) => {
+const SwiperCommentList = ({ title, data, rows = 2 }) => {
   return (
     <div className="mb-5 text-white">
       <Typography
@@ -21,7 +21,7 @@ const SwiperCommentList = ({ title, data }) => {
       </Typography>
       <Swiper
         slidesPerView={1}
-        grid={{ rows: 2, fill: "row" }}
+        grid={{ rows: rows, fill: "row" }}
         spaceBetween={20}
         modules={[Grid, Pagination]}
         breakpoints={{
@@ -42,14 +42,15 @@ const SwiperCommentList = ({ title, data }) => {
         {data?.map((item) => (
           <SwiperSlide>
             <Comment
-              id={item.review_id}
-              profileSrc={item.profile_url}
+              id={item.reviewId}
+              profileSrc={item.profileUrl}
               writer={item.nickname}
-              title={item.movie_title}
+              title={item.title}
               content={item.content}
-              score={item.score}
-              posterSrc={item.poster_path}
-              likes={item.heart_count}
+              score={item.rating}
+              posterSrc={item.posterPath}
+              likes={item.heartCount}
+              liked={item.heart}
               // comments={item.comments}
             />
           </SwiperSlide>

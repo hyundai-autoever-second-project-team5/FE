@@ -17,11 +17,11 @@ const MovieInfo = () => {
   const handleClose = () => setOpen(false);
 
   const data = [
-    { name: "1점", count: 30 },
-    { name: "2점", count: 50 },
-    { name: "3점", count: 20 },
-    { name: "4점", count: 30 },
-    { name: "5점", count: 40 },
+    { score: "1점", count: 30 },
+    { score: "2점", count: 50 },
+    { score: "3점", count: 20 },
+    { score: "4점", count: 30 },
+    { score: "5점", count: 40 },
   ];
 
   useEffect(() => {
