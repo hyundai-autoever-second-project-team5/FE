@@ -4,7 +4,7 @@ import Rate from "rc-rate";
 import "rc-rate/assets/index.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import "./Card.css"; // 추가한 CSS 파일을 가져옵니다
+import "./Card.css";
 import ReviewModal from "../ReviewModal";
 import { useNavigate } from "react-router-dom";
 
