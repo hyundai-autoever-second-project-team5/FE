@@ -22,6 +22,17 @@ export const postSignIn = async (loginData) => {
   }
 };
 
+// 로그아웃
+export const postSignOut = async (loginData) => {
+  try {
+    const response = await client.post(`/cinewall/auth/logout`);
+    return response;
+  } catch (error) {
+    console.error("Failed to sign out", error);
+    throw error;
+  }
+};
+
 // 일반 회원가입
 export const postSignUp = async (userData) => {
   try {

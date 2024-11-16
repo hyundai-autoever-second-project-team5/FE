@@ -10,7 +10,7 @@ import { Pagination } from "swiper/modules";
 import { Typography } from "@mui/material";
 import Card from "./Card/Card";
 
-const SwiperCardList = ({ title, data = [] }) => {
+const SwiperCardList = ({ title, data = [], rank }) => {
   return (
     <>
       {/* 평점순 */}
@@ -38,7 +38,7 @@ const SwiperCardList = ({ title, data = [] }) => {
         className="mb-8"
       >
         {data &&
-          data?.map((item) => (
+          data?.map((item, index) => (
             <SwiperSlide>
               <Card
                 id={item?.movie_id}
@@ -49,6 +49,8 @@ const SwiperCardList = ({ title, data = [] }) => {
                 avgScore={item?.vote_average}
                 myScore={item?.user_vote}
                 title={item?.movie_title}
+                rank={rank}
+                index={index}
               />
             </SwiperSlide>
           ))}

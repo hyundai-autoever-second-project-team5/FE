@@ -105,14 +105,6 @@ const ProfileEditModal = ({ open, handleClose, data }) => {
             파일 업로드
             <input type="file" hidden onChange={handleImageUpload} />
           </Button>
-          {/* <img
-            src={
-              userData?.profileUrl ||
-              "https://avatars.githubusercontent.com/u/89841486?v=4"
-            }
-            alt="profile-image"
-            className="w-[140px] h-[140px] rounded-full object-cover self-center"
-          /> */}
           <TextField
             value={userData?.nickname}
             variant="outlined"

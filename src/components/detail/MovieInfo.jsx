@@ -9,7 +9,6 @@ import ReviewModal from "../common/ReviewModal";
 import { detailgetMovieaverage, detailgetMoviechart } from "../../api/detail";
 
 const MovieInfo = () => {
-  
   //영화 ID
   const { id: movieId } = useParams();
   //영화 정보
@@ -22,7 +21,7 @@ const MovieInfo = () => {
   const [average, setAverage] = React.useState([]);
   //별점 분포 차트
   const [chart, setChart] = React.useState(null);
-
+  
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   
@@ -48,7 +47,7 @@ const MovieInfo = () => {
     const fetchaverage = async () => {
       const data = await detailgetMovieaverage(movieId);
       setAverage(data);
-  };
+    };
 
   const fetchchart = async () => {
     const data = await detailgetMoviechart(movieId);
