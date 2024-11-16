@@ -52,7 +52,7 @@ const SwiperCommentList = ({ title, data, rows = 2 }) => {
               title={item.title}
               content={item.content}
               score={item.rating}
-              posterSrc={item.posterPath}
+              posterSrc={item.posterPath || item.movie.posterPath}
               likes={item.heartCount}
               liked={item.heart}
             />

@@ -94,21 +94,14 @@ export const getUserInfo = async () => {
   }
 };
 
-// 유저 정보 수정
-export const postUserInfoEdit = async () => {
-  try {
-    const response = await client.post(`/cinewall/user/edit`);
-    return response.data;
-  } catch (error) {
-    console.error("Failed to edit user data", error);
-    throw error;
-  }
-};
-
 // 사용자 프로필 수정
-export const postProfileEdit = async (profileData) => {
+export const patchProfileEdit = async (profileData) => {
   try {
-    const response = await client.patch(`/cinewall/user/edit`, profileData);
+    const response = await client.patch(`/cinewall/user/edit`, profileData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response.data;
   } catch (error) {
     console.error("Failed to post profile", error);

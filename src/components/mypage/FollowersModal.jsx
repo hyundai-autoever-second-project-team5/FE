@@ -1,20 +1,17 @@
-import {
-  Box,
-  Button,
-  Modal,
-  TextField,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, Button, Modal, Typography, useMediaQuery } from "@mui/material";
 import React from "react";
 
-const FollowersModal = ({ open, handleClose }) => {
+const FollowersModal = ({ title, open, handleClose, data = [] }) => {
   const isTablet = useMediaQuery("(max-width:680px)");
 
   return (
-    <Modal className="bg-black bg-opacity-40 backdrop-blur-sm"
-    open={open} onClose={handleClose}>
-      <Box className="bg-gray-200 bg-opacity-60 backdrop-blur-md"
+    <Modal
+      className="bg-black bg-opacity-40 backdrop-blur-sm"
+      open={open}
+      onClose={handleClose}
+    >
+      <Box
+        className="bg-gray-200 bg-opacity-60 backdrop-blur-md"
         sx={{
           position: "absolute",
           top: "50%",
@@ -26,19 +23,27 @@ const FollowersModal = ({ open, handleClose }) => {
           borderRadius: "8px",
         }}
       >
-        <Typography variant="h5" style={{ fontWeight: '600' }}>효원님을 팔로우한 사람</Typography>
+        <Typography variant="h5" style={{ fontWeight: "600" }}>
+          {title}
+        </Typography>
         <div className="flex flex-col gap-5 mt-2">
           <div className="grid grid-cols-5 gap-2">
-            {Array(9)
-              .fill(0)
-              .map((item) => (
-                <div className="flex flex-col items-center gap-1 p-2">
+            {data &&
+              data?.map((item) => (
+                <div
+                  className="flex flex-col items-center gap-1 p-2"
+                  id={item.user_id}
+                  key={item.user_id}
+                >
                   <img
-                    src="https://avatars.githubusercontent.com/u/89841486?v=4"
+                    src={
+                      item.profile_url ||
+                      "https://avatars.githubusercontent.com/u/89841486?v=4"
+                    }
                     alt="profile"
                     className="rounded-full"
                   />
-                  <Typography variant="body2">닉네임</Typography>
+                  <Typography variant="body2">{item.nickname}</Typography>
                 </div>
               ))}
           </div>
