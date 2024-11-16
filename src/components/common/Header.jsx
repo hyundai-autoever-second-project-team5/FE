@@ -2,8 +2,9 @@ import { Button, IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Search from "./Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell, faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import LoginModal from "./LoginModal";
+import Notification from "./Notification";
 import { useNavigate } from "react-router-dom";
 import { useGetUserInfo } from "../../hook/useGetUserInfo";
 import { getCookie, removeCookie } from "../../api/cookie";
@@ -11,11 +12,9 @@ import { getCookie, removeCookie } from "../../api/cookie";
 const Header = () => {
   const navigation = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [open, setOpen] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const menuOpen = Boolean(anchorEl);
-  const [bellAnchorEl, setBellAnchorEl] = React.useState(null);
-  const bellModalOpen = Boolean(bellAnchorEl);
   const { data, refetch } = useGetUserInfo(getCookie("accessToken"));
 
   const handleOpen = () => setOpen(true);
@@ -31,14 +30,6 @@ const Header = () => {
   const handleMenuItemClick = (url) => {
     handleMenuClose();
     navigation(url);
-  };
-
-  // 알림 버튼 클릭
-  const handleBellOpen = (event) => {
-    setBellAnchorEl(event.currentTarget);
-  };
-  const handleBellClose = () => {
-    setBellAnchorEl(null);
   };
 
   const handleLogout = () => {
@@ -89,9 +80,7 @@ const Header = () => {
           <div className="flex flex-row gap-3">
             <Search />
             <div className="flex flex-row items-center gap-2">
-              <IconButton onClick={handleBellOpen}>
-                <FontAwesomeIcon icon={faBell} color="white" />
-              </IconButton>
+              <Notification />
               {data ? (
                 <div className="flex flex-row items-center gap-1">
                   <img
@@ -156,40 +145,6 @@ const Header = () => {
         <MenuItem sx={{ paddingY: "12px" }} onClick={handleLogout}>
           로그아웃
         </MenuItem>
-      </Menu>
-      <Menu
-        anchorEl={bellAnchorEl}
-        id="account-menu"
-        open={bellModalOpen}
-        onClose={handleBellClose}
-        onClick={handleBellClose}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: "visible",
-            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-            mt: 2,
-            minWidth: "250px",
-            maxHeight: "300px",
-            overflowY: "scroll",
-          },
-        }}
-        MenuListProps={{
-          sx: {
-            paddingTop: 0,
-            paddingBottom: 0,
-          },
-        }}
-        transformOrigin={{ horizontal: "right", vertical: "top" }}
-        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-      >
-        {Array(9)
-          .fill(0)
-          .map((item) => (
-            <MenuItem sx={{ paddingY: "12px" }}>
-              이효원님이 팔로우를 시작했습니다.
-            </MenuItem>
-          ))}
       </Menu>
     </>
   );
