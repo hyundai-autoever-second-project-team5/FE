@@ -13,16 +13,20 @@ import { getUserReviews, getUserStarsData } from "../api/review";
 import { useGetUserInfo } from "../hook/useGetUserInfo";
 import { getCookie } from "../api/cookie";
 import { getLikedActors, getLikedDirectors } from "../api/mypage";
+import { getFollowers, getFollowings } from "../api/follow";
 
 const MyPage = () => {
   const { data } = useGetUserInfo(getCookie("accessToken"));
   const [profileOpen, setProfileOpen] = React.useState(false);
+  const [followingOpen, setFollowingOpen] = React.useState(false);
   const [followerOpen, setFollowerOpen] = React.useState(false);
   const [likesOpen, setLikesOpen] = React.useState(false);
   const [myReviews, setMyReviews] = React.useState([]);
   const [starsData, setStarsData] = React.useState([]);
   const [actors, setActors] = React.useState([]);
   const [directors, setDirectors] = React.useState([]);
+  const [followers, setFollowers] = React.useState([]);
+  const [followings, setFollowings] = React.useState([]);
 
   // const starData = [
   //   { score: "1점", count: 30 },
@@ -36,20 +40,10 @@ const MyPage = () => {
   const handleProfileClose = () => setProfileOpen(false);
   const handleFollowerOpen = () => setFollowerOpen(true);
   const handleFollowerClose = () => setFollowerOpen(false);
+  const handleFollowingOpen = () => setFollowingOpen(true);
+  const handleFollowingClose = () => setFollowingOpen(false);
   const handleLikesOpen = () => setLikesOpen(true);
   const handleLikesClose = () => setLikesOpen(false);
-
-   const handleProfileEdit = () => {
-     const formData = new FormData();
-    //  formData.append("id", signUpData.id);
-    //  formData.append("password", signUpData.password);
-    //  formData.append("nickname", signUpData.nickname);
-    //  formData.append("email", signUpData.email);
-    //  formData.append("certificationNumber", signUpData.certificationNumber);
-    //  console.log("image", signUpData.image);
-    //  formData.append("image", signUpData.image);
-
-   };
 
   useEffect(() => {
     getUserReviews(data?.userId).then((res) => {
@@ -64,6 +58,12 @@ const MyPage = () => {
     });
     getLikedDirectors(data?.userId).then((res) => {
       setDirectors(res);
+    });
+    getFollowers().then((res) => {
+      setFollowers(res.body);
+    });
+    getFollowings().then((res) => {
+      setFollowings(res.body);
     });
   }, [data?.userId]);
 
@@ -112,16 +112,23 @@ const MyPage = () => {
           </div>
         </div>
         {/* 통계 */}
-        <div className="flex flex-row w-full gap-3 mb-3">
+        <div className="grid grid-cols-2 md:flex md:flex-row w-full gap-3 mb-3">
+          <div
+            className="flex flex-col items-center w-full p-10 bg-white rounded-md cursor-pointer bg-opacity-20 backdrop-blur-md"
+            onClick={handleFollowingOpen}
+          >
+            <Typography variant="h4">{followings?.length}</Typography>
+            <Typography variant="h6">팔로잉</Typography>
+          </div>
           <div
             className="flex flex-col items-center w-full p-10 bg-white rounded-md cursor-pointer bg-opacity-20 backdrop-blur-md"
             onClick={handleFollowerOpen}
           >
-            <Typography variant="h4">10</Typography>
+            <Typography variant="h4">{followers?.length}</Typography>
             <Typography variant="h6">팔로워</Typography>
           </div>
           <div className="flex flex-col items-center w-full p-10 bg-white rounded-md bg-opacity-20 backdrop-blur-md">
-            <Typography variant="h4">10</Typography>
+            <Typography variant="h4">{myReviews?.length}</Typography>
             <Typography variant="h6">코멘트</Typography>
           </div>
           <div
@@ -210,7 +217,18 @@ const MyPage = () => {
         handleClose={handleProfileClose}
         data={data}
       />
-      <FollowersModal open={followerOpen} handleClose={handleFollowerClose} />
+      <FollowersModal
+        title={`${data?.nickname}님의 팔로워`}
+        open={followerOpen}
+        handleClose={handleFollowerClose}
+        data={followers}
+      />
+      <FollowersModal
+        title={`${data?.nickname}님의 팔로잉`}
+        open={followingOpen}
+        handleClose={handleFollowingClose}
+        data={followings}
+      />
     </div>
   );
 };

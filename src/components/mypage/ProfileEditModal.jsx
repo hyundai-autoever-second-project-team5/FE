@@ -6,10 +6,13 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import React, { useState } from "react";
-import { postUserInfoEdit } from "../../api/user";
+import React, { useEffect, useState } from "react";
+import { patchProfileEdit } from "../../api/user";
+import { useGetUserInfo } from "../../hook/useGetUserInfo";
+import { getCookie } from "../../api/cookie";
 
 const ProfileEditModal = ({ open, handleClose, data }) => {
+  const { refetch } = useGetUserInfo(getCookie("accessToken"));
   const isTablet = useMediaQuery("(max-width:680px)");
   const [userData, setUserData] = useState({
     nickname: data?.nickname,
@@ -18,6 +21,11 @@ const ProfileEditModal = ({ open, handleClose, data }) => {
   });
   const [imageUrl, setImageUrl] = useState("");
 
+  const handleCloseWithReset = () => {
+    setImageUrl("");
+    handleClose();
+  };
+
   const handlePostEdit = () => {
     const formData = new FormData();
     formData.append("nickname", userData.nickname);
@@ -25,7 +33,10 @@ const ProfileEditModal = ({ open, handleClose, data }) => {
     if (userData?.profile) {
       formData.append("profile", userData.profile);
     }
-    postUserInfoEdit();
+    patchProfileEdit(formData).then(() => {
+      refetch();
+      handleCloseWithReset();
+    });
   };
 
   // 프로필 이미지 업로드 핸들러
@@ -37,6 +48,14 @@ const ProfileEditModal = ({ open, handleClose, data }) => {
       setImageUrl(imageUrl);
     }
   };
+
+  useEffect(() => {
+    setUserData({
+      nickname: data?.nickname,
+      id: data?.id,
+      profile: null,
+    });
+  }, []);
 
   return (
     <Modal
@@ -65,30 +84,35 @@ const ProfileEditModal = ({ open, handleClose, data }) => {
             <img
               src={imageUrl}
               alt="프로필 이미지"
-              className="w-24 h-24 rounded-full object-cover"
+              className="w-[140px] h-[140px] rounded-full object-cover self-center"
             />
           ) : (
             <img
               src={
-                userData?.profile ||
+                data?.profile_url ||
                 "https://blog.kakaocdn.net/dn/bfZZQd/btrua3HciZ9/jSnHklZw9ekuzV8YGLZ9zK/%EC%B9%B4%ED%86%A1%20%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84%20%EC%82%AC%EC%A7%84%28%EC%97%B0%EC%B4%88%EB%A1%9Dver%29.jpg?attach=1&knm=img.jpg"
               }
-              className="w-24 h-24 rounded-full"
+              className="w-[140px] h-[140px] rounded-full self-center"
               alt="no-profile"
             />
           )}
-          <Button variant="contained" component="label" color="inherit">
+          <Button
+            variant="contained"
+            component="label"
+            color="inherit"
+            className="self-center"
+          >
             파일 업로드
             <input type="file" hidden onChange={handleImageUpload} />
           </Button>
-          <img
+          {/* <img
             src={
               userData?.profileUrl ||
               "https://avatars.githubusercontent.com/u/89841486?v=4"
             }
             alt="profile-image"
             className="w-[140px] h-[140px] rounded-full object-cover self-center"
-          />
+          /> */}
           <TextField
             value={userData?.nickname}
             variant="outlined"
@@ -104,10 +128,18 @@ const ProfileEditModal = ({ open, handleClose, data }) => {
             onChange={(e) => setUserData({ ...userData, id: e.target.value })}
           />
           <div className="flex flex-row justify-end gap-2 mt-auto">
-            <Button variant="contained" color="inherit" onClick={handleClose}>
+            <Button
+              variant="contained"
+              color="inherit"
+              onClick={handleCloseWithReset}
+            >
               취소
             </Button>
-            <Button variant="contained" color="inherit">
+            <Button
+              variant="contained"
+              color="inherit"
+              onClick={handlePostEdit}
+            >
               프로필 수정
             </Button>
           </div>
