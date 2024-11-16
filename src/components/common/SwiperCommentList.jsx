@@ -1,20 +1,16 @@
 import { Typography } from "@mui/material";
 import React from "react";
-
 import { Swiper, SwiperSlide } from "swiper/react";
-
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/grid";
 import "swiper/css/pagination";
-
 import { Grid, Pagination } from "swiper/modules";
-
 import Comment from "./Comment";
 
 const SwiperCommentList = ({ title, data, rows = 2 }) => {
   return (
-    <div className="text-white mb-5">
+    <div className="mb-5 text-white">
       <Typography
         variant="h5"
         color="white"
@@ -31,15 +27,15 @@ const SwiperCommentList = ({ title, data, rows = 2 }) => {
         breakpoints={{
           640: {
             slidesPerView: 2,
-            grid: { rows: 2, fill: "row" },
+            grid: { rows: rows, fill: "row" },
           },
           1024: {
             slidesPerView: 3,
-            grid: { rows: 2, fill: "row" },
+            grid: { rows: rows, fill: "row" },
           },
           1200: {
             slidesPerView: 4,
-            grid: { rows: 2, fill: "row" },
+            grid: { rows: rows, fill: "row" },
           },
         }}
       >
