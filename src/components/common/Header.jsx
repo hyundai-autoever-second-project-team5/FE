@@ -8,6 +8,7 @@ import Notification from "./Notification";
 import { useNavigate } from "react-router-dom";
 import { useGetUserInfo } from "../../hook/useGetUserInfo";
 import { getCookie, removeCookie } from "../../api/cookie";
+import { postSignOut } from "../../api/user";
 
 const Header = () => {
   const navigation = useNavigate();
@@ -34,9 +35,11 @@ const Header = () => {
 
   const handleLogout = () => {
     handleMenuClose();
-    removeCookie("accessToken");
-    navigation("/");
-    refetch();
+    postSignOut().then(() => {
+      removeCookie("accessToken");
+      navigation("/");
+      refetch();
+    });
   };
 
   useEffect(() => {
