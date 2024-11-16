@@ -8,7 +8,7 @@ import "swiper/css/pagination";
 import { Grid, Pagination } from "swiper/modules";
 import Comment from "./Comment";
 
-const SwiperCommentList = ({ title, data, rows = 2 }) => {
+const SwiperCommentList = ({ title, data, rows = 2, updateLike }) => {
   return (
     <div className="mb-5 text-white">
       <Typography
@@ -40,7 +40,7 @@ const SwiperCommentList = ({ title, data, rows = 2 }) => {
         }}
       >
         {data?.map((item) => (
-          <SwiperSlide>
+          <SwiperSlide key={item.reviewId}>
             <Comment
               id={item.reviewId}
               profileSrc={item.profileUrl || item.user.profile_url}
@@ -50,7 +50,8 @@ const SwiperCommentList = ({ title, data, rows = 2 }) => {
               score={item.rating}
               posterSrc={item.posterPath || item.movie.posterPath}
               likes={item.heartCount}
-              liked={item.heart}
+              heart={item.heart}
+              updateLike={updateLike} // 함수 전달
             />
           </SwiperSlide>
         ))}

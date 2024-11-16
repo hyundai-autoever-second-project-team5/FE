@@ -89,10 +89,34 @@ export const detailgetMovieaverage = async (movieId) => {
   // 영화 찜 상태 확인 api
   export const detailgetMoviefavorite = async (movieId) => {
     try {
-      const response = await client.get(`/cinewall/movie/${movieId}/favorite`);
+      const response = await client.get(
+        `/cinewall/movie/${movieId}/isFavorite`
+      );
       return response.data;
     } catch (error) {
       console.error("Failed to get favorite status", error);
       throw error;
     }
   };
+
+  // 리뷰 좋아요 등록
+export const detaillikeReview = async (reviewId) => {
+  try {
+    const response = await client.post(`/cinewall/reviews/${reviewId}/like`);
+    return response.data;
+  } catch (error) {
+    console.error("리뷰 좋아요 등록 실패", error);
+    throw error;
+  }
+};
+
+// 리뷰 좋아요 삭제
+export const detailunlikeReview = async (reviewId) => {
+  try {
+    const response = await client.delete(`/cinewall/reviews/${reviewId}/like`);
+    return response.data;
+  } catch (error) {
+    console.error("리뷰 좋아요 삭제 실패", error);
+    throw error;
+  }
+};

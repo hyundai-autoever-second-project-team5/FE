@@ -23,11 +23,11 @@ const MovieInfo = () => {
   //출연진
   const [cast, setCast] = useState([]);
   //리뷰모달
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   //평균 별점
-  const [average, setAverage] = React.useState([]);
+  const [average, setAverage] = useState([]);
   //별점 분포 차트
-  const [chart, setChart] = React.useState(null);
+  const [chart, setChart] = useState(null);
   //찜 상태
   const [isFavorited, setIsFavorited] = useState(false);
   //찜 로딩
