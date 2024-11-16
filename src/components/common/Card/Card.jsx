@@ -14,7 +14,8 @@ const Card = ({
   posterSrc,
   avgScore = 9.0,
   myScore = 0,
-  order = 1,
+  rank,
+  index,
 }) => {
   const navigation = useNavigate();
   const [open, setOpen] = React.useState(false);
@@ -41,10 +42,10 @@ const Card = ({
         {/* 전구 효과 */}
         <div className="light z-50"></div>
         <div className="card relative flex flex-col w-full transform transition duration-300 hover:scale-105">
-          {order && (
+          {rank && (
             <div className="absolute top-1 left-1 w-[40px] h-[40px]  bg-black rounded-md flex items-center justify-center bg-opacity-70 backdrop-blur-md">
               <Typography variant="h6" fontWeight={800} color="white">
-                1
+                {index + 1}
               </Typography>
             </div>
           )}
