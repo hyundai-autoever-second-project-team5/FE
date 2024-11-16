@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Info from "../components/detail/MovieInfo";
 import SwiperCardList from "../components/common/SwiperCardList";
 import SwiperCommentList from "../components/common/SwiperCommentList";
-import { detailgetMovieLatest, detailgetMoviefavorite, detailgetsimilarMovie } from "../api/detail";
+import { detailgetMovieLatest, detailgetfavoriteMovie, detailgetsimilarMovie } from "../api/detail";
 
 const Detail = () => {
   const { id: movieId } = useParams();
@@ -18,7 +18,7 @@ const Detail = () => {
     };
 
     const fetchfavor = async () => {
-      const data = await detailgetMoviefavorite(movieId);
+      const data = await detailgetfavoriteMovie(movieId);
       setFavor(data);
   };
 

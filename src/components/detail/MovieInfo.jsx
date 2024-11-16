@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Avatar, IconButton, Tooltip, Typography } from "@mui/material";
-import ScoreChart from "./ScoreChart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faPen } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as faHeartSolid, faPen } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import ShareIconButton from "../common/ShareIconButton";
 import ReviewModal from "../common/ReviewModal";
-import { detailgetMovieaverage, detailgetMoviechart } from "../../api/detail";
+import ScoreChart from "./ScoreChart";
+import {
+  detailgetMovieaverage,
+  detailgetMoviechart,
+  detailaddMoviefavorite,
+  detaildeleteMoviefavorite,
+  detailgetMoviefavorite
+} from "../../api/detail";
 
 const MovieInfo = () => {
   //영화 ID
@@ -21,10 +28,41 @@ const MovieInfo = () => {
   const [average, setAverage] = React.useState([]);
   //별점 분포 차트
   const [chart, setChart] = React.useState(null);
-  
+  //찜 상태
+  const [isFavorited, setIsFavorited] = useState(false);
+  //찜 로딩
+  const [loadingFavorite, setLoadingFavorite] = useState(true);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+    // 찜 토글 함수
+    const toggleFavorite = async () => {
+      try {
+        if (isFavorited) {
+          await detaildeleteMoviefavorite(movieId);
+          setIsFavorited(false);
+        } else {
+          await detailaddMoviefavorite(movieId);
+          setIsFavorited(true);
+        }
+      } catch (error) {
+        console.error("찜 상태 변경에 실패했습니다:", error);
+      }
+    };
   
+    // 찜 상태 조회 및 설정
+    const fetchFavoriteStatus = async () => {
+      try {
+        const favoriteStatus = await detailgetMoviefavorite(movieId);
+        setIsFavorited(favoriteStatus);
+      } catch (error) {
+        console.error("찜 상태를 가져오는데 실패했습니다.", error);
+      } finally {
+        setLoadingFavorite(false);
+      }
+    };
+
   useEffect(() => {
     const fetchMovie = async () => {
       const apiKey = "764171d1c3361300ba5e0a4dfd3bd7da";
@@ -49,14 +87,16 @@ const MovieInfo = () => {
       setAverage(data);
     };
 
-  const fetchchart = async () => {
-    const data = await detailgetMoviechart(movieId);
-    setChart(data);
-};
+    const fetchchart = async () => {
+      const data = await detailgetMoviechart(movieId);
+      setChart(data);
+    };
+
     if (movieId) {
       fetchMovie();
       fetchaverage();
       fetchchart();
+      fetchFavoriteStatus();
     }
   }, [movieId]);
 
@@ -92,11 +132,18 @@ const MovieInfo = () => {
                     />
                   </IconButton>
                 </Tooltip>
-                <Tooltip title="찜" arrow>
-                  <IconButton color="inherit">
+                <Tooltip title={isFavorited ? "찜 취소" : "찜"} arrow>
+                  <IconButton
+                    color="inherit"
+                    onClick={toggleFavorite}
+                    disabled={loadingFavorite}
+                  >
                     <FontAwesomeIcon
-                      icon={faHeart}
-                      style={{ fontSize: "24px" }}
+                      icon={isFavorited ? faHeartSolid : faHeartRegular}
+                      style={{
+                        fontSize: "24px",
+                        color: isFavorited ? "red" : "white",
+                      }}
                     />
                   </IconButton>
                 </Tooltip>

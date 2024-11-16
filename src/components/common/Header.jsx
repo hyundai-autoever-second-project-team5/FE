@@ -115,6 +115,7 @@ const Header = () => {
         </div>
       </div>
       <LoginModal open={open} handleClose={handleClose} />
+
       <Menu
         anchorEl={anchorEl}
         id="account-menu"
@@ -124,30 +125,34 @@ const Header = () => {
         PaperProps={{
           elevation: 0,
           sx: {
+            backgroundColor: "rgba(250, 250, 250, 0.4)",
+            backdropFilter: "blur(8px)",
             overflow: "visible",
             filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
             mt: 2,
+            borderRadius: "8px",
             minWidth: "150px",
+            "& .MuiMenuItem-root": {
+              padding: "12px 16px",
+              color: "black",
+              "&:hover": {
+                backgroundColor: "rgba(255, 255, 255, 0.2)",
+              },
+            },
           },
         }}
         MenuListProps={{
           sx: {
-            paddingTop: 0,
-            paddingBottom: 0,
+            padding: 0,
           },
         }}
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem
-          sx={{ paddingY: "12px" }}
-          onClick={() => handleMenuItemClick("/mypage")}
-        >
+        <MenuItem onClick={() => handleMenuItemClick("/mypage")}>
           마이페이지
         </MenuItem>
-        <MenuItem sx={{ paddingY: "12px" }} onClick={handleLogout}>
-          로그아웃
-        </MenuItem>
+        <MenuItem onClick={handleLogout}>로그아웃</MenuItem>
       </Menu>
     </>
   );
