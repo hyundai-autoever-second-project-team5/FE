@@ -1,18 +1,18 @@
 [[redirects]]
 from = "/proxy/*"
-to = "http://3.38.104.1:8080/:splat"  
+to = "http://3.38.104.1:8080/:splat"
 status = 200
 force = true
 
 [[redirects]]
 from = "/*"
-to = "/index.html" 
+to = "/index.html"
 status = 200
-force = false
 
 [build]
-command = "npm install --legacy-peer-deps && npm run build"
-publish = "build"
+  command = "npm install --legacy-peer-deps && npm run build"
+  publish = "build"
 
 [build.environment]
-NODE_VERSION = "18.20.5"
+  CI = "false"
+  NODE_VERSION = "18.20.5"
