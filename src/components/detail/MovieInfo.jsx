@@ -22,7 +22,7 @@ const MovieInfo = () => {
   const [average, setAverage] = React.useState([]);
   //별점 분포 차트
   const [chart, setChart] = React.useState(null);
-  
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   
@@ -54,7 +54,6 @@ const MovieInfo = () => {
     const data = await detailgetMoviechart(movieId);
     setChart(data);
 };
-
     if (movieId) {
       fetchMovie();
       fetchaverage();

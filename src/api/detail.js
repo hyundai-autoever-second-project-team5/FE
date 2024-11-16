@@ -31,13 +31,22 @@ export const detailgetMovieLatest = async (movieId) => {
     }
   };
 
-  //차트 효원 이거 좀!
   export const detailgetMoviechart = async (movieId) => {
     try {
       const response = await client.get(`/cinewall/movie/${movieId}/rating-distribution`);
       return response.data;
     } catch (error) {
-      console.error("Failed to get chart movie", error);
+      console.error("Failed to get movie chart", error);
+      throw error;
+    }
+  };
+
+  export const detailgetsimilarMovie = async (movieId) => {
+    try {
+      const response = await client.get(`/cinewall/movie/${movieId}/similar-movies`);
+      return response.data;
+    } catch (error) {
+      console.error("Failed to get similar movie", error);
       throw error;
     }
   };

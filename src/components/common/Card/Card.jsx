@@ -37,10 +37,10 @@ const Card = ({
 
   return (
     <>
-      <div className="card-wrapper" id={id}>
+      <div className="card-wrapper group" id={id}>
         {/* 전구 효과 */}
-        <div className="light z-50"></div>
-        <div className="card relative flex flex-col w-full transform transition duration-300 hover:scale-105">
+        <div className="z-50 light"></div>
+        <div className="relative flex flex-col w-full transition duration-300 transform rounded-md card hover:scale-105">
           {order && (
             <div className="absolute top-1 left-1 w-[40px] h-[40px]  bg-black rounded-md flex items-center justify-center bg-opacity-70 backdrop-blur-md">
               <Typography variant="h6" fontWeight={800} color="white">
@@ -52,12 +52,14 @@ const Card = ({
           <img
             src={posterSrc}
             alt="poster"
-            className="object-cover w-full h-[500px] sm:h-[400px] md:h-[350px]"
+            className="object-cover rounded-md w-full h-[500px] sm:h-[400px] md:h-[350px]"
           />
           {/* 오버레이 */}
-          <div className="absolute inset-0 bg-black bg-opacity-70 flex flex-col items-center opacity-0 hover:opacity-100 transition-opacity duration-300 p-4">
+
+          {/* 오버레이 */}
+          <div className="absolute inset-0 z-40 flex flex-col items-center p-4 transition-all duration-500 rounded-md opacity-0 bg-black/80 backdrop-blur-sm hover:opacity-100">
             {/* 상단 평점 */}
-            <div className="flex flex-col justify-center items-center contents-center h-full w-full">
+            <div className="flex flex-col items-center justify-center w-full h-full contents-center">
               <Rate
                 value={myScore}
                 allowHalf
@@ -71,11 +73,11 @@ const Card = ({
               />
             </div>
             {/* 하단 버튼들 */}
-            <div className="flex flex-row justify-center w-full mt-auto z-50 bg-slate-300 py-2">
+            <div className="z-50 flex flex-row justify-center w-full py-1 mt-auto transition-transform duration-500 translate-y-full rounded-md bg-white/50 backdrop-blur-md group-hover:translate-y-0">
               <Button
                 variant="text"
                 color="inherit"
-                className="w-full h-full"
+                className="w-full h-full text-white hover:bg-white/30"
                 onClick={handleOpen}
               >
                 리뷰쓰기
@@ -83,7 +85,7 @@ const Card = ({
               <Button
                 variant="text"
                 color="inherit"
-                className="w-full h-full"
+                className="w-full h-full text-white hover:bg-white/30"
                 onClick={() => navigation(`/detail/238`)}
               >
                 상세보기
@@ -92,7 +94,7 @@ const Card = ({
           </div>
 
           {/* 평점 오버레이 */}
-          <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-70 py-2 flex justify-around items-center">
+          <div className="absolute bottom-0 left-0 z-10 flex items-center justify-around w-full py-2 bg-black rounded-b-md bg-opacity-70 ">
             <div className="flex flex-col items-center text-white">
               <Typography variant="body2" color="inherit">
                 평점
