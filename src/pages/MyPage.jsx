@@ -12,8 +12,14 @@ import PhotoCard from "../components/mypage/PhotoCard";
 import { getUserReviews, getUserStarsData } from "../api/review";
 import { useGetUserInfo } from "../hook/useGetUserInfo";
 import { getCookie } from "../api/cookie";
-import { getLikedActors, getLikedDirectors, getPosters } from "../api/mypage";
+import {
+  getLikedActors,
+  getLikedDirectors,
+  getMovieWords,
+  getPosters,
+} from "../api/mypage";
 import { getFollowers, getFollowings } from "../api/follow";
+import StyledWordCloud from "../components/mypage/StyledWordCloud";
 
 const MyPage = () => {
   const { data } = useGetUserInfo(getCookie("accessToken"));
@@ -28,6 +34,7 @@ const MyPage = () => {
   const [followers, setFollowers] = React.useState([]);
   const [followings, setFollowings] = React.useState([]);
   const [posters, setPosters] = React.useState([]);
+  const [words, setWords] = React.useState([]);
 
   const handleProfileOpen = () => setProfileOpen(true);
   const handleProfileClose = () => setProfileOpen(false);
@@ -60,6 +67,9 @@ const MyPage = () => {
     });
     getPosters(data?.userId).then((res) => {
       setPosters(res);
+    });
+    getMovieWords(data?.userId).then((res) => {
+      setWords(res);
     });
   }, [data?.userId]);
 
@@ -152,7 +162,7 @@ const MyPage = () => {
             선호 태그
           </Typography>
           <div className="w-full h-[300px] mt-2">
-            <ScoreChart data={starsData} />
+            <StyledWordCloud words={words} />
           </div>
         </div>
       </div>

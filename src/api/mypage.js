@@ -23,7 +23,7 @@ export const getLikedDirectors = async (userId) => {
 };
 
 // 영화 선호 태그 조회
-export const getLikedTags = async (userId) => {
+export const getMovieWords = async (userId) => {
   try {
     const response = await client.get(`/bot/${userId}/chat`);
     return response.data;
