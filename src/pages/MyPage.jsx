@@ -12,7 +12,7 @@ import PhotoCard from "../components/mypage/PhotoCard";
 import { getUserReviews, getUserStarsData } from "../api/review";
 import { useGetUserInfo } from "../hook/useGetUserInfo";
 import { getCookie } from "../api/cookie";
-import { getLikedActors, getLikedDirectors } from "../api/mypage";
+import { getLikedActors, getLikedDirectors, getPosters } from "../api/mypage";
 import { getFollowers, getFollowings } from "../api/follow";
 
 const MyPage = () => {
@@ -27,14 +27,7 @@ const MyPage = () => {
   const [directors, setDirectors] = React.useState([]);
   const [followers, setFollowers] = React.useState([]);
   const [followings, setFollowings] = React.useState([]);
-
-  // const starData = [
-  //   { score: "1점", count: 30 },
-  //   { score: "2점", count: 50 },
-  //   { score: "3점", count: 20 },
-  //   { score: "4점", count: 30 },
-  //   { score: "5점", count: 40 },
-  // ];
+  const [posters, setPosters] = React.useState([]);
 
   const handleProfileOpen = () => setProfileOpen(true);
   const handleProfileClose = () => setProfileOpen(false);
@@ -64,6 +57,9 @@ const MyPage = () => {
     });
     getFollowings().then((res) => {
       setFollowings(res.body);
+    });
+    getPosters(data?.userId).then((res) => {
+      setPosters(res);
     });
   }, [data?.userId]);
 
@@ -200,14 +196,16 @@ const MyPage = () => {
       {/* 포스터 수집 */}
       <div className="flex flex-col p-3 mb-5 w-full">
         <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {Array(9)
-            .fill(0)
-            .map((item, index) => (
-              <PhotoCard
-                src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxOTEyMDVfMTkw%2FMDAxNTc1NTMzNzc4MjAw.n0N5y-fs7YRwWtogpxbHMXZtJPtI7PRptLB9UJPq7E8g._vxS1pa4Zed9jDjmlbZJ7eFTNCnUhdfUqJCH-J5Hk0gg.JPEG.skygoss11%2F1575533777927.jpg&type=sc960_832"
-                alt="poster"
-              />
-            ))}
+          {posters?.map((item) => (
+            <PhotoCard
+              src={
+                item.movie.posterPath ||
+                "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxOTEyMDVfMTkw%2FMDAxNTc1NTMzNzc4MjAw.n0N5y-fs7YRwWtogpxbHMXZtJPtI7PRptLB9UJPq7E8g._vxS1pa4Zed9jDjmlbZJ7eFTNCnUhdfUqJCH-J5Hk0gg.JPEG.skygoss11%2F1575533777927.jpg&type=sc960_832"
+              }
+              alt="poster"
+              key={item.movie.movieId}
+            />
+          ))}
         </div>
       </div>
       <SwiperCommentList title={"내가 작성한 댓글"} data={myReviews} />

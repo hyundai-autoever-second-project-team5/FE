@@ -32,3 +32,14 @@ export const getLikedTags = async (userId) => {
     throw error;
   }
 };
+
+// 리뷰 작성한 영화 포스터 조회
+export const getPosters = async (userId) => {
+  try {
+    const response = await client.get(`/cinewall/review/poster-list/${userId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to get posters", error);
+    throw error;
+  }
+};
