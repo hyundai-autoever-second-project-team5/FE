@@ -22,19 +22,10 @@ const MovieInfo = () => {
   const [average, setAverage] = React.useState([]);
   //별점 분포 차트
   const [chart, setChart] = React.useState(null);
-
   
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  const data = [
-    { score: "1점", count: 30 },
-    { score: "2점", count: 50 },
-    { score: "3점", count: 20 },
-    { score: "4점", count: 30 },
-    { score: "5점", count: 40 },
-  ];
-
+  
   useEffect(() => {
     const fetchMovie = async () => {
       const apiKey = "764171d1c3361300ba5e0a4dfd3bd7da";
@@ -59,25 +50,15 @@ const MovieInfo = () => {
       setAverage(data);
   };
 
-  //효원 이거!
-
-  // const fetchchart = async () => {
-  //   try {
-  //     const data = await detailgetMoviechart(movieId);
-  //     const chartData = Object.keys(data).map(key => ({
-  //       score: `${key}점`,
-  //       count: data[key],
-  //     }));
-  //     setChart(chartData);
-  //   } catch (error) {
-  //     console.error("차트 데이터를 가져오는 데 실패했습니다.", error);
-  //   }
-  // };
+  const fetchchart = async () => {
+    const data = await detailgetMoviechart(movieId);
+    setChart(data);
+};
 
     if (movieId) {
       fetchMovie();
       fetchaverage();
-      // fetchchart();
+      fetchchart();
     }
   }, [movieId]);
 
@@ -142,8 +123,7 @@ const MovieInfo = () => {
               {movie.overview || "줄거리 정보가 없습니다."}
             </p>
             <div className="w-full h-[300px] lg:max-w-[700px] lg:h-[400px]">
-              //효원 chart 넣었는데 안돼서 일단 뺌
-              <ScoreChart data={data} />
+              <ScoreChart data={chart} />
             </div>
           </div>
         </div>
