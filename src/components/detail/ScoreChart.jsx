@@ -26,7 +26,7 @@ const ScoreChart = ({ data }) => {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Bar dataKey="count" fill="white" />
+        <Bar dataKey="count" fill="gray" />
       </BarChart>
     </ResponsiveContainer>
   );
