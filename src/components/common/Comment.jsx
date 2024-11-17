@@ -6,8 +6,10 @@ import React, { useEffect } from "react";
 import ReviewModal from "./ReviewModal";
 import { detaillikeReview, detailunlikeReview } from "../../api/detail";
 import { useGetComments } from "../../hook/useGetComments";
+import { useNavigate } from "react-router-dom";
 
 const Comment = ({
+  writerId,
   id,
   profileSrc,
   writer,
@@ -16,12 +18,12 @@ const Comment = ({
   title,
   content,
   likes,
-  comments,
   heart,
   updateLike, // 부모로부터 전달받은 함수
 }) => {
   const [open, setOpen] = React.useState(false);
   const { refetch } = useGetComments();
+  const navigation = useNavigate();
 
   const handleLike = async (e) => {
     e.stopPropagation(); // 부모의 onClick 이벤트 방지
@@ -47,7 +49,10 @@ const Comment = ({
         onClick={() => setOpen(true)}
       >
         <div className="flex flex-row items-center justify-between">
-          <div className="flex flex-row items-center gap-2">
+          <div
+            className="flex flex-row items-center gap-2"
+            onClick={() => navigation(`/mypage?userId=${writerId}`)}
+          >
             <img
               src={profileSrc}
               className="w-10 h-10 rounded-full"

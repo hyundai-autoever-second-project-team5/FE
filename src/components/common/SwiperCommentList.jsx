@@ -44,6 +44,7 @@ const SwiperCommentList = ({ title, data, rows = 2, updateLike }) => {
             <Comment
               id={item.reviewId}
               profileSrc={item.profileUrl || item.user.profile_url}
+              writerId={item.userId || item.user.id}
               writer={item.nickname || item.user.nickname}
               title={item.title}
               content={item.content}

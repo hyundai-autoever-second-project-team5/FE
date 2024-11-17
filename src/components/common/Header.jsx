@@ -10,6 +10,7 @@ import { useGetUserInfo } from "../../hook/useGetUserInfo";
 import { getCookie, removeCookie } from "../../api/cookie";
 import { postSignOut } from "../../api/user";
 import GenreList from "./GenreList";
+import GenereSelectModal from "../main/GenereSelectModal";
 
 const Header = () => {
   const navigation = useNavigate();
@@ -19,10 +20,16 @@ const Header = () => {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const menuOpen = Boolean(anchorEl);
+  const [surveyOpen, setSurveyOpen] = useState(false);
   const { data, refetch } = useGetUserInfo(getCookie("accessToken"));
+  // const setSurveyOpen = useModalStore((state) => state.setSurveyOpen);
 
+  // 로그인모달
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  // 장르선택모달
+  const handleSurveyOpen = () => setSurveyOpen(true);
+  const handleSurveyClose = () => setSurveyOpen(false);
 
   // 프로필 메뉴 클릭
   const handleMenuClick = (event) => {
@@ -121,8 +128,15 @@ const Header = () => {
         </div>
         {isSearchPage && <GenreList isScrolled={isScrolled} />}
       </div>
-      <LoginModal open={open} handleClose={handleClose} />
-
+      <LoginModal
+        open={open}
+        handleClose={handleClose}
+        handleSurveyOpen={handleSurveyOpen}
+      />
+      <GenereSelectModal
+        open={surveyOpen}
+        handleClose={() => setSurveyOpen(false)}
+      />
       <Menu
         anchorEl={anchorEl}
         id="account-menu"

@@ -17,7 +17,7 @@ import { useGetComments } from "../hook/useGetComments";
 
 const Home = () => {
   const surveyOpen = useModalStore((state) => state.surveyOpen);
-  const setSurveyOpen = useModalStore((state) => state.setSurveyOpen);
+
   const { data: reviews } = useGetComments();
   const [trailers, setTrailers] = React.useState([]);
   const [latests, setLatests] = React.useState([]);
@@ -77,10 +77,7 @@ const Home = () => {
           )}
         </div>
       </div>
-      <GenereSelectModal
-        open={surveyOpen}
-        handleClose={() => setSurveyOpen(false)}
-      />
+
     </>
   );
 };

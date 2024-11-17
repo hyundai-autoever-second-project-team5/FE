@@ -43,3 +43,14 @@ export const getPosters = async (userId) => {
     throw error;
   }
 };
+
+// 다른 사람 마이페이지 정보 조회
+export const getMyPageInfo = async (userId) => {
+  try {
+    const response = await client.get(`/cinewall/user/${userId}/mypage`);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to get mypage", error);
+    throw error;
+  }
+};

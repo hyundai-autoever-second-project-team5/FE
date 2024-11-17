@@ -15,14 +15,21 @@ import {
   getLikedActors,
   getLikedDirectors,
   getMovieWords,
+  getMyPageInfo,
   getPosters,
 } from "../api/mypage";
 import { getFollowers, getFollowings } from "../api/follow";
 import StyledWordCloud from "../components/mypage/StyledWordCloud";
 import PosterSlide from "../components/mypage/PosterSlide";
+import { useLocation } from "react-router-dom";
 
 const MyPage = () => {
   const { data } = useGetUserInfo(getCookie("accessToken"));
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const profileUserId = searchParams.get("userId");
+
+  const [profileInfo, setProfileInfo] = React.useState(null);
   const [profileOpen, setProfileOpen] = React.useState(false);
   const [followingOpen, setFollowingOpen] = React.useState(false);
   const [followerOpen, setFollowerOpen] = React.useState(false);
@@ -46,32 +53,36 @@ const MyPage = () => {
   const handleLikesClose = () => setLikesOpen(false);
 
   useEffect(() => {
-    getUserReviews(data?.userId).then((res) => {
-      setMyReviews(res);
-    });
-    getUserStarsData(data?.userId).then((res) => {
-      console.log("star", res);
-      setStarsData(res);
-    });
-    getLikedActors(data?.userId).then((res) => {
-      setActors(res);
-    });
-    getLikedDirectors(data?.userId).then((res) => {
-      setDirectors(res);
-    });
-    getFollowers().then((res) => {
-      setFollowers(res.body);
-    });
-    getFollowings().then((res) => {
-      setFollowings(res.body);
-    });
-    getPosters(data?.userId).then((res) => {
-      setPosters(res);
-    });
-    getMovieWords(data?.userId).then((res) => {
-      setWords(res);
-    });
-  }, [data?.userId]);
+    if (!profileUserId || Number(profileUserId) === data?.userId) {
+      getUserReviews(data?.userId).then((res) => {
+        setMyReviews(res);
+      });
+      getUserStarsData(data?.userId).then((res) => {
+        console.log("star", res);
+        setStarsData(res);
+      });
+      getLikedActors(data?.userId).then((res) => {
+        setActors(res);
+      });
+      getLikedDirectors(data?.userId).then((res) => {
+        setDirectors(res);
+      });
+      getFollowers().then((res) => {
+        setFollowers(res.body);
+      });
+      getFollowings().then((res) => {
+        setFollowings(res.body);
+      });
+      getPosters(data?.userId).then((res) => {
+        setPosters(res);
+      });
+      getMovieWords(data?.userId).then((res) => {
+        setWords(res);
+      });
+    } else {
+      getMyPageInfo(profileUserId).then((res) => setProfileInfo(res));
+    }
+  }, [data?.userId, profileUserId]);
 
   return (
     <div className="relative w-full max-w-[1400px] m-auto px-5 pt-20 pb-5 z-20">

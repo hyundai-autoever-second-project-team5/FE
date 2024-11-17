@@ -28,7 +28,10 @@ const GenereSelectModal = ({ open, handleClose }) => {
       genres: result,
     };
     console.log(genres);
-    postMovieSurvey(genres).then((res) => handleClose());
+    postMovieSurvey(genres).then((res) => {
+      document.body.style.overflow = "auto";
+      handleClose();
+    });
   };
 
   useEffect(() => {

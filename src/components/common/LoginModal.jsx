@@ -19,12 +19,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
 import { getCookie, setCookie } from "../../api/cookie";
 import { useGetUserInfo } from "../../hook/useGetUserInfo";
-import useModalStore from "../../store/store";
 
-const LoginModal = ({ open, handleClose }) => {
+const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
   const { refetch } = useGetUserInfo(getCookie("accessToken"));
-  const surveyOpen = useModalStore((state) => state.surveyOpen);
-  const setSurveyOpen = useModalStore((state) => state.setSurveyOpen);
   const [isLogin, setIsLogin] = useState(true);
   const isMobile = useMediaQuery("(max-width:550px)");
   const [loginData, setLoginData] = React.useState({
@@ -89,7 +86,7 @@ const LoginModal = ({ open, handleClose }) => {
       new Promise((resolve) => {
         setCookie("accessToken", token);
         resolve();
-      }).then(() => setSurveyOpen(true));
+      }).then(() => handleSurveyOpen());
       handleClose();
       refetch();
     });
