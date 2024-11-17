@@ -90,7 +90,7 @@ export const detaildeleteMoviefavorite = async (movieId) => {
 // 영화 찜 상태 확인 api
 export const detailgetMoviefavorite = async (movieId) => {
   try {
-    const response = await client.get(`/cinewall/movie/${movieId}/favorite`);
+    const response = await client.get(`/cinewall/movie/${movieId}/isfavorite`);
     return response.data;
   } catch (error) {
     console.error("Failed to get favorite status", error);

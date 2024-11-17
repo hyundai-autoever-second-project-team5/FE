@@ -20,6 +20,7 @@ import {
 } from "../api/mypage";
 import { getFollowers, getFollowings } from "../api/follow";
 import StyledWordCloud from "../components/mypage/StyledWordCloud";
+import PosterSlide from "../components/mypage/PosterSlide";
 
 const MyPage = () => {
   const { data } = useGetUserInfo(getCookie("accessToken"));
@@ -204,8 +205,9 @@ const MyPage = () => {
       </div>
 
       {/* 포스터 수집 */}
-      <div className="flex flex-col p-3 mb-5 w-full">
-        <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+      <div className="flex flex-col mb-5 w-full">
+        <PosterSlide data={posters} />
+        {/* <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {posters?.map((item) => (
             <PhotoCard
               src={
@@ -216,7 +218,7 @@ const MyPage = () => {
               key={item.movie.movieId}
             />
           ))}
-        </div>
+        </div> */}
       </div>
       <SwiperCommentList title={"내가 작성한 댓글"} data={myReviews} />
       <LikesModal open={likesOpen} handleClose={handleLikesClose} />
