@@ -1,6 +1,5 @@
 import client from "./client";
 
-
 //최신영화정보 api
 export const detailgetMovieLatest = async (movieId) => {
   try {
@@ -41,65 +40,65 @@ export const detailgetMovieaverage = async (movieId) => {
 };
 
 //별점 분포 차트 api
-  export const detailgetMoviechart = async (movieId) => {
-    try {
-      const response = await client.get(`/cinewall/movie/${movieId}/rating-distribution`);
-      return response.data;
-    } catch (error) {
-      console.error("Failed to get movie chart", error);
-      throw error;
-    }
-  };
+export const detailgetMoviechart = async (movieId) => {
+  try {
+    const response = await client.get(
+      `/cinewall/movie/${movieId}/rating-distribution`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Failed to get movie chart", error);
+    throw error;
+  }
+};
 
 //비슷한 영화 api
-  export const detailgetsimilarMovie = async (movieId) => {
-    try {
-      const response = await client.get(`/cinewall/movie/${movieId}/similar-movies`);
-      return response.data;
-    } catch (error) {
-      console.error("Failed to get similar movie", error);
-      throw error;
-    }
-  };
+export const detailgetsimilarMovie = async (movieId) => {
+  try {
+    const response = await client.get(
+      `/cinewall/movie/${movieId}/similar-movies`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Failed to get similar movie", error);
+    throw error;
+  }
+};
 
 // 영화 찜 추가 api
-  export const detailaddMoviefavorite = async (movieId) => {
-    try {
-      const response = await client.post(`/cinewall/movie/${movieId}/favorite`);
-      return response.data;
-    } catch (error) {
-      console.error("Failed to add favorite", error);
-      throw error;
-    }
-  };
+export const detailaddMoviefavorite = async (movieId) => {
+  try {
+    const response = await client.post(`/cinewall/movie/${movieId}/favorite`);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to add favorite", error);
+    throw error;
+  }
+};
 
 // 영화 찜 삭제 api
-  export const detaildeleteMoviefavorite = async (movieId) => {
-    try {
-      const response = await client.delete(
-        `/cinewall/movie/${movieId}/favorite`
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Failed to remove favorite", error);
-      throw error;
-    }
-  };
+export const detaildeleteMoviefavorite = async (movieId) => {
+  try {
+    const response = await client.delete(`/cinewall/movie/${movieId}/favorite`);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to remove favorite", error);
+    throw error;
+  }
+};
 
-  // 영화 찜 상태 확인 api
-  export const detailgetMoviefavorite = async (movieId) => {
-    try {
-      const response = await client.get(
-        `/cinewall/movie/${movieId}/isFavorite`
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Failed to get favorite status", error);
-      throw error;
-    }
-  };
+// 영화 찜 상태 확인 api
+export const detailgetMoviefavorite = async (movieId) => {
+  try {
+    const response = await client.get(`/cinewall/movie/${movieId}/favorite`);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to get favorite status", error);
+    throw error;
+  }
+};
 
-  // 리뷰 좋아요 등록
+// 리뷰 좋아요 등록
 export const detaillikeReview = async (reviewId) => {
   try {
     const response = await client.post(`/cinewall/reviews/${reviewId}/like`);
