@@ -1,7 +1,7 @@
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, IconButton, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ScoreChart from "../components/detail/ScoreChart";
 import ListItem from "../components/mypage/ListItem";
 import SwiperCommentList from "../components/common/SwiperCommentList";
@@ -18,7 +18,12 @@ import {
   getMyPageInfo,
   getPosters,
 } from "../api/mypage";
-import { getFollowers, getFollowings } from "../api/follow";
+import {
+  deleteFollowing,
+  getFollowers,
+  getFollowings,
+  postFollowing,
+} from "../api/follow";
 import StyledWordCloud from "../components/mypage/StyledWordCloud";
 import PosterSlide from "../components/mypage/PosterSlide";
 import { useLocation } from "react-router-dom";
@@ -31,6 +36,10 @@ const MyPage = () => {
 
   const isUser = data?.userId === profileUserId || !profileUserId;
   const [profileInfo, setProfileInfo] = React.useState(null);
+  const [followingState, setFollowingState] = React.useState(
+    profileInfo?.following
+  );
+
   const [profileOpen, setProfileOpen] = React.useState(false);
   const [followingOpen, setFollowingOpen] = React.useState(false);
   const [followerOpen, setFollowerOpen] = React.useState(false);
@@ -52,6 +61,16 @@ const MyPage = () => {
   const handleFollowingClose = () => setFollowingOpen(false);
   const handleLikesOpen = () => setLikesOpen(true);
   const handleLikesClose = () => setLikesOpen(false);
+
+  const handleFollowing = () => {
+    if (followingState) {
+      postFollowing(profileInfo?.userId).then((res) => setFollowingState(true));
+    } else {
+      deleteFollowing(profileInfo?.userId).then((res) =>
+        setFollowingState(false)
+      );
+    }
+  };
 
   useEffect(() => {
     if (isUser) {
@@ -100,7 +119,10 @@ const MyPage = () => {
       // getMovieWords(profileUserId).then((res) => {
       //   setWords(res);
       // });
-      getMyPageInfo(profileUserId).then((res) => setProfileInfo(res));
+      getMyPageInfo(profileUserId).then((res) => {
+        setProfileInfo(res);
+        setFollowingState(res?.following);
+      });
     }
   }, [data?.userId, profileUserId]);
 
@@ -128,10 +150,11 @@ const MyPage = () => {
                 }}
               />
             </IconButton>
-          ) : profileInfo?.following ? (
+          ) : followingState ? (
             <Button
               variant="contained"
               sx={{ color: "black", backgroundColor: "white" }}
+              onClick={handleFollowing}
             >
               팔로잉
             </Button>
@@ -139,6 +162,7 @@ const MyPage = () => {
             <Button
               variant="outlined"
               sx={{ color: "white", borderColor: "white" }}
+              onClick={handleFollowing}
             >
               팔로우
             </Button>

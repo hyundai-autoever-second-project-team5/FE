@@ -21,3 +21,29 @@ export const getFollowers = async () => {
     throw error;
   }
 };
+
+// 팔로워 추가
+export const postFollowing = async (userId) => {
+  try {
+    const response = await client.post(
+      `/cinewall/follow/add?to_user_id=${userId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Failed to add followers", error);
+    throw error;
+  }
+};
+
+// 팔로워 삭제
+export const deleteFollowing = async (userId) => {
+  try {
+    const response = await client.get(
+      `/cinewall/follow/delete?follower_id=${userId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Failed to delete followers", error);
+    throw error;
+  }
+};
