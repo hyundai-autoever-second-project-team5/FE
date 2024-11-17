@@ -86,8 +86,10 @@ const LoginModal = ({ open, handleClose }) => {
     postSignIn(loginData).then((res) => {
       const authToken = res.headers["authorization"];
       const token = authToken.replace("Bearer ", "");
-      setCookie("accessToken", token);
-      setSurveyOpen(true);
+      new Promise((resolve) => {
+        setCookie("accessToken", token);
+        resolve();
+      }).then(() => setSurveyOpen(true));
       handleClose();
       refetch();
     });

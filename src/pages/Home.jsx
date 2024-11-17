@@ -8,8 +8,6 @@ import {
   getMovieLikes,
   getMoviePopular,
   getMovieRecommend,
-  getMovieReview,
-  getMovieSurvey,
   getMovieTrailer,
   getPowerReview,
 } from "../api/main";
@@ -28,7 +26,6 @@ const Home = () => {
   const [powerReviews, setPowerReviews] = React.useState([]);
   const [userLikes, setUserLikes] = React.useState([]);
   const [recommends, setRecommends] = React.useState([]);
-  const [surveyMovies, setSurveyMovies] = React.useState([]);
 
   useEffect(() => {
     getMovieTrailer().then((res) => {
@@ -55,9 +52,6 @@ const Home = () => {
     // getMovieReview().then((res) => {
     //   setReviews(res);
     // });
-    getMovieSurvey().then((res) => {
-      setSurveyMovies(res);
-    });
   }, []);
   return (
     <>
@@ -86,7 +80,6 @@ const Home = () => {
       <GenereSelectModal
         open={surveyOpen}
         handleClose={() => setSurveyOpen(false)}
-        movies={surveyMovies}
       />
     </>
   );

@@ -2,7 +2,7 @@ import { faThumbsUp, faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconButton, Typography } from "@mui/material";
 import Rate from "rc-rate";
-import React from "react";
+import React, { useEffect } from "react";
 import ReviewModal from "./ReviewModal";
 import { detaillikeReview, detailunlikeReview } from "../../api/detail";
 import { useGetComments } from "../../hook/useGetComments";

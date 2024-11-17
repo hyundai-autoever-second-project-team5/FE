@@ -1,7 +1,7 @@
 import React from "react";
 import GenreChip from "./GenreChip";
 
-const GenreList = ({ isScrolled }) => {
+const GenreList = () => {
   const data = ["호러", "로맨스", "판타지", "스릴러"];
   return (
     <div className=" bg-flex flex-row justify-between max-w-[1400px] w-full px-5">
