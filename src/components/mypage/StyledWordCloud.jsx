@@ -1,21 +1,7 @@
 import React from "react";
 import ReactWordcloud from "react-wordcloud";
-// import "tippy.js/dist/tippy.css";
-// import "tippy.js/animations/scale.css";
 
 const StyledWordCloud = ({ words }) => {
-  //   const words = [
-  //     { text: "mistake", value: 11 },
-  //     { text: "thought", value: 16 },
-  //     { text: "bad", value: 17 },
-  //     { text: "correct", value: 10 },
-  //     { text: "day", value: 54 },
-  //     { text: "time", value: 77 },
-  //     { text: "doctor", value: 70 },
-  //     { text: "office", value: 64 },
-  //     { text: "work", value: 64 },
-  //     { text: "patient", value: 59 },
-  //   ];
   const changedWords = Object.entries(words).map(([key, value]) => ({
     text: value,
     value: Math.floor(Math.random() * 100) + 1, // 1부터 100 사이의 랜덤 값
@@ -37,7 +23,13 @@ const StyledWordCloud = ({ words }) => {
     transitionDuration: 1000,
   };
 
-  return <ReactWordcloud options={options} words={changedWords} />;
+  return (
+    <ReactWordcloud
+      options={options}
+      words={changedWords}
+      className="w-full min-w-0"
+    />
+  );
 };
 
 export default StyledWordCloud;

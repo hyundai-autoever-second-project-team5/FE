@@ -1,14 +1,13 @@
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconButton, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ScoreChart from "../components/detail/ScoreChart";
 import ListItem from "../components/mypage/ListItem";
 import SwiperCommentList from "../components/common/SwiperCommentList";
 import ProfileEditModal from "../components/mypage/ProfileEditModal";
 import FollowersModal from "../components/mypage/FollowersModal";
 import LikesModal from "../components/mypage/LikesModal";
-import PhotoCard from "../components/mypage/PhotoCard";
 import { getUserReviews, getUserStarsData } from "../api/review";
 import { useGetUserInfo } from "../hook/useGetUserInfo";
 import { getCookie } from "../api/cookie";
@@ -118,6 +117,7 @@ const MyPage = () => {
             </Typography>
           </div>
         </div>
+
         {/* 통계 */}
         <div className="grid grid-cols-2 md:flex md:flex-row w-full gap-3 mb-3">
           <div
@@ -149,8 +149,8 @@ const MyPage = () => {
       </div>
 
       {/* 도표 */}
-      <div className="flex flex-col w-full gap-4 sm:flex-row sm:gap-16">
-        <div className="flex flex-col w-full gap-1">
+      <div className="flex flex-col w-full gap-4 md:flex-row md:gap-16">
+        <div className="flex flex-col w-full gap-1 flex-grow min-w-0">
           <Typography variant="h5" fontWeight={700} color="white">
             별점 분포
           </Typography>
@@ -158,7 +158,7 @@ const MyPage = () => {
             <ScoreChart data={starsData} />
           </div>
         </div>
-        <div className="flex flex-col w-full gap-1">
+        <div className="flex flex-col w-full gap-1 flex-grow min-w-0">
           <Typography variant="h5" fontWeight={700} color="white">
             선호 태그
           </Typography>
@@ -207,18 +207,6 @@ const MyPage = () => {
       {/* 포스터 수집 */}
       <div className="flex flex-col mb-5 w-full">
         <PosterSlide data={posters} />
-        {/* <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {posters?.map((item) => (
-            <PhotoCard
-              src={
-                item.movie.posterPath ||
-                "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxOTEyMDVfMTkw%2FMDAxNTc1NTMzNzc4MjAw.n0N5y-fs7YRwWtogpxbHMXZtJPtI7PRptLB9UJPq7E8g._vxS1pa4Zed9jDjmlbZJ7eFTNCnUhdfUqJCH-J5Hk0gg.JPEG.skygoss11%2F1575533777927.jpg&type=sc960_832"
-              }
-              alt="poster"
-              key={item.movie.movieId}
-            />
-          ))}
-        </div> */}
       </div>
       <SwiperCommentList title={"내가 작성한 댓글"} data={myReviews} />
       <LikesModal open={likesOpen} handleClose={handleLikesClose} />
