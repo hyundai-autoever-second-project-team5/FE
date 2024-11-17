@@ -38,7 +38,7 @@ export const postFollowing = async (userId) => {
 // 팔로워 삭제
 export const deleteFollowing = async (userId) => {
   try {
-    const response = await client.get(
+    const response = await client.delete(
       `/cinewall/follow/delete?follower_id=${userId}`
     );
     return response.data;

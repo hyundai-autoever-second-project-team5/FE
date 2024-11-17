@@ -64,11 +64,11 @@ const MyPage = () => {
 
   const handleFollowing = () => {
     if (followingState) {
-      postFollowing(profileInfo?.userId).then((res) => setFollowingState(true));
-    } else {
       deleteFollowing(profileInfo?.userId).then((res) =>
         setFollowingState(false)
       );
+    } else {
+      postFollowing(profileInfo?.userId).then((res) => setFollowingState(true));
     }
   };
 
