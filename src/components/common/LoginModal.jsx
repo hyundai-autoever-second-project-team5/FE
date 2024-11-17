@@ -355,6 +355,12 @@ const LoginModal = ({ open, handleClose }) => {
                   ? "잘못된 인증 번호입니다."
                   : ""
               }
+              disabled={
+                !signUpData.id ||
+                !signUpData.email ||
+                !checked.email ||
+                !checked.id
+              }
               FormHelperTextProps={{
                 sx: {
                   color: checked.id ? "green" : "inherit", // 인증 성공 시 초록색으로 설정
