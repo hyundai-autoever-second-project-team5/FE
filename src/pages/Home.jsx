@@ -12,7 +12,6 @@ import {
   getMovieTrailer,
   getPowerReview,
 } from "../api/main";
-import { getCookie } from "../api/cookie";
 
 const Home = () => {
   const [trailers, setTrailers] = React.useState([]);
@@ -22,8 +21,6 @@ const Home = () => {
   const [powerReviews, setPowerReviews] = React.useState([]);
   const [userLikes, setUserLikes] = React.useState([]);
   const [recommends, setRecommends] = React.useState([]);
-
-  console.log("userlike", userLikes);
 
   useEffect(() => {
     getMovieTrailer().then((res) => {

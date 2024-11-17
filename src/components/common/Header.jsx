@@ -87,7 +87,10 @@ const Header = () => {
               {data ? (
                 <div className="flex flex-row items-center gap-1">
                   <img
-                    src="https://avatars.githubusercontent.com/u/89841486?v=4"
+                    src={
+                      data?.profile_url ||
+                      "https://avatars.githubusercontent.com/u/89841486?v=4"
+                    }
                     alt="profile"
                     className="object-cover w-10 h-10 rounded-full"
                   />

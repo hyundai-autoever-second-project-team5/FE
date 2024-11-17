@@ -31,7 +31,7 @@ const ProfileEditModal = ({ open, handleClose, data }) => {
     formData.append("nickname", userData.nickname);
     formData.append("id", userData.id);
     if (userData?.profile) {
-      formData.append("profile", userData.profile);
+      formData.append("profileImg", userData.profile);
     }
     patchProfileEdit(formData).then(() => {
       refetch();
