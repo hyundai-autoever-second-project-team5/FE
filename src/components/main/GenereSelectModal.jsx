@@ -2,8 +2,6 @@ import { Box, Button, Modal, Typography, useMediaQuery } from "@mui/material";
 import React, { useEffect } from "react";
 import { useGetUserInfo } from "../../hook/useGetUserInfo";
 import { getCookie } from "../../api/cookie";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { getMovieSurvey, postMovieSurvey } from "../../api/main";
 
 const GenereSelectModal = ({ open, handleClose }) => {

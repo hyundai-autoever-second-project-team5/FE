@@ -1,6 +1,6 @@
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconButton, Typography } from "@mui/material";
+import { Button, IconButton, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ScoreChart from "../components/detail/ScoreChart";
 import ListItem from "../components/mypage/ListItem";
@@ -29,6 +29,7 @@ const MyPage = () => {
   const searchParams = new URLSearchParams(location.search);
   const profileUserId = searchParams.get("userId");
 
+  const isUser = data?.userId === profileUserId || !profileUserId;
   const [profileInfo, setProfileInfo] = React.useState(null);
   const [profileOpen, setProfileOpen] = React.useState(false);
   const [followingOpen, setFollowingOpen] = React.useState(false);
@@ -53,7 +54,7 @@ const MyPage = () => {
   const handleLikesClose = () => setLikesOpen(false);
 
   useEffect(() => {
-    if (!profileUserId || Number(profileUserId) === data?.userId) {
+    if (isUser) {
       getUserReviews(data?.userId).then((res) => {
         setMyReviews(res);
       });
@@ -80,6 +81,25 @@ const MyPage = () => {
         setWords(res);
       });
     } else {
+      getUserReviews(profileUserId).then((res) => {
+        setMyReviews(res);
+      });
+      getUserStarsData(profileUserId).then((res) => {
+        console.log("star", res);
+        setStarsData(res);
+      });
+      getLikedActors(profileUserId).then((res) => {
+        setActors(res);
+      });
+      getLikedDirectors(profileUserId).then((res) => {
+        setDirectors(res);
+      });
+      getPosters(profileUserId).then((res) => {
+        setPosters(res);
+      });
+      // getMovieWords(profileUserId).then((res) => {
+      //   setWords(res);
+      // });
       getMyPageInfo(profileUserId).then((res) => setProfileInfo(res));
     }
   }, [data?.userId, profileUserId]);
@@ -91,40 +111,60 @@ const MyPage = () => {
         <div className="flex flex-row items-center justify-between">
           <div className="flex flex-row gap-1">
             <Typography variant="h4" color="white" fontWeight={700}>
-              {data?.nickname}
+              {isUser ? data?.nickname : profileInfo?.nickname}
             </Typography>
             <Typography variant="h4" color="white">
               님의 프로필
             </Typography>
           </div>
-          <IconButton onClick={handleProfileOpen}>
-            <FontAwesomeIcon
-              icon={faPenToSquare}
-              color="white"
-              style={{
-                fontSize: "24px",
-              }}
-            />
-          </IconButton>
+          {isUser ? (
+            // 프로필 수정 버튼
+            <IconButton onClick={handleProfileOpen}>
+              <FontAwesomeIcon
+                icon={faPenToSquare}
+                color="white"
+                style={{
+                  fontSize: "24px",
+                }}
+              />
+            </IconButton>
+          ) : profileInfo?.following ? (
+            <Button
+              variant="contained"
+              sx={{ color: "black", backgroundColor: "white" }}
+            >
+              팔로잉
+            </Button>
+          ) : (
+            <Button
+              variant="outlined"
+              sx={{ color: "white", borderColor: "white" }}
+            >
+              팔로우
+            </Button>
+          )}
         </div>
         <div className="flex flex-row items-center gap-4">
           <img
             src={
-              data?.profile_url ||
-              "https://avatars.githubusercontent.com/u/89841486?v=4"
+              isUser
+                ? data?.profile_url ||
+                  "https://avatars.githubusercontent.com/u/89841486?v=4"
+                : profileInfo?.profile_url ||
+                  "https://avatars.githubusercontent.com/u/89841486?v=4"
             }
             alt="profile-image"
             className="w-[140px] h-[140px] rounded-full object-cover"
           />
           <div className="flex flex-col gap-2">
             <Typography variant="h5" color="white">
-              {data?.nickname}
+              {isUser ? data?.nickname : profileInfo?.nickname}
             </Typography>
             <Typography variant="body1" color="white">
-              {data?.id}
+              {isUser ? data?.id : profileInfo?.id}
             </Typography>
             <Typography variant="body1" color="white">
-              {data?.email}
+              {isUser ? data?.email : profileInfo?.email}
             </Typography>
           </div>
         </div>
@@ -227,13 +267,13 @@ const MyPage = () => {
         data={data}
       />
       <FollowersModal
-        title={`${data?.nickname}님의 팔로워`}
+        title={`${isUser ? data?.nickname : profileInfo?.nickname}님의 팔로워`}
         open={followerOpen}
         handleClose={handleFollowerClose}
         data={followers}
       />
       <FollowersModal
-        title={`${data?.nickname}님의 팔로잉`}
+        title={`${isUser ? data?.nickname : profileInfo?.nickname}님의 팔로잉`}
         open={followingOpen}
         handleClose={handleFollowingClose}
         data={followings}
