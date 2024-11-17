@@ -169,7 +169,7 @@ const MyPage = () => {
 
       {/* 선호 감독, 배우 */}
       <div className="flex flex-col w-full gap-4 mb-8 lg:flex-row lg:gap-16">
-        <div className="flex flex-col w-full gap-1">
+        <div className="flex flex-col w-full max-w-full gap-1 min-w-0">
           <Typography variant="h5" fontWeight={700} color="white">
             선호 감독
           </Typography>
@@ -185,7 +185,7 @@ const MyPage = () => {
             ))}
           </div>
         </div>
-        <div className="flex flex-col w-full gap-1">
+        <div className="flex flex-col w-full max-w-full gap-1 min-w-0">
           <Typography variant="h5" fontWeight={700} color="white">
             선호 배우
           </Typography>
