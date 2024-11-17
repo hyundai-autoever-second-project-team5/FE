@@ -5,13 +5,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import LoginModal from "./LoginModal";
 import Notification from "./Notification";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useGetUserInfo } from "../../hook/useGetUserInfo";
 import { getCookie, removeCookie } from "../../api/cookie";
 import { postSignOut } from "../../api/user";
+import GenreList from "./GenreList";
 
 const Header = () => {
   const navigation = useNavigate();
+  const location = useLocation(); // 현재 URL 정보 가져오기\
+  const isSearchPage = location.pathname.includes("search");
   const [isScrolled, setIsScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -65,7 +68,7 @@ const Header = () => {
   return (
     <>
       <div
-        className={`fixed flex justify-center items-center w-full py-3 z-30 transition-all duration-300 ${
+        className={`fixed flex flex-col gap-3 justify-center items-center w-full py-3 z-30 transition-all duration-300 ${
           isScrolled
             ? "bg-primary bg-opacity-80 backdrop-blur-lg"
             : "bg-transparent"
@@ -116,6 +119,7 @@ const Header = () => {
             </div>
           </div>
         </div>
+        {isSearchPage && <GenreList isScrolled={isScrolled} />}
       </div>
       <LoginModal open={open} handleClose={handleClose} />
 

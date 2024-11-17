@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Card from "../components/common/Card/Card";
 import { getMovieSearch } from "../api/main";
 import { useLocation } from "react-router-dom";
+import GenreList from "../components/common/GenreList";
 
 const Search = () => {
   const location = useLocation();
@@ -19,7 +20,7 @@ const Search = () => {
   }, [query]);
 
   return (
-    <div className="relative w-full max-w-[1400px] m-auto px-5 py-20 z-20 min-h-screen">
+    <div className="relative w-full max-w-[1400px] m-auto px-5 py-20 z-20 min-h-screen pt-36">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
         {movies?.map((item) => (
           <Card

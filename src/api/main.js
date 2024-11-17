@@ -87,3 +87,25 @@ export const getMovieSearch = async (title) => {
     throw error;
   }
 };
+
+// 설문조사 영화 리스트
+export const getMovieSurvey = async () => {
+  try {
+    const response = await client.get(`/cinewall/survey/recommend`);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to get survey movies", error);
+    throw error;
+  }
+};
+
+// 설문조사 제출
+export const postMovieSurvey = async (genres) => {
+  try {
+    const response = await client.post(`/cinewall/survey/submit`, genres);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to post survey movies", error);
+    throw error;
+  }
+};

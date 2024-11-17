@@ -7,6 +7,9 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import "./Card.css";
 import ReviewModal from "../ReviewModal";
 import { useNavigate } from "react-router-dom";
+import { getUserInfo } from "../../../api/user";
+import { useGetUserInfo } from "../../../hook/useGetUserInfo";
+import { getCookie } from "../../../api/cookie";
 
 const Card = ({
   id,
@@ -20,6 +23,7 @@ const Card = ({
   const navigation = useNavigate();
   const [open, setOpen] = React.useState(false);
   const [newMyScore, setNewMyScore] = React.useState(myScore);
+  const { data } = useGetUserInfo(getCookie("accessToken"));
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -55,34 +59,41 @@ const Card = ({
             alt="poster"
             className="object-cover rounded-md w-full h-[500px] sm:h-[400px] md:h-[350px]"
           />
-          {/* 오버레이 */}
 
           {/* 오버레이 */}
           <div className="absolute inset-0 z-40 flex flex-col items-center p-4 transition-all duration-500 rounded-md opacity-0 bg-black/80 backdrop-blur-sm hover:opacity-100">
             {/* 상단 평점 */}
-            <div className="flex flex-col items-center justify-center w-full h-full contents-center">
-              <Rate
-                value={myScore}
-                allowHalf
-                character={
-                  <FontAwesomeIcon icon={faStar} style={{ fontSize: "24px" }} />
-                }
-                onChange={(value) => {
-                  setNewMyScore(value);
-                  setOpen(true);
-                }}
-              />
-            </div>
+            {data && (
+              <div className="flex flex-col items-center justify-center w-full h-full contents-center">
+                <Rate
+                  value={myScore}
+                  allowHalf
+                  character={
+                    <FontAwesomeIcon
+                      icon={faStar}
+                      style={{ fontSize: "24px" }}
+                    />
+                  }
+                  onChange={(value) => {
+                    setNewMyScore(value);
+                    setOpen(true);
+                  }}
+                />
+              </div>
+            )}
+
             {/* 하단 버튼들 */}
             <div className="z-50 flex flex-row justify-center w-full py-1 mt-auto transition-transform duration-500 translate-y-full rounded-md bg-white/50 backdrop-blur-md group-hover:translate-y-0">
-              <Button
-                variant="text"
-                color="inherit"
-                className="w-full h-full text-white hover:bg-white/30"
-                onClick={handleOpen}
-              >
-                리뷰쓰기
-              </Button>
+              {data && (
+                <Button
+                  variant="text"
+                  color="inherit"
+                  className="w-full h-full text-white hover:bg-white/30"
+                  onClick={handleOpen}
+                >
+                  리뷰쓰기
+                </Button>
+              )}
               <Button
                 variant="text"
                 color="inherit"
@@ -108,9 +119,13 @@ const Card = ({
               <Typography variant="body2" color="inherit">
                 내 평점
               </Typography>
-              <Typography variant="h6" color="error">
-                {myScore.toFixed(2)}
-              </Typography>
+              {data ? (
+                <Typography variant="h6" color="error">
+                  {myScore.toFixed(2)}
+                </Typography>
+              ) : (
+                "--"
+              )}
             </div>
           </div>
         </div>

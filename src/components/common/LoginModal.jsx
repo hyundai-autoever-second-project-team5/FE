@@ -19,9 +19,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
 import { getCookie, setCookie } from "../../api/cookie";
 import { useGetUserInfo } from "../../hook/useGetUserInfo";
+import useModalStore from "../../store/store";
 
 const LoginModal = ({ open, handleClose }) => {
   const { refetch } = useGetUserInfo(getCookie("accessToken"));
+  const surveyOpen = useModalStore((state) => state.surveyOpen);
+  const setSurveyOpen = useModalStore((state) => state.setSurveyOpen);
   const [isLogin, setIsLogin] = useState(true);
   const isMobile = useMediaQuery("(max-width:550px)");
   const [loginData, setLoginData] = React.useState({
@@ -84,6 +87,7 @@ const LoginModal = ({ open, handleClose }) => {
       const authToken = res.headers["authorization"];
       const token = authToken.replace("Bearer ", "");
       setCookie("accessToken", token);
+      setSurveyOpen(true);
       handleClose();
       refetch();
     });
@@ -101,6 +105,8 @@ const LoginModal = ({ open, handleClose }) => {
     formData.append("image", signUpData.image);
     postSignUp(formData).then((res) => {
       console.log(res);
+      setIsLogin(true);
+      handleCloseWithReset();
     });
   };
 
