@@ -5,15 +5,13 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/grid";
 import { Navigation, Grid } from "swiper/modules";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowAltCircleRight } from "@fortawesome/free-solid-svg-icons";
 
 const PosterSlide = ({ data }) => {
   const prevButtonRef = useRef(null); // 이전 버튼 참조
   const nextButtonRef = useRef(null); // 다음 버튼 참조
 
   return (
-    <div className="relative w-full flex justify-center items-center">
+    <div className="relative w-full flex justify-center items-center mb-5">
       {/* 커스텀 네비게이션 버튼 */}
       <button
         ref={prevButtonRef}
