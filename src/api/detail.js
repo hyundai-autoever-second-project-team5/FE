@@ -68,7 +68,9 @@ export const detailgetsimilarMovie = async (movieId) => {
 // 영화 찜 추가 api
 export const detailaddMoviefavorite = async (movieId) => {
   try {
-    const response = await client.post(`/cinewall/movie/${movieId}/favorite`);
+    const response = await client.post(
+      `/cinewall/movieFavorite/${movieId}/favorite`
+    );
     return response.data;
   } catch (error) {
     console.error("Failed to add favorite", error);
@@ -79,7 +81,9 @@ export const detailaddMoviefavorite = async (movieId) => {
 // 영화 찜 삭제 api
 export const detaildeleteMoviefavorite = async (movieId) => {
   try {
-    const response = await client.delete(`/cinewall/movie/${movieId}/favorite`);
+    const response = await client.delete(
+      `/cinewall/movieFavorite/${movieId}/favorite`
+    );
     return response.data;
   } catch (error) {
     console.error("Failed to remove favorite", error);
