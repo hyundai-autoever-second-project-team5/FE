@@ -17,6 +17,7 @@ import {
   getMovieWords,
   getMyPageInfo,
   getPosters,
+  getFavoriteByUser,
 } from "../api/mypage";
 import {
   deleteFollowing,
@@ -52,6 +53,7 @@ const MyPage = () => {
   const [followings, setFollowings] = React.useState([]);
   const [posters, setPosters] = React.useState([]);
   const [words, setWords] = React.useState([]);
+  const [favoriteCount, setFavoriteCount] = React.useState(0);
 
   const handleProfileOpen = () => setProfileOpen(true);
   const handleProfileClose = () => setProfileOpen(false);
@@ -89,6 +91,9 @@ const MyPage = () => {
       });
       getFollowers().then((res) => {
         setFollowers(res.body);
+      });
+      getFavoriteByUser().then((res) => {
+        setFavoriteCount(res);
       });
       getFollowings().then((res) => {
         setFollowings(res.body);
@@ -217,7 +222,7 @@ const MyPage = () => {
             className="flex flex-col items-center w-full p-10 bg-white rounded-md cursor-pointer bg-opacity-20 backdrop-blur-md"
             onClick={handleLikesOpen}
           >
-            <Typography variant="h4">10</Typography>
+            <Typography variant="h4">{favoriteCount}</Typography>
             <Typography variant="h6">찜</Typography>
           </div>
         </div>
