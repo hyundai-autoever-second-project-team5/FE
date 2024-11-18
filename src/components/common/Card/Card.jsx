@@ -98,7 +98,7 @@ const Card = ({
                 variant="text"
                 color="inherit"
                 className="w-full h-full text-white hover:bg-white/30"
-                onClick={() => navigation(`/detail/238`)}
+                onClick={() => navigation(`/detail/${id}`)}
               >
                 상세보기
               </Button>
