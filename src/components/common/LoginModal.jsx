@@ -21,7 +21,7 @@ import { getCookie, setCookie } from "../../api/cookie";
 import { useGetUserInfo } from "../../hook/useGetUserInfo";
 
 const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
-  const { refetch } = useGetUserInfo(getCookie("accessToken"));
+  const { data, refetch } = useGetUserInfo(getCookie("accessToken"));
   const [isLogin, setIsLogin] = useState(true);
   const isMobile = useMediaQuery("(max-width:550px)");
   const [loginData, setLoginData] = React.useState({
@@ -89,7 +89,12 @@ const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
         resolve();
       })
         .then(() => refetch())
-        .then(() => handleSurveyOpen());
+        .then(() => {
+          // 설문조사 안한 경우 설문조사 창 이동
+          if (!data?.survey) {
+            handleSurveyOpen();
+          }
+        });
       handleClose();
     });
   };
