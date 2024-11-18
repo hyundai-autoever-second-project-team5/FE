@@ -199,7 +199,7 @@ const MyPage = () => {
         </div>
 
         {/* 통계 */}
-        <div className="grid grid-cols-2 md:flex md:flex-row w-full gap-3 mb-3">
+        <div className="grid w-full grid-cols-2 gap-3 mb-3 md:flex md:flex-row">
           <div
             className="flex flex-col items-center w-full p-10 bg-white rounded-md cursor-pointer bg-opacity-20 backdrop-blur-md"
             onClick={handleFollowingOpen}
@@ -230,7 +230,7 @@ const MyPage = () => {
 
       {/* 도표 */}
       <div className="flex flex-col w-full gap-4 md:flex-row md:gap-16">
-        <div className="flex flex-col w-full gap-1 flex-grow min-w-0">
+        <div className="flex flex-col flex-grow w-full min-w-0 gap-1">
           <Typography variant="h5" fontWeight={700} color="white">
             별점 분포
           </Typography>
@@ -238,7 +238,7 @@ const MyPage = () => {
             <ScoreChart data={starsData} />
           </div>
         </div>
-        <div className="flex flex-col w-full gap-1 flex-grow min-w-0">
+        <div className="flex flex-col flex-grow w-full min-w-0 gap-1">
           <Typography variant="h5" fontWeight={700} color="white">
             선호 태그
           </Typography>
@@ -250,7 +250,7 @@ const MyPage = () => {
 
       {/* 선호 감독, 배우 */}
       <div className="flex flex-col w-full gap-4 mb-8 lg:flex-row lg:gap-16">
-        <div className="flex flex-col w-full max-w-full gap-1 min-w-0">
+        <div className="flex flex-col w-full max-w-full min-w-0 gap-1">
           <Typography variant="h5" fontWeight={700} color="white">
             선호 감독
           </Typography>
@@ -266,7 +266,7 @@ const MyPage = () => {
             ))}
           </div>
         </div>
-        <div className="flex flex-col w-full max-w-full gap-1 min-w-0">
+        <div className="flex flex-col w-full max-w-full min-w-0 gap-1">
           <Typography variant="h5" fontWeight={700} color="white">
             선호 배우
           </Typography>
@@ -285,10 +285,10 @@ const MyPage = () => {
       </div>
 
       {/* 포스터 수집 */}
-      <div className="flex flex-col mb-5 w-full">
+      <div className="flex flex-col w-full mb-5">
         <PosterSlide data={posters} />
       </div>
-      <SwiperCommentList title={"내가 작성한 댓글"} data={myReviews} />
+      <SwiperCommentList title={"내가 작성한 리뷰"} data={myReviews} />
       <LikesModal open={likesOpen} handleClose={handleLikesClose} />
       <ProfileEditModal
         open={profileOpen}

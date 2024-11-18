@@ -81,7 +81,8 @@ const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
 
   const handleKakaoLogin = () => {
     // window.location.href = "http://3.38.104.1:8080/cinewall/auth/oauth2/kakao";
-    window.location.href = "https://3.38.104.1:8080/cinewall/auth/oauth2/kakao";
+    window.location.href =
+      "https://api.cinewall.shop/cinewall/auth/oauth2/kakao";
   };
 
   // 로그인

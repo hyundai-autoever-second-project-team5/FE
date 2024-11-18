@@ -15,7 +15,7 @@ function KakaoTemp() {
       setCookie("accessToken", accessToken);
 
       // 서버에 사용자 정보 요청
-      fetch("https://3.38.104.1:8080/cinewall/user/info", {
+      fetch("https://api.cinewall.shop/cinewall/user/info", {
         method: "GET",
       })
         .then((response) => {
