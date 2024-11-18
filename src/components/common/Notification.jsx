@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
-import { createEventSource } from "../../api/sse";
 
 const Notification = () => {
   const [bellAnchorEl, setBellAnchorEl] = useState(null);
@@ -12,21 +11,34 @@ const Notification = () => {
 
   // 컴포넌트 마운트 시 SSE 연결 설정
   useEffect(() => {
-    // SSE 연결 설정
-    eventSourceRef.current = createEventSource("http://localhost:8080/subscribe");
+    // SSE 연결
+    const eventSource = new EventSource("https://3.38.104.1:8080/subscribe");
 
-    eventSourceRef.current.onmessage = (e) => {
-      const data = JSON.parse(e.data);
-      console.log("Received SSE message:", data);
-      setNotifications((prev) => [...prev, data]);
+    eventSource.onopen = () => {
+      console.log("SSE 연결 열림!");
     };
 
-    eventSourceRef.current.onerror = (error) => {
-      console.error("SSE connection error:", error);
-      if (eventSourceRef.current) {
-        eventSourceRef.current.close();
-      }
+    eventSource.addEventListener("follow", (event) => {
+      const data = JSON.parse(event.data);
+      console.log("새로운 팔로우 요청:", data);
+
+      setNotifications((prev) => [
+        ...prev,
+        {
+          id: data.follower_id,
+          message: `${data.from_user_nickname}님이 팔로우를 시작했습니다.`,
+          profileUrl: data.from_user_profile_url,
+        },
+      ]);
+    });
+
+    eventSource.onerror = (error) => {
+      console.error("SSE 오류:", error);
+      eventSource.close();
     };
+
+    // Ref로 EventSource 저장
+    eventSourceRef.current = eventSource;
 
     // 컴포넌트 언마운트 시 SSE 연결 종료
     return () => {
@@ -35,7 +47,7 @@ const Notification = () => {
         eventSourceRef.current = null;
       }
     };
-  }, []);
+  }, []); // 의존성 배열이 비어 있으므로 컴포넌트 마운트 시 한 번만 실행
 
   const handleBellOpen = (e) => {
     setBellAnchorEl(e.currentTarget);
@@ -77,13 +89,11 @@ const Notification = () => {
         {notifications.length > 0 ? (
           notifications.map((notif, index) => (
             <MenuItem key={index} sx={{ paddingY: "12px" }}>
-              {notif.from_user_nickname}님이 팔로우를 시작했습니다.
+              {notif.message}
             </MenuItem>
           ))
         ) : (
-          <MenuItem sx={{ paddingY: "12px" }}>
-            새로운 알림이 없습니다.
-          </MenuItem>
+          <MenuItem sx={{ paddingY: "12px" }}>새로운 알림이 없습니다.</MenuItem>
         )}
       </Menu>
     </>

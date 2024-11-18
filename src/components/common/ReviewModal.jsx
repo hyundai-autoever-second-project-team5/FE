@@ -10,7 +10,12 @@ import React, { useEffect, useState } from "react";
 import Rate from "rc-rate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { getReviewDetail, postReview, updateReview, deleteReview  } from "../../api/review";
+import {
+  getReviewDetail,
+  postReview,
+  updateReview,
+  deleteReview,
+} from "../../api/review";
 
 const ReviewModal = ({
   open,
@@ -20,9 +25,8 @@ const ReviewModal = ({
   movieTitle,
   posterSrc,
   reviewId,
-  mode = "create", 
+  mode = "create",
   writerId,
-  
 }) => {
   const isTablet = useMediaQuery("(max-width:680px)");
   const [isEditMode, setIsEditMode] = useState(false);
