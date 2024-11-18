@@ -20,6 +20,10 @@ const Notification = () => {
       console.log("SSE 연결 열림!");
     };
 
+    eventSource.onmessage = (ev) => {
+      console.log(ev.data);
+    };
+
     eventSource.addEventListener("follow", (event) => {
       const data = JSON.parse(event.data);
       console.log("새로운 팔로우 요청:", data);

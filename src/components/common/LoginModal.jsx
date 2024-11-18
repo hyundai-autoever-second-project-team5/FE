@@ -88,9 +88,10 @@ const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
       new Promise((resolve) => {
         setCookie("accessToken", token);
         resolve();
-      }).then(() => handleSurveyOpen());
+      })
+        .then(() => refetch())
+        .then(() => handleSurveyOpen());
       handleClose();
-      refetch();
     });
   };
 

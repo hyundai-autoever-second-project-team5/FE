@@ -20,10 +20,13 @@ const Comment = ({
   likes,
   heart,
   updateLike, // 부모로부터 전달받은 함수
+  reviewId,
 }) => {
   const [open, setOpen] = React.useState(false);
   const { refetch } = useGetComments();
   const navigation = useNavigate();
+  const [liked, setLiked] = React.useState(heart);
+  const [heartCount, setHearCount] = React.useState(likes);
 
   const handleClose = () => {
     setOpen(false);
@@ -32,12 +35,16 @@ const Comment = ({
   const handleLike = async (e) => {
     e.stopPropagation(); // 부모의 onClick 이벤트 방지
     try {
-      if (heart) {
-        await detailunlikeReview(id);
-        updateLike(id, false); // 부모 상태 업데이트 호출
+      if (liked) {
+        await detailunlikeReview(reviewId);
+        setLiked(false);
+        setHearCount(heartCount - 1);
+        updateLike(reviewId, false);
       } else {
-        await detaillikeReview(id);
-        updateLike(id, true); // 부모 상태 업데이트 호출
+        await detaillikeReview(reviewId);
+        setLiked(true);
+        setHearCount(heartCount + 1);
+        updateLike(reviewId, true);
       }
     } catch (error) {
       console.error("좋아요 처리에 실패했습니다.", error);
@@ -86,10 +93,10 @@ const Comment = ({
             <IconButton>
               <FontAwesomeIcon
                 icon={faThumbsUp}
-                color={heart ? "yellow" : "white"}
+                color={liked ? "yellow" : "white"}
               />
             </IconButton>
-            <Typography variant="caption">{likes}</Typography>
+            <Typography variant="caption">{heartCount}</Typography>
           </div>
           {/* 
           <div className="flex flex-row items-center">
@@ -106,8 +113,6 @@ const Comment = ({
         handleClose={handleClose}
         posterSrc={posterSrc}
         reviewId={id}
-        mode="view"
-        writerId={writerId}
       />
     </>
   );

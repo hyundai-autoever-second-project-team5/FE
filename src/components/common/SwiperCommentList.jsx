@@ -42,6 +42,7 @@ const SwiperCommentList = ({ title, data, rows = 2, updateLike }) => {
         {data?.map((item) => (
           <SwiperSlide key={item?.reviewId}>
             <Comment
+              reviewId={item.reviewId}
               id={item?.movie_id || item?.movieId}
               profileSrc={item?.profileUrl || item?.user?.profile_url}
               writerId={item?.userId || item?.user?.id}
