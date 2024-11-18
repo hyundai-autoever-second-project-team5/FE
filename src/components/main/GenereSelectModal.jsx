@@ -1,16 +1,15 @@
 import { Box, Button, Modal, Typography, useMediaQuery } from "@mui/material";
-import React, { useEffect } from "react";
+import React from "react";
 import { useGetUserInfo } from "../../hook/useGetUserInfo";
 import { getCookie } from "../../api/cookie";
-import { getMovieSurvey, postMovieSurvey } from "../../api/main";
+import { postMovieSurvey } from "../../api/main";
+import { useGetSurveyMovies } from "../../hook/useGetSurveyMovies";
 
 const GenereSelectModal = ({ open, handleClose }) => {
   const isTablet = useMediaQuery("(max-width:680px)");
   const { data } = useGetUserInfo(getCookie("accessToken"));
-  const [movies, setSurveyMovies] = React.useState([]);
+  const { data: movies } = useGetSurveyMovies(getCookie("accessToken"));
   const [result, setResult] = React.useState([]);
-
-  console.log(result);
 
   const handleMovieClick = (genreId) => {
     const id = Number(genreId);
@@ -32,11 +31,11 @@ const GenereSelectModal = ({ open, handleClose }) => {
     });
   };
 
-  useEffect(() => {
-    getMovieSurvey().then((res) => {
-      setSurveyMovies(res);
-    });
-  }, []);
+  // useEffect(() => {
+  //   getMovieSurvey().then((res) => {
+  //     setSurveyMovies(res);
+  //   });
+  // }, []);
   return (
     <Modal
       className="bg-black bg-opacity-40 backdrop-blur-sm"

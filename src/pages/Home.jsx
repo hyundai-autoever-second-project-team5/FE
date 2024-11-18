@@ -39,19 +39,23 @@ const Home = () => {
     getPowerReview().then((res) => {
       setPowerReviews(res);
     });
-    getMovieLikes().then((res) => {
-      setUserLikes(res);
-    });
+    if (userData) {
+      getMovieLikes().then((res) => {
+        setUserLikes(res);
+      });
+    }
     getPowerReview().then((res) => {
       setPowerReviews(res);
     });
     getMovieRecommend().then((res) => {
       setRecommends(res);
     });
-    // getMovieReview().then((res) => {
-    //   setReviews(res);
-    // });
+  }, [userData]);
+
+  useEffect(() => {
+
   }, []);
+
   return (
     <>
       <div className="w-full m-auto">

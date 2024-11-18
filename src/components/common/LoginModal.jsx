@@ -19,9 +19,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
 import { getCookie, setCookie } from "../../api/cookie";
 import { useGetUserInfo } from "../../hook/useGetUserInfo";
+import { useGetSurveyMovies } from "../../hook/useGetSurveyMovies";
 
 const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
   const { data, refetch } = useGetUserInfo(getCookie("accessToken"));
+  const { refetch: surveyRefetch } = useGetSurveyMovies(
+    getCookie("accessToken")
+  );
   const [isLogin, setIsLogin] = useState(true);
   const isMobile = useMediaQuery("(max-width:550px)");
   const [loginData, setLoginData] = React.useState({
@@ -42,6 +46,7 @@ const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
     certificationNumber: "pending",
   });
   const [emailHelperText, setEmailHelperText] = useState("");
+
   const [imageUrl, setImageUrl] = useState("");
 
   const isSignUpDisabled = !(
@@ -88,10 +93,12 @@ const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
         setCookie("accessToken", token);
         resolve();
       })
-        .then(() => refetch())
         .then(() => {
-          // 설문조사 안한 경우 설문조사 창 이동
-          if (!data?.survey) {
+          refetch();
+        })
+        .then((userData) => {
+          if (userData?.data?.survey === false) {
+            surveyRefetch();
             handleSurveyOpen();
           }
         });
