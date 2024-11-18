@@ -41,7 +41,7 @@ const SwiperCardList = ({ title, data = [], rank }) => {
           data?.map((item, index) => (
             <SwiperSlide>
               <Card
-                id={item?.movie_id}
+                id={item?.movie_id || item?.movieId}
                 posterSrc={
                   item?.poster_path ||
                   item?.posterPath ||
