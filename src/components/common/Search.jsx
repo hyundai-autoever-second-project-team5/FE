@@ -29,30 +29,21 @@ const Search = () => {
     debounce((value) => {
       if (value.trim() !== "") {
         navigate(`/search?query=${encodeURIComponent(value)}`);
+      } else {
+        // 입력값이 비어있으면 메인 페이지로 이동
+        navigate(`/`);
       }
     }, 300),
     [navigate]
   );
 
-  useEffect(() => {
-    const initialQuery = searchParams.get("query") || "";
-    if (initialQuery) {
-      setQuery(initialQuery);
-      navigate(`/search?query=${encodeURIComponent(initialQuery)}`);
-    }
-  }, [searchParams, navigate]);
-
   const handleInputChange = (e) => {
     const value = e.target.value;
     setQuery(value);
+
+    // 실시간으로 반영
     debouncedHandleInputChange(value);
   };
-
-  // const handleKeyPress = (e) => {
-  //   if (e.key === "Enter") {
-  //     handleSearch();
-  //   }
-  // };
 
   return (
     <div className="relative flex flex-row rounded-lg px-2 max-w-[210px] items-center bg-white bg-opacity-20 backdrop-blur-md">
@@ -63,7 +54,6 @@ const Search = () => {
         type="text"
         value={query}
         onChange={handleInputChange}
-        // onKeyPress={handleKeyPress}
         className="w-full bg-transparent border-none focus:outline-none"
       />
       {query.length > 0 && <SearchComp query={query} />}
