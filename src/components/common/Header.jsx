@@ -50,6 +50,28 @@ const Header = () => {
     });
   };
 
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  // 모달이 열릴 때 스크롤 비활성화, 닫힐 때 복구
+  useEffect(() => {
+    if (open || anchorEl) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [open, anchorEl]);
+
+
   return (
     <>
       <div
