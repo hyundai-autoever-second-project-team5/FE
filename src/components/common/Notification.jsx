@@ -12,7 +12,9 @@ const Notification = () => {
   // 컴포넌트 마운트 시 SSE 연결 설정
   useEffect(() => {
     // SSE 연결
-    const eventSource = new EventSource("https://3.38.104.1:8080/subscribe");
+    const eventSource = new EventSource("https://api.cinewall.shop/subscribe", {
+      credentials: "include", // 쿠키 및 인증 정보를 포함시킴
+    });
 
     eventSource.onopen = () => {
       console.log("SSE 연결 열림!");
