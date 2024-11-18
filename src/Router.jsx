@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import MyPage from "./pages/MyPage";
 import Detail from "./pages/Detail";
 import Search from "./pages/Search";
+import Kakao from "./pages/KakaoTemp";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,11 @@ const router = createBrowserRouter([
       {
         path: "search",
         element: <Search />,
-      }
+      },
+      {
+        path: "kakao",
+        element: <Kakao />,
+      },
     ],
   },
 ]);
