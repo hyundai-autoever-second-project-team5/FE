@@ -13,7 +13,7 @@ const Notification = () => {
   useEffect(() => {
     // SSE 연결
     const eventSource = new EventSource("https://api.cinewall.shop/subscribe", {
-      credentials: "include", // 쿠키 및 인증 정보를 포함시킴
+      withCredentials: true, // 쿠키 및 인증 정보를 포함시킴
     });
 
     eventSource.onopen = () => {
