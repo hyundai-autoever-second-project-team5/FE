@@ -7,8 +7,9 @@ export const setCookie = (name, value, option = {}) => {
   return new Promise((resolve) => {
     cookies.set(name, value, {
       path: "/",
-      secure: true,
-      sameSite: "None",
+      secure: true, // HTTPS에서만 사용 가능
+      sameSite: "None", // 다른 도메인에서도 쿠키 전송 허용
+      domain: ".cinewall.shop", // 특정 도메인 설정 (필요 시 변경)
       ...option,
     });
     resolve();
@@ -27,6 +28,7 @@ export const removeCookie = (name, option = {}) => {
       path: "/",
       secure: true,
       sameSite: "None",
+      domain: ".cinewall.shop", // 특정 도메인 설정 (필요 시 변경)
       ...option,
     });
     resolve();
