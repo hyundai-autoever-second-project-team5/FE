@@ -14,6 +14,36 @@ export const postReview = async (reviews) => {
   }
 };
 
+// 영화 리뷰 수정
+export const updateReview = async (reviewId, reviewData) => {
+  try {
+    const response = await client.put(
+      `/cinewall/movie/reviews/${reviewId}`,
+      {
+        rating: reviewData.rate,
+        content: reviewData.content
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Failed to update review", error);
+    throw error;
+  }
+};
+
+// 영화 리뷰 삭제
+export const deleteReview = async (reviewId) => {
+  try {
+    const response = await client.delete(
+      `/cinewall/movie/reviews/${reviewId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Failed to delete review", error);
+    throw error;
+  }
+};
+
 // 사용자 작성 리뷰 전체 조회
 export const getUserReviews = async (userId) => {
   try {

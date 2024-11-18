@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const PROXY = window.location.hostname === "localhost" 
-  ? "http://api.cinewall.shop:8080" 
+  ? "http://api.cinewall.shop" 
   : "/proxy"; 
 const URL = `${PROXY}`;
 
