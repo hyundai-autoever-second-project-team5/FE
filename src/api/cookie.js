@@ -30,7 +30,6 @@ export const removeCookie = (name, option = {}) => {
       sameSite: "None",
       domain: ".cinewall.shop", // 특정 도메인 설정 (필요 시 변경)
       ...option,
-      npm,
     });
     resolve();
   });
