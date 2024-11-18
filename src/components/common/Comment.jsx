@@ -25,6 +25,10 @@ const Comment = ({
   const { refetch } = useGetComments();
   const navigation = useNavigate();
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const handleLike = async (e) => {
     e.stopPropagation(); // 부모의 onClick 이벤트 방지
     try {
@@ -99,7 +103,8 @@ const Comment = ({
       </div>
       <ReviewModal
         open={open}
-        closeModal={() => setOpen(false)}
+        handleClose={handleClose}
+        posterSrc={posterSrc}
         reviewId={id}
       />
     </>

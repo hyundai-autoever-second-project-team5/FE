@@ -70,10 +70,10 @@ const Home = () => {
             <SwiperCardList title={"효원님의 찜리스트"} data={userLikes} />
           )}
           {reviews?.length && (
-            <SwiperCommentList title={"최신 댓글"} data={reviews} />
+            <SwiperCommentList title={"최신 리뷰"} data={reviews} />
           )}
           {powerReviews.length && (
-            <SwiperCommentList title={"파워 댓글"} data={powerReviews} />
+            <SwiperCommentList title={"파워 리뷰"} data={powerReviews} />
           )}
         </div>
       </div>

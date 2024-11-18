@@ -40,19 +40,19 @@ const SwiperCommentList = ({ title, data, rows = 2, updateLike }) => {
         }}
       >
         {data?.map((item) => (
-          <SwiperSlide key={item.reviewId}>
+          <SwiperSlide key={item?.reviewId}>
             <Comment
-              id={item.reviewId}
-              profileSrc={item.profileUrl || item.user.profile_url}
-              writerId={item.userId || item.user.id}
-              writer={item.nickname || item.user.nickname}
-              title={item.title}
-              content={item.content}
-              score={item.rating}
-              posterSrc={item.posterPath || item.movie.posterPath}
-              likes={item.heartCount}
-              heart={item.heart}
-              updateLike={updateLike} // 함수 전달
+              id={item?.reviewId}
+              profileSrc={item?.profileUrl || item?.user?.profile_url}
+              writerId={item?.userId || item?.user?.id}
+              writer={item?.nickname || item?.user?.nickname}
+              title={item?.title}
+              content={item?.content}
+              score={item?.rating}
+              posterSrc={item?.posterPath || item?.movie?.posterPath}
+              likes={item?.heartCount}
+              heart={item?.heart}
+              updateLike={updateLike}
             />
           </SwiperSlide>
         ))}
