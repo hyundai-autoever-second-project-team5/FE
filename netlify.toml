@@ -1,6 +1,6 @@
 [[redirects]]
 from = "/proxy/*"
-to = "http://3.38.104.1:8080/:splat"
+to = "https://api.cinewall.shop"
 status = 200
 force = true
 
