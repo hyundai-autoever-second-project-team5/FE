@@ -55,7 +55,6 @@ export const getUserReviews = async (userId) => {
   }
 };
 
-// 영화 리뷰 상세 조회
 export const getReviewDetail = async (reviewId) => {
   try {
     const response = await client.get(`/cinewall/review/detail/${reviewId}`);

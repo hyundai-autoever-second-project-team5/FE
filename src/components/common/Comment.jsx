@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconButton, Typography } from "@mui/material";
 import Rate from "rc-rate";
 import React, { useEffect } from "react";
-import ReviewModal from "./ReviewModal";
+import ReviewDetailModal from "./ReviewDetailModal";
 import { detaillikeReview, detailunlikeReview } from "../../api/detail";
 import { useGetComments } from "../../hook/useGetComments";
 import { useNavigate } from "react-router-dom";
@@ -91,21 +91,15 @@ const Comment = ({
             </IconButton>
             <Typography variant="caption">{likes}</Typography>
           </div>
-          {/* 
-          <div className="flex flex-row items-center">
-            <IconButton>
-              <FontAwesomeIcon icon={faComment} color="white" />
-            </IconButton>
-            <Typography variant="caption">{comments}</Typography>
-          </div> 
-          */}
         </div>
       </div>
-      <ReviewModal
+      <ReviewDetailModal
         open={open}
         handleClose={handleClose}
         posterSrc={posterSrc}
         reviewId={id}
+        content={content}
+        writerId={writerId}
       />
     </>
   );
