@@ -1,10 +1,9 @@
 import axios from "axios";
 
-const PROXY = window.location.hostname === "localhost" ? "" : "/proxy";
-const URL = `${PROXY}`;
+const BASE_URL = "https://api.cinewall.shop";
 
 const client = axios.create({
-  baseURL: URL,
+  baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
     // "Access-Control-Allow-Origin": "http://3.38.104.1:8080",
@@ -15,3 +14,4 @@ const client = axios.create({
 });
 
 export default client;
+
