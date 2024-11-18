@@ -11,6 +11,18 @@ export const getLikedActors = async (userId) => {
   }
 };
 
+// 사용자별 찜 개수
+export const getFavoriteByUser = async () => {
+  try {
+    const response = await client.get(`/cinewall/movieFavorite/count`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to get actors", error);
+    throw error;
+  }
+};
+
 // 선호 감독 조회
 export const getLikedDirectors = async (userId) => {
   try {
