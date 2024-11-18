@@ -6,16 +6,11 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Rate from "rc-rate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import {
-  getReviewDetail,
-  postReview,
-  updateReview,
-  deleteReview,
-} from "../../api/review";
+import { getReviewDetail, postReview } from "../../api/review";
 
 const ReviewModal = ({
   open,
@@ -24,63 +19,29 @@ const ReviewModal = ({
   movieId,
   movieTitle,
   posterSrc,
-  reviewId,
-  mode = "create",
-  writerId,
 }) => {
   const isTablet = useMediaQuery("(max-width:680px)");
-  const [isEditMode, setIsEditMode] = useState(false);
-  const currentUserId = localStorage.getItem("userId");
-  const isOwner = currentUserId === writerId?.toString();
-
-  const [review, setReview] = useState({
+  const [newReviews, setNewReviews] = React.useState({
     id: movieId,
     rate: rate,
     content: "",
   });
 
+  const handlePostReview = () => {
+    postReview(newReviews).then((res) => {
+      console.log(res);
+    });
+  };
+
   useEffect(() => {
-    if (mode === "view" && reviewId) {
-      getReviewDetail(reviewId).then((res) => {
-        setReview({
-          id: res.movieId,
-          rate: res.rating,
-          content: res.content,
-        });
-      });
-    } else {
-      setReview({
-        id: movieId,
-        rate: rate,
-        content: "",
-      });
-    }
-  }, [movieId, rate, mode, reviewId]);
-
-  const handlePostReview = async () => {
-    try {
-      if (mode === "edit" || isEditMode) {
-        await updateReview(reviewId, {
-          rate: review.rate,
-          content: review.content,
-        });
-      } else {
-        await postReview(review);
-      }
-      handleClose();
-    } catch (error) {
-      console.error("리뷰 처리 실패", error);
-    }
-  };
-
-  const handleDelete = async () => {
-    try {
-      await deleteReview(reviewId);
-      handleClose();
-    } catch (error) {
-      console.error("리뷰 삭제 실패", error);
-    }
-  };
+    setNewReviews({
+      ...newReviews,
+      id: movieId,
+      rate: rate,
+      content: "",
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [movieId, rate]);
 
   return (
     <Modal
@@ -102,13 +63,8 @@ const ReviewModal = ({
         }}
       >
         <Typography variant="h5" style={{ fontWeight: "600" }}>
-          {mode === "create"
-            ? "리뷰 작성"
-            : isEditMode
-            ? "리뷰 수정"
-            : "리뷰 상세"}
+          리뷰 작성
         </Typography>
-
         <div className="flex flex-row gap-5 mt-2">
           <img
             src={
@@ -123,73 +79,38 @@ const ReviewModal = ({
               {movieTitle}
             </Typography>
             <Rate
-              value={review.rate}
+              value={newReviews.rate}
               allowHalf
               character={
                 <FontAwesomeIcon icon={faStar} style={{ fontSize: "24px" }} />
               }
-              onChange={(value) => setReview({ ...review, rate: value })}
-              disabled={mode === "view" && !isEditMode}
+              onChange={(value) =>
+                setNewReviews({ ...newReviews, rate: value })
+              }
             />
             <TextField
-              value={review.content}
+              value={newReviews?.content}
               multiline
-              rows={5}
+              rows={5} // 원하는 줄 수 설정
               fullWidth
               variant="outlined"
               placeholder="리뷰를 작성해주세요."
               onChange={(e) =>
-                setReview({ ...review, content: e.target.value })
+                setNewReviews({ ...newReviews, content: e.target.value })
               }
-              disabled={mode === "view" && !isEditMode}
             />
-
             <div className="flex flex-row justify-end gap-2 mt-auto">
-              {mode === "view" && isOwner && !isEditMode && (
-                <>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => setIsEditMode(true)}
-                  >
-                    수정
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="error"
-                    onClick={handleDelete}
-                  >
-                    삭제
-                  </Button>
-                </>
-              )}
-              {(mode === "create" || isEditMode) && (
-                <>
-                  <Button
-                    variant="contained"
-                    color="inherit"
-                    onClick={handleClose}
-                  >
-                    취소
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="inherit"
-                    onClick={handlePostReview}
-                  >
-                    {isEditMode ? "수정완료" : "리뷰작성"}
-                  </Button>
-                </>
-              )}
-              {mode === "view" && !isEditMode && (
-                <Button
-                  variant="contained"
-                  color="inherit"
-                  onClick={handleClose}
-                >
-                  닫기
-                </Button>
-              )}
+              <Button variant="contained" color="inherit" onClick={handleClose}>
+                취소
+              </Button>
+              <Button
+                variant="contained"
+                color="inherit"
+                onClick={handlePostReview}
+                handleClose={handleClose}
+              >
+                리뷰작성
+              </Button>
             </div>
           </div>
         </div>

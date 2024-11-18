@@ -106,8 +106,6 @@ const Comment = ({
         handleClose={handleClose}
         posterSrc={posterSrc}
         reviewId={id}
-        mode="view"
-        writerId={writerId}
       />
     </>
   );
