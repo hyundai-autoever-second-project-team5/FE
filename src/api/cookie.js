@@ -5,6 +5,8 @@ const cookies = new Cookies();
 
 const options = {
   path: "/",
+  secure: true,
+  sameSite: "None",
 };
 //쿠키에 값을 저장할때
 export const setCookie = (name, value, option) => {
