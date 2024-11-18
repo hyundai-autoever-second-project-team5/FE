@@ -50,7 +50,6 @@ const Header = () => {
     });
   };
 
-  
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
@@ -70,7 +69,6 @@ const Header = () => {
       document.body.style.overflow = "auto";
     }
   }, [open, anchorEl]);
-
 
   return (
     <>
