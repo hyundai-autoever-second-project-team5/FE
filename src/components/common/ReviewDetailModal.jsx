@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { getReviewDetail, updateReview, deleteReview } from "../../api/review";
 import { useGetUserInfo } from "../../hook/useGetUserInfo";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ReviewDetailModal = ({
   open,
@@ -21,6 +22,8 @@ const ReviewDetailModal = ({
   content,
   writerId,
 }) => {
+  const queryClient = useQueryClient();
+
   const isTablet = useMediaQuery("(max-width:680px)");
   const [isEditing, setIsEditing] = useState(false);
   const [review, setReview] = useState({
@@ -57,6 +60,7 @@ const ReviewDetailModal = ({
         rate: review.rating,
         content: review.content,
       });
+      queryClient.invalidateQueries({ queryKey: ["comments"] }); // 쿼리 무효화
       setIsEditing(false);
       handleClose();
     } catch (error) {
@@ -64,9 +68,11 @@ const ReviewDetailModal = ({
     }
   };
 
+
   const handleDelete = async () => {
     try {
       await deleteReview(reviewId);
+      queryClient.invalidateQueries({ queryKey: ["comments"] }); // 쿼리 무효화
       handleClose();
     } catch (error) {
       console.error("리뷰 삭제 실패", error);

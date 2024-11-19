@@ -15,16 +15,16 @@ import { useGetComments } from "../hook/useGetComments";
 import { useGetUserInfo } from "../hook/useGetUserInfo";
 import { getCookie } from "../api/cookie";
 import { useGetUserMovies } from "../hook/useGetUserMovies";
+import { useGetPowerReviews } from "../hook/useGetPowerReview";
 
 const Home = () => {
   const { data: userData } = useGetUserInfo(getCookie("accessToken"));
   const { data: reviews } = useGetComments();
+  const { data: powerReviews = [] } = useGetPowerReviews(); 
   const { data: userMovies } = useGetUserMovies(getCookie("accessToken"));
   const [trailers, setTrailers] = React.useState([]);
   const [latests, setLatests] = React.useState([]);
   const [populars, setPopulars] = React.useState([]);
-  // const [reviews, setReviews] = React.useState([]);
-  const [powerReviews, setPowerReviews] = React.useState([]);
   const [userLikes, setUserLikes] = React.useState([]);
   const [recommends, setRecommends] = React.useState([]);
 
@@ -38,17 +38,11 @@ const Home = () => {
     getMoviePopular().then((res) => {
       setPopulars(res);
     });
-    getPowerReview().then((res) => {
-      setPowerReviews(res);
-    });
     if (userData) {
       getMovieLikes().then((res) => {
         setUserLikes(res);
       });
     }
-    getPowerReview().then((res) => {
-      setPowerReviews(res);
-    });
     getMovieRecommend().then((res) => {
       setRecommends(res);
     });
@@ -60,29 +54,29 @@ const Home = () => {
         <Spotlight />
         <SwiperHeader data={trailers} />
         <div className="relative w-full max-w-[1400px] m-auto px-5 py-5 -mt-40 z-20 min-h-screen">
-          {populars.length && (
+          {populars?.length > 0 && (
             <SwiperCardList title={"평점순"} data={populars} rank={true} />
           )}
-          {latests.length && <SwiperCardList title={"최신순"} data={latests} />}
-          {recommends.length && (
+          {latests?.length > 0 && <SwiperCardList title={"최신순"} data={latests} />}
+          {recommends?.length > 0 && (
             <SwiperCardList title={"추천순"} data={recommends} />
           )}
-          {userMovies && userMovies?.length && (
+          {userMovies?.length > 0 && (
             <SwiperCardList
               title={`${userData?.nickname}님 이런 영화는 어때요?`}
               data={userMovies}
             />
           )}
-          {userLikes?.length && (
+          {userLikes?.length > 0 && (
             <SwiperCardList
               title={`${userData?.nickname}님의 찜리스트`}
               data={userLikes}
             />
           )}
-          {reviews?.length && (
+          {reviews?.length > 0 && (
             <SwiperCommentList title={"최신 리뷰"} data={reviews} />
           )}
-          {powerReviews.length && (
+          {powerReviews?.length > 0 && (
             <SwiperCommentList title={"파워 리뷰"} data={powerReviews} />
           )}
         </div>

@@ -220,7 +220,7 @@ const MyPage = () => {
           </div>
           <div className="flex flex-col items-center w-full p-10 bg-white rounded-md bg-opacity-20 backdrop-blur-md">
             <Typography variant="h4">{myReviews?.length}</Typography>
-            <Typography variant="h6">코멘트</Typography>
+            <Typography variant="h6">리뷰</Typography>
           </div>
           <div
             className="flex flex-col items-center w-full p-10 bg-white rounded-md cursor-pointer bg-opacity-20 backdrop-blur-md"

@@ -28,7 +28,7 @@ const Card = ({
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
-    setNewMyScore(false);
+    setNewMyScore(myScore);
   };
 
   // 모달이 열릴 때 스크롤 비활성화, 닫힐 때 복구
