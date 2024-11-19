@@ -50,7 +50,6 @@ const Header = () => {
     });
   };
 
-  
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
@@ -71,6 +70,12 @@ const Header = () => {
     }
   }, [open, anchorEl]);
 
+  // 설문조사 안한 경우, 창 띄우기
+  useEffect(() => {
+    if (data && data?.survey === false) {
+      setSurveyOpen(true);
+    }
+  }, [data]);
 
   return (
     <>

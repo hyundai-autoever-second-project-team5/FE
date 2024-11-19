@@ -19,9 +19,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
 import { getCookie, setCookie } from "../../api/cookie";
 import { useGetUserInfo } from "../../hook/useGetUserInfo";
+import { useGetSurveyMovies } from "../../hook/useGetSurveyMovies";
 
 const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
-  const { refetch } = useGetUserInfo(getCookie("accessToken"));
+  const { data, refetch } = useGetUserInfo(getCookie("accessToken"));
+  const { refetch: surveyRefetch } = useGetSurveyMovies(
+    getCookie("accessToken")
+  );
   const [isLogin, setIsLogin] = useState(true);
   const isMobile = useMediaQuery("(max-width:550px)");
   const [loginData, setLoginData] = React.useState({
@@ -42,6 +46,7 @@ const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
     certificationNumber: "pending",
   });
   const [emailHelperText, setEmailHelperText] = useState("");
+
   const [imageUrl, setImageUrl] = useState("");
 
   const isSignUpDisabled = !(
@@ -75,7 +80,9 @@ const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
   };
 
   const handleKakaoLogin = () => {
-    window.location.href = "http://3.38.104.1:8080/cinewall/auth/oauth2/kakao";
+    // window.location.href = "http://3.38.104.1:8080/cinewall/auth/oauth2/kakao";
+    window.location.href =
+      "https://api.cinewall.shop/cinewall/auth/oauth2/kakao";
   };
 
   // 로그인
@@ -86,9 +93,17 @@ const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
       new Promise((resolve) => {
         setCookie("accessToken", token);
         resolve();
-      }).then(() => handleSurveyOpen());
+      })
+        .then(() => {
+          refetch();
+        })
+        .then((userData) => {
+          if (userData?.data?.survey === false) {
+            surveyRefetch();
+            handleSurveyOpen();
+          }
+        });
       handleClose();
-      refetch();
     });
   };
 

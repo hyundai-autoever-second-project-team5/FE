@@ -11,13 +11,12 @@ import {
   getMovieTrailer,
   getPowerReview,
 } from "../api/main";
-import GenereSelectModal from "../components/main/GenereSelectModal";
-import useModalStore from "../store/store";
 import { useGetComments } from "../hook/useGetComments";
+import { useGetUserInfo } from "../hook/useGetUserInfo";
+import { getCookie } from "../api/cookie";
 
 const Home = () => {
-  const surveyOpen = useModalStore((state) => state.surveyOpen);
-
+  const { data: userData } = useGetUserInfo(getCookie("accessToken"));
   const { data: reviews } = useGetComments();
   const [trailers, setTrailers] = React.useState([]);
   const [latests, setLatests] = React.useState([]);
@@ -40,19 +39,23 @@ const Home = () => {
     getPowerReview().then((res) => {
       setPowerReviews(res);
     });
-    getMovieLikes().then((res) => {
-      setUserLikes(res);
-    });
+    if (userData) {
+      getMovieLikes().then((res) => {
+        setUserLikes(res);
+      });
+    }
     getPowerReview().then((res) => {
       setPowerReviews(res);
     });
     getMovieRecommend().then((res) => {
       setRecommends(res);
     });
-    // getMovieReview().then((res) => {
-    //   setReviews(res);
-    // });
+  }, [userData]);
+
+  useEffect(() => {
+
   }, []);
+
   return (
     <>
       <div className="w-full m-auto">
@@ -67,7 +70,10 @@ const Home = () => {
             <SwiperCardList title={"추천순"} data={recommends} />
           )}
           {userLikes.length && (
-            <SwiperCardList title={"효원님의 찜리스트"} data={userLikes} />
+            <SwiperCardList
+              title={`${userData?.nickname}님의 찜리스트`}
+              data={userLikes}
+            />
           )}
           {reviews?.length && (
             <SwiperCommentList title={"최신 리뷰"} data={reviews} />
@@ -77,7 +83,6 @@ const Home = () => {
           )}
         </div>
       </div>
-
     </>
   );
 };
