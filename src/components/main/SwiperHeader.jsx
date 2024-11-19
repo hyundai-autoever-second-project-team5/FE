@@ -46,9 +46,10 @@ const SwiperHeader = () => {
         disableOnInteraction: false,
       }}
     >
-      {movies.map((movie) => (
+      {movies.map((movie, index) => (
         <SwiperSlide key={movie.id}>
           <MainSection
+            movieId={movieIds[index]} // movieId를 MainSection에 전달
             videoUrl={movie.videoPath} // 동적 비디오 경로 전달
             movieTitle={movie.title}
             movieOverview={movie.overview}

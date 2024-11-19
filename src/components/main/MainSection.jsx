@@ -7,11 +7,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom"; // navigate 훅을 추가
 import { getUserInfo } from "../../api/user";
 
-const MainSection = ({ videoUrl, movieTitle, movieOverview }) => {
+const MainSection = ({ videoUrl, movieTitle, movieOverview, movieId }) => {
   const [isPlaying, setIsPlaying] = useState(true); // 비디오의 초기 상태는 '재생'으로 설정
   const videoRef = useRef(null); // 비디오 DOM 요소에 접근
+  const navigate = useNavigate(); // navigate 훅을 사용하여 페이지 이동
 
   const handleGetInfo = () => {
     getUserInfo().then((res) => {
@@ -32,6 +34,11 @@ const MainSection = ({ videoUrl, movieTitle, movieOverview }) => {
 
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying); // 상태 반전 (재생/정지)
+  };
+
+  // 상세 정보 버튼 클릭 시 navigate 호출
+  const handleNavigateToDetail = () => {
+    navigate(`/detail/${movieId}`); // 전달받은 movieId를 사용하여 상세 페이지로 이동
   };
 
   return (
@@ -82,12 +89,13 @@ const MainSection = ({ videoUrl, movieTitle, movieOverview }) => {
           >
             {isPlaying ? "정지" : "재생"} {/* 상태에 따라 버튼 텍스트 변경 */}
           </Button>
+          {/* 상세 정보 버튼 */}
           <Button
             variant="contained"
             color="inherit"
             startIcon={<FontAwesomeIcon icon={faCircleInfo} />}
             size="large"
-            onClick={handleGetInfo}
+            onClick={handleNavigateToDetail} // 상세 정보 페이지로 이동
           >
             상세 정보
           </Button>
