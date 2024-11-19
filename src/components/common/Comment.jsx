@@ -21,7 +21,6 @@ const Comment = ({
   likes,
   heart,
   updateLike, // 부모로부터 전달받은 함수
-  reviewId,
 }) => {
   const [open, setOpen] = React.useState(false);
   const { refetch } = useGetComments();
@@ -37,15 +36,15 @@ const Comment = ({
     e.stopPropagation(); // 부모의 onClick 이벤트 방지
     try {
       if (liked) {
-        await detailunlikeReview(reviewId);
+        await detailunlikeReview(id);
         setLiked(false);
         setHearCount(heartCount - 1);
-        updateLike(reviewId, false);
+        updateLike(id, false);
       } else {
-        await detaillikeReview(reviewId);
+        await detaillikeReview(id);
         setLiked(true);
         setHearCount(heartCount + 1);
-        updateLike(reviewId, true);
+        updateLike(id, true);
       }
     } catch (error) {
       console.error("좋아요 처리에 실패했습니다.", error);

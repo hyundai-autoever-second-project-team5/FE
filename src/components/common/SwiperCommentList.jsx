@@ -53,6 +53,7 @@ const SwiperCommentList = ({ title, data, rows = 2, updateLike }) => {
               likes={item?.heartCount}
               heart={item?.heart}
               updateLike={updateLike}
+              reviewId={item?.reviewId}
             />
           </SwiperSlide>
         ))}
