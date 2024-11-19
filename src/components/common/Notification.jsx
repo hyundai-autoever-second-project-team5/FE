@@ -86,12 +86,20 @@ const Notification = () => {
         PaperProps={{
           elevation: 0,
           sx: {
+            backgroundColor: "rgba(250, 250, 250, 0.4)",
+            backdropFilter: "blur(8px)",
             overflow: "visible",
             filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
             mt: 2,
+            borderRadius: "8px",
             minWidth: "250px",
-            maxHeight: "300px",
-            overflowY: "scroll",
+            "& .MuiMenuItem-root": {
+              padding: "12px 16px",
+              color: "black",
+              "&:hover": {
+                backgroundColor: "rgba(255, 255, 255, 0.2)",
+              },
+            },
           },
         }}
         MenuListProps={{
