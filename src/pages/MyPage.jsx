@@ -131,6 +131,8 @@ const MyPage = () => {
     }
   }, [data?.userId, profileUserId]);
 
+
+  console.log("Reviews:",myReviews);
   return (
     <div className="relative w-full max-w-[1400px] m-auto px-5 pt-20 pb-5 z-20">
       {/* 프로필 섹션 */}

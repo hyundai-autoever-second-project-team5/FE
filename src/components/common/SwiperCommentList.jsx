@@ -9,6 +9,8 @@ import { Grid, Pagination } from "swiper/modules";
 import Comment from "./Comment";
 
 const SwiperCommentList = ({ title, data, rows = 2, updateLike }) => {
+
+  
   return (
     <div className="mb-5 text-white">
       <Typography
@@ -39,12 +41,13 @@ const SwiperCommentList = ({ title, data, rows = 2, updateLike }) => {
           },
         }}
       >
-        {data?.map((item) => (
-          <SwiperSlide key={item?.reviewId}>
+        {data?.map((item) =>{
+          console.log('유저 ID:', item?.user?.userId);
+          return ( <SwiperSlide key={item?.reviewId}>
             <Comment
               id={item?.reviewId}
               profileSrc={item?.profileUrl || item?.user?.profile_url}
-              writerId={item?.userId || item?.user?.id}
+              writerId={item?.userId || item?.user?.userId || item?.user?.id }
               writer={item?.nickname || item?.user?.nickname}
               title={item?.title}
               content={item?.content}
@@ -56,7 +59,8 @@ const SwiperCommentList = ({ title, data, rows = 2, updateLike }) => {
               reviewId={item?.reviewId}
             />
           </SwiperSlide>
-        ))}
+        );
+        })}
       </Swiper>
     </div>
   );
