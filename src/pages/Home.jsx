@@ -19,7 +19,7 @@ import { useGetUserMovies } from "../hook/useGetUserMovies";
 const Home = () => {
   const { data: userData } = useGetUserInfo(getCookie("accessToken"));
   const { data: reviews } = useGetComments();
-  const { data: userMovies } = useGetUserMovies();
+  const { data: userMovies } = useGetUserMovies(getCookie("accessToken"));
   const [trailers, setTrailers] = React.useState([]);
   const [latests, setLatests] = React.useState([]);
   const [populars, setPopulars] = React.useState([]);
