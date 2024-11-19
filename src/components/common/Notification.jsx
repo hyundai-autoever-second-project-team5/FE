@@ -6,6 +6,7 @@ import {
   Avatar,
   Box,
   Typography,
+  Badge,
 } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
@@ -70,7 +71,13 @@ const Notification = () => {
   return (
     <>
       <IconButton onClick={handleBellOpen}>
-        <FontAwesomeIcon icon={faBell} color="white" />
+        <Badge
+          badgeContent={notifications.length} // 알림 수 표시
+          color="error"
+          overlap="circular"
+        >
+          <FontAwesomeIcon icon={faBell} color="white" />
+        </Badge>
       </IconButton>
       <Menu
         anchorEl={bellAnchorEl}
@@ -105,7 +112,7 @@ const Notification = () => {
               <Avatar
                 src={notif.profileUrl}
                 alt={`${notif.message} 프로필 이미지`}
-                sx={{ width: 40, height: 40, marginRight: 2 }}
+                sx={{ width: 30, height: 30, marginRight: 2 }}
               />
               <Box>
                 <Typography variant="body2" fontWeight="bold">
