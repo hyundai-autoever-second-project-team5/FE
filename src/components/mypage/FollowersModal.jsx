@@ -27,7 +27,7 @@ const FollowersModal = ({ title, open, handleClose, data = [] }) => {
           {title}
         </Typography>
         <div className="flex flex-col gap-5 mt-2">
-          <div className="grid grid-cols-5 gap-2">
+          <div className="grid grid-cols-5 gap-2 h-[400px] overflow-y-auto">
             {data &&
               data?.map((item) => (
                 <div
