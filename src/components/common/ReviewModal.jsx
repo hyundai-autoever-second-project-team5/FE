@@ -11,12 +11,14 @@ import Rate from "rc-rate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { getReviewDetail, postReview } from "../../api/review";
+import { useGetUserInfo } from "../../hook/useGetUserInfo";
 
 const ReviewModal = ({
   open,
   handleClose,
   rate = 0,
   movieId,
+  reviewId,
   movieTitle,
   posterSrc,
 }) => {

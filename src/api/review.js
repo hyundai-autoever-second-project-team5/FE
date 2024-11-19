@@ -18,7 +18,7 @@ export const postReview = async (reviews) => {
 export const updateReview = async (reviewId, reviewData) => {
   try {
     const response = await client.patch(
-      `/cinewall/movie/review/edit/${reviewId}`,
+      `/cinewall/review/edit/${reviewId}`,
       {
         rating: reviewData.rate,
         content: reviewData.content
