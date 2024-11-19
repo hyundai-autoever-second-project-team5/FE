@@ -32,6 +32,10 @@ const ReviewModal = ({
   const handlePostReview = () => {
     postReview(newReviews).then((res) => {
       console.log(res);
+      handleClose();
+    })
+    .catch((error) => {
+      alert("리뷰 작성 실패:", error);
     });
   };
 
