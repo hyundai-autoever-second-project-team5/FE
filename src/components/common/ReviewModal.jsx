@@ -19,6 +19,7 @@ import { useGetUserMovies } from "../../hook/useGetUserMovies";
 import { useGetPopularMovies } from "../../hook/useGetPopularMovies";
 import { useGetDetailLatestReviews } from "../../hook/useGetDetailLatestReviews";
 import { useGetDetailRecommendReviews } from "../../hook/useGetDetailRecommendReviews";
+import { useGetComments } from "../../hook/useGetComments";
 
 const ReviewModal = ({
   open,
@@ -41,6 +42,7 @@ const ReviewModal = ({
     useGetDetailLatestReviews(movieId);
   const { refetch: detailRecommendReviewsRefetch } =
     useGetDetailRecommendReviews(movieId);
+  const { refetch: latestCommentRefetch } = useGetComments();
   const isTablet = useMediaQuery("(max-width:680px)");
   const [newReviews, setNewReviews] = React.useState({
     id: movieId,
@@ -51,6 +53,7 @@ const ReviewModal = ({
   const handlePostReview = () => {
     postReview(newReviews)
       .then((res) => {
+        latestCommentRefetch();
         detailRecommendReviewsRefetch();
         detailLatestReviewsRefetch();
         likedMoviesRefetch();
