@@ -28,6 +28,7 @@ import {
 import StyledWordCloud from "../components/mypage/StyledWordCloud";
 import PosterSlide from "../components/mypage/PosterSlide";
 import { useLocation } from "react-router-dom";
+import { useGetLikeMovies } from "../hook/useGetLikeMovies";
 
 const MyPage = () => {
   const { data } = useGetUserInfo(getCookie("accessToken"));
@@ -54,6 +55,7 @@ const MyPage = () => {
   const [posters, setPosters] = React.useState([]);
   const [words, setWords] = React.useState([]);
   const [favoriteCount, setFavoriteCount] = React.useState(0);
+  const { data: likedMovies } = useGetLikeMovies(getCookie("accessToken"));
 
   const handleProfileOpen = () => setProfileOpen(true);
   const handleProfileClose = () => setProfileOpen(false);
@@ -289,7 +291,11 @@ const MyPage = () => {
         <PosterSlide data={posters} />
       </div>
       <SwiperCommentList title={"내가 작성한 리뷰"} data={myReviews} />
-      <LikesModal open={likesOpen} handleClose={handleLikesClose} />
+      <LikesModal
+        open={likesOpen}
+        handleClose={handleLikesClose}
+        data={likedMovies}
+      />
       <ProfileEditModal
         open={profileOpen}
         handleClose={handleProfileClose}
