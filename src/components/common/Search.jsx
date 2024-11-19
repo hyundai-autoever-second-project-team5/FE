@@ -46,7 +46,7 @@ const Search = () => {
   };
 
   return (
-    <div className="flex flex-row rounded-lg px-2 w-full max-w-[200px] items-center bg-white bg-opacity-20 backdrop-blur-md min-w-0 flex-grow">
+    <div className="flex flex-row rounded-lg px-2 w-full max-w-[120px] sm:max-w-[200px] items-center bg-white bg-opacity-20 backdrop-blur-md min-w-0 flex-grow">
       <IconButton onClick={handleSearch}>
         <FontAwesomeIcon icon={faSearch} color="#82848b" />
       </IconButton>
