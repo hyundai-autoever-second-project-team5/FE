@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Card from "../components/common/Card/Card";
-import { getMovieSearch } from "../api/main";
+import { getGenreMovies, getMovieSearch } from "../api/main";
 import { useLocation } from "react-router-dom";
-import GenreList from "../components/common/GenreList";
 
 const Search = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const query = queryParams.get("query");
+  const genre = queryParams.get("genre");
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -18,6 +18,15 @@ const Search = () => {
       });
     }
   }, [query]);
+
+  useEffect(() => {
+    if (genre) {
+      getGenreMovies(genre).then((res) => {
+        console.log("res", res);
+        setMovies(res);
+      });
+    }
+  }, [genre]);
 
   return (
     <div className="relative w-full max-w-[1400px] m-auto px-5 py-20 z-20 min-h-screen pt-36">

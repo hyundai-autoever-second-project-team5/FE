@@ -109,3 +109,25 @@ export const postMovieSurvey = async (genres) => {
     throw error;
   }
 };
+
+export const getGenreTags = async () => {
+  try {
+    const response = await client.get(`/cinewall/recommend/hashtag`);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to get tags", error);
+    throw error;
+  }
+};
+
+export const getGenreMovies = async (genre) => {
+  try {
+    const response = await client.get(
+      `/cinewall/movie/genre?genreName=${genre}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Failed to get genre movies", error);
+    throw error;
+  }
+};
