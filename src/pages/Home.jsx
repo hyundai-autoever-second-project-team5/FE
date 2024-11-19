@@ -52,9 +52,7 @@ const Home = () => {
     });
   }, [userData]);
 
-  useEffect(() => {
-
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <>
