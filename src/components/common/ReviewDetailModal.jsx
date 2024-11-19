@@ -9,7 +9,7 @@ import {
 import React, { useState, useEffect } from "react";
 import Rate from "rc-rate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar,faTimes } from "@fortawesome/free-solid-svg-icons";
 import { getReviewDetail, updateReview, deleteReview } from "../../api/review";
 import { useGetUserInfo } from "../../hook/useGetUserInfo";
 import { useGetComments } from "../../hook/useGetComments";
@@ -109,6 +109,14 @@ const ReviewDetailModal = ({
           borderRadius: "8px",
         }}
       >
+        <div className="absolute top-2 right-2">
+          <FontAwesomeIcon
+            icon={faTimes}
+            onClick={handleClose}
+            className="cursor-pointer"
+            style={{ fontSize: "24px" }}
+          />
+        </div>
         <Typography variant="h5" style={{ fontWeight: "600" }}>
           리뷰 상세
         </Typography>
@@ -170,13 +178,8 @@ const ReviewDetailModal = ({
                 </>
               ) : (
                 <>
-                  {data?.userId === writerId &&
-                    (console.log("현재 유저와 작성자 비교:", {
-                      currentUserId: data?.userId,
-                      writerId: writerId,
-                      isMatch: data?.userId === writerId,
-                    }),
-                    (
+                  {data?.userId === writerId && (
+                    <>
                       <Button
                         variant="contained"
                         color="inherit"
@@ -184,31 +187,15 @@ const ReviewDetailModal = ({
                       >
                         수정
                       </Button>
-                    ))}
-
-                  {data?.userId === writerId &&
-                    (console.log("삭제 ", {
-                      currentUserId: data?.userId,
-                      writerId: writerId,
-                      isMatch: data?.userId === writerId,
-                    }),
-                    (
                       <Button
                         variant="contained"
-                        color="error"
+                        color="inherit"
                         onClick={handleDelete}
                       >
                         삭제
                       </Button>
-                    ))}
-
-                  <Button
-                    variant="contained"
-                    color="inherit"
-                    onClick={handleClose}
-                  >
-                    닫기
-                  </Button>
+                    </>
+                  )}
                 </>
               )}
             </div>
