@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { getReviewDetail, updateReview, deleteReview } from "../../api/review";
 import { useGetUserInfo } from "../../hook/useGetUserInfo";
+import { useGetComments } from "../../hook/useGetComments";
 
 const ReviewDetailModal = ({
   open,
@@ -21,6 +22,7 @@ const ReviewDetailModal = ({
   content,
   writerId,
 }) => {
+  const { refetch } = useGetComments();
   const isTablet = useMediaQuery("(max-width:680px)");
   const [isEditing, setIsEditing] = useState(false);
   const [review, setReview] = useState({
@@ -57,6 +59,7 @@ const ReviewDetailModal = ({
         rate: review.rating,
         content: review.content,
       });
+      refetch();
       setIsEditing(false);
       handleClose();
     } catch (error) {
