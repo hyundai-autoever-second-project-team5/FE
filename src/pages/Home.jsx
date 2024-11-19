@@ -4,9 +4,6 @@ import SwiperCommentList from "../components/common/SwiperCommentList";
 import SwiperHeader from "../components/main/SwiperHeader";
 import Spotlight from "../components/common/Spotlight";
 import {
-  getMovieLatest,
-  getMovieLikes,
-  getMoviePopular,
   getMovieRecommend,
   getMovieTrailer,
   getPowerReview,
@@ -28,31 +25,13 @@ const Home = () => {
   const { data: reviews } = useGetComments();
 
   const [trailers, setTrailers] = React.useState([]);
-  // const [latests, setLatests] = React.useState([]);
-  // const [populars, setPopulars] = React.useState([]);
-  // const [reviews, setReviews] = React.useState([]);
   const [powerReviews, setPowerReviews] = React.useState([]);
-  // const [userLikes, setUserLikes] = React.useState([]);
   const [recommends, setRecommends] = React.useState([]);
 
   useEffect(() => {
     getMovieTrailer().then((res) => {
       setTrailers(res);
     });
-    // getMovieLatest().then((res) => {
-    //   setLatests(res);
-    // });
-    // getMoviePopular().then((res) => {
-    //   setPopulars(res);
-    // });
-    getPowerReview().then((res) => {
-      setPowerReviews(res);
-    });
-    // if (userData) {
-    //   getMovieLikes().then((res) => {
-    //     setUserLikes(res);
-    //   });
-    // }
     getPowerReview().then((res) => {
       setPowerReviews(res);
     });
