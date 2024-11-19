@@ -1,5 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import { IconButton, Menu, MenuItem } from "@mui/material";
+import {
+  IconButton,
+  Menu,
+  MenuItem,
+  Avatar,
+  Box,
+  Typography,
+  Badge,
+} from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 
@@ -11,9 +19,8 @@ const Notification = () => {
 
   // 컴포넌트 마운트 시 SSE 연결 설정
   useEffect(() => {
-    // SSE 연결
     const eventSource = new EventSource("https://api.cinewall.shop/subscribe", {
-      withCredentials: true, // 쿠키 및 인증 정보를 포함시킴
+      withCredentials: true,
     });
 
     eventSource.onopen = () => {
@@ -43,17 +50,15 @@ const Notification = () => {
       eventSource.close();
     };
 
-    // Ref로 EventSource 저장
     eventSourceRef.current = eventSource;
 
-    // 컴포넌트 언마운트 시 SSE 연결 종료
     return () => {
       if (eventSourceRef.current) {
         eventSourceRef.current.close();
         eventSourceRef.current = null;
       }
     };
-  }, []); // 의존성 배열이 비어 있으므로 컴포넌트 마운트 시 한 번만 실행
+  }, []);
 
   const handleBellOpen = (e) => {
     setBellAnchorEl(e.currentTarget);
@@ -66,7 +71,13 @@ const Notification = () => {
   return (
     <>
       <IconButton onClick={handleBellOpen}>
-        <FontAwesomeIcon icon={faBell} color="white" />
+        <Badge
+          badgeContent={notifications.length} // 알림 수 표시
+          color="error"
+          overlap="circular"
+        >
+          <FontAwesomeIcon icon={faBell} color="white" />
+        </Badge>
       </IconButton>
       <Menu
         anchorEl={bellAnchorEl}
@@ -94,8 +105,20 @@ const Notification = () => {
       >
         {notifications.length > 0 ? (
           notifications.map((notif, index) => (
-            <MenuItem key={index} sx={{ paddingY: "12px" }}>
-              {notif.message}
+            <MenuItem
+              key={index}
+              sx={{ paddingY: "12px", display: "flex", alignItems: "center" }}
+            >
+              <Avatar
+                src={notif.profileUrl}
+                alt={`${notif.message} 프로필 이미지`}
+                sx={{ width: 30, height: 30, marginRight: 2 }}
+              />
+              <Box>
+                <Typography variant="body2" fontWeight="bold">
+                  {notif.message}
+                </Typography>
+              </Box>
             </MenuItem>
           ))
         ) : (

@@ -131,3 +131,14 @@ export const getGenreMovies = async (genre) => {
     throw error;
   }
 };
+
+// 사용자 기반 영화추천
+export const getMoviesUserbase = async () => {
+  try {
+    const response = await client.get(`/cinewall/movie/userbase`);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to get userbase movies", error);
+    throw error;
+  }
+};

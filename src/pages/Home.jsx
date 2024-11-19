@@ -14,10 +14,12 @@ import {
 import { useGetComments } from "../hook/useGetComments";
 import { useGetUserInfo } from "../hook/useGetUserInfo";
 import { getCookie } from "../api/cookie";
+import { useGetUserMovies } from "../hook/useGetUserMovies";
 
 const Home = () => {
   const { data: userData } = useGetUserInfo(getCookie("accessToken"));
   const { data: reviews } = useGetComments();
+  const { data: userMovies } = useGetUserMovies(getCookie("accessToken"));
   const [trailers, setTrailers] = React.useState([]);
   const [latests, setLatests] = React.useState([]);
   const [populars, setPopulars] = React.useState([]);
@@ -52,9 +54,7 @@ const Home = () => {
     });
   }, [userData]);
 
-  useEffect(() => {
-
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <>
@@ -68,6 +68,12 @@ const Home = () => {
           {latests.length && <SwiperCardList title={"최신순"} data={latests} />}
           {recommends.length && (
             <SwiperCardList title={"추천순"} data={recommends} />
+          )}
+          {userMovies && (
+            <SwiperCardList
+              title={`${userData?.nickname}님의 추천`}
+              data={userMovies}
+            />
           )}
           {userLikes.length && (
             <SwiperCardList
