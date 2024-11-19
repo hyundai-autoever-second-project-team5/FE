@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartSolid, faPen } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import ShareIconButton from "../common/ShareIconButton";
+import ReviewDetailModal from "../common/ReviewDetailModal";
 import ReviewModal from "../common/ReviewModal";
 import ScoreChart from "./ScoreChart";
 import {
@@ -104,6 +105,9 @@ const MovieInfo = () => {
     return <div>로딩 중...</div>;
   }
 
+  const posterSrc = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+  const movieTitle = movie.title;
+
   return (
     <>
       <div className="text-gray-200 ">
@@ -111,7 +115,7 @@ const MovieInfo = () => {
           {/* 영화 포스터 */}
           <div className="relative w-full sm:max-w-[180px] md:max-w-[250px] lg:max-w-[350px] overflow-hidden">
             <img
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              src={posterSrc}
               alt={`${movie.title} 포스터`}
               className="w-full"
             />
@@ -195,7 +199,14 @@ const MovieInfo = () => {
           ))}
         </div>
       </div>
-      <ReviewModal open={open} handleClose={handleClose} />
+      <ReviewModal 
+      open={open} 
+      handleClose={handleClose}
+      posterSrc={posterSrc}
+      movieTitle={movieTitle}
+      movieId={movieId}
+      // movieId={movieId}
+      />
     </>
   );
 };
