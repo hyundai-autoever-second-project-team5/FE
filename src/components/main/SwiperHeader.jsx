@@ -8,7 +8,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 const SwiperHeader = () => {
-  const movieIds = [872585, 619803, 453395, 912649, 575265]; // 영화 ID 리스트
+  const movieIds = [872585, 619803, 453395, 912649, 672]; // 영화 ID 리스트
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -46,9 +46,10 @@ const SwiperHeader = () => {
         disableOnInteraction: false,
       }}
     >
-      {movies.map((movie) => (
+      {movies.map((movie, index) => (
         <SwiperSlide key={movie.id}>
           <MainSection
+            movieId={movieIds[index]} // movieId를 MainSection에 전달
             videoUrl={movie.videoPath} // 동적 비디오 경로 전달
             movieTitle={movie.title}
             movieOverview={movie.overview}
