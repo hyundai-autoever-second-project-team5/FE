@@ -123,9 +123,9 @@ const MyPage = () => {
       getPosters(profileUserId).then((res) => {
         setPosters(res);
       });
-      // getMovieWords(profileUserId).then((res) => {
-      //   setWords(res);
-      // });
+      getMovieWords(profileUserId).then((res) => {
+        setWords(res);
+      });
       getMyPageInfo(profileUserId).then((res) => {
         setProfileInfo(res);
         setFollowingState(res?.following);
@@ -133,8 +133,7 @@ const MyPage = () => {
     }
   }, [data?.userId, profileUserId]);
 
-
-  console.log("Reviews:",myReviews);
+  console.log("Reviews:", myReviews);
   return (
     <div className="relative w-full max-w-[1400px] m-auto px-5 pt-20 pb-5 z-20">
       {/* 프로필 섹션 */}
@@ -182,9 +181,9 @@ const MyPage = () => {
             src={
               isUser
                 ? data?.profile_url ||
-                  "https://avatars.githubusercontent.com/u/89841486?v=4"
+                  "https://blog.kakaocdn.net/dn/bfZZQd/btrua3HciZ9/jSnHklZw9ekuzV8YGLZ9zK/%EC%B9%B4%ED%86%A1%20%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84%20%EC%82%AC%EC%A7%84%28%EC%97%B0%EC%B4%88%EB%A1%9Dver%29.jpg?attach=1&knm=img.jpg"
                 : profileInfo?.profile_url ||
-                  "https://avatars.githubusercontent.com/u/89841486?v=4"
+                  "https://blog.kakaocdn.net/dn/bfZZQd/btrua3HciZ9/jSnHklZw9ekuzV8YGLZ9zK/%EC%B9%B4%ED%86%A1%20%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84%20%EC%82%AC%EC%A7%84%28%EC%97%B0%EC%B4%88%EB%A1%9Dver%29.jpg?attach=1&knm=img.jpg"
             }
             alt="profile-image"
             className="w-[140px] h-[140px] rounded-full object-cover"
