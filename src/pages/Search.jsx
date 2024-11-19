@@ -33,12 +33,15 @@ const Search = () => {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
         {movies?.map((item) => (
           <Card
-            id={item?.movieId}
+            id={item?.movie_id || item?.movieId}
             posterSrc={
+              item?.poster_path ||
               item?.posterPath ||
               "https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2023%2F11%2Fmarvel-reportedly-considering-reassembling-original-six-avengers-actors-for-new-film-info-1.jpg?q=75&w=800&cbr=1&fit=max"
             }
-            title={item?.title}
+            avgScore={item?.vote_average}
+            myScore={item?.user_rating || 0}
+            title={item?.movie_title}
           />
         ))}
       </div>
