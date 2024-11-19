@@ -8,9 +8,7 @@ import "swiper/css/pagination";
 import { Grid, Pagination } from "swiper/modules";
 import Comment from "./Comment";
 
-const SwiperCommentList = ({ title, data, rows = 2, updateLike }) => {
-
-  
+const SwiperCommentList = ({ title, data, rows = 2 }) => {
   return (
     <div className="mb-5 text-white">
       <Typography
@@ -41,26 +39,30 @@ const SwiperCommentList = ({ title, data, rows = 2, updateLike }) => {
           },
         }}
       >
-        {data?.map((item) =>{
-          console.log('유저 ID:', item?.user?.userId);
-          return ( <SwiperSlide key={item?.reviewId}>
-            <Comment
-              id={item?.reviewId}
-              profileSrc={item?.profileUrl || item?.user?.profile_url}
-              writerId={item?.userId || item?.user?.userId || item?.user?.id }
-              writer={item?.nickname || item?.user?.nickname}
-              title={item?.title}
-              content={item?.content}
-              score={item?.rating}
-              posterSrc={item?.posterPath || item?.movie?.posterPath}
-              likes={item?.heartCount}
-              heart={item?.heart}
-              updateLike={updateLike}
-              reviewId={item?.reviewId}
-            />
-          </SwiperSlide>
-        );
-        })}
+        {data &&
+          data?.map((item) => {
+            return (
+              <SwiperSlide key={item?.reviewId}>
+                <Comment
+                  id={item?.reviewId}
+                  profileSrc={item?.profileUrl || item?.user?.profile_url}
+                  writerId={
+                    item?.userId || item?.user?.userId || item?.user?.id
+                  }
+                  writer={item?.nickname || item?.user?.nickname}
+                  title={item?.title}
+                  content={item?.content}
+                  score={item?.rating}
+                  posterSrc={item?.posterPath || item?.movie?.posterPath}
+                  likes={item?.heartCount}
+                  heart={item?.heart}
+                  // updateLike={updateLike}
+                  reviewId={item?.reviewId}
+                  movieId={item?.movieId || item?.movie_id || item?.movie?.id}
+                />
+              </SwiperSlide>
+            );
+          })}
       </Swiper>
     </div>
   );

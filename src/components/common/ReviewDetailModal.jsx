@@ -13,6 +13,8 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { getReviewDetail, updateReview, deleteReview } from "../../api/review";
 import { useGetUserInfo } from "../../hook/useGetUserInfo";
 import { useGetComments } from "../../hook/useGetComments";
+import { useGetDetailLatestReviews } from "../../hook/useGetDetailLatestReviews";
+import { useGetDetailRecommendReviews } from "../../hook/useGetDetailRecommendReviews";
 
 const ReviewDetailModal = ({
   open,
@@ -21,8 +23,12 @@ const ReviewDetailModal = ({
   posterSrc,
   content,
   writerId,
+  movieId,
 }) => {
   const { refetch } = useGetComments();
+  const { refetch: detailLatestReviewsRefetch } = useGetDetailLatestReviews();
+  const { refetch: detailRecommendReviewsRefetch } =
+    useGetDetailRecommendReviews();
   const isTablet = useMediaQuery("(max-width:680px)");
   const [isEditing, setIsEditing] = useState(false);
   const [review, setReview] = useState({
@@ -58,8 +64,12 @@ const ReviewDetailModal = ({
       await updateReview(reviewId, {
         rate: review.rating,
         content: review.content,
+      }).then((res) => {
+        refetch();
+        detailLatestReviewsRefetch();
+        detailRecommendReviewsRefetch();
       });
-      refetch();
+
       setIsEditing(false);
       handleClose();
     } catch (error) {
@@ -69,7 +79,11 @@ const ReviewDetailModal = ({
 
   const handleDelete = async () => {
     try {
-      await deleteReview(reviewId);
+      await deleteReview(reviewId).then((res) => {
+        refetch();
+        detailLatestReviewsRefetch();
+        detailRecommendReviewsRefetch();
+      });
       handleClose();
     } catch (error) {
       console.error("리뷰 삭제 실패", error);
