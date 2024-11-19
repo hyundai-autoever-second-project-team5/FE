@@ -69,7 +69,7 @@ const Home = () => {
           {recommends.length && (
             <SwiperCardList title={"추천순"} data={recommends} />
           )}
-          {userMovies.length && (
+          {userMovies && (
             <SwiperCardList
               title={`${userData?.nickname}님의 추천`}
               data={userMovies}
