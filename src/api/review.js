@@ -17,8 +17,8 @@ export const postReview = async (reviews) => {
 // 영화 리뷰 수정
 export const updateReview = async (reviewId, reviewData) => {
   try {
-    const response = await client.put(
-      `/cinewall/movie/reviews/${reviewId}`,
+    const response = await client.patch(
+      `/cinewall/review/edit/${reviewId}`,
       {
         rating: reviewData.rate,
         content: reviewData.content
@@ -55,6 +55,7 @@ export const getUserReviews = async (userId) => {
   }
 };
 
+// 리뷰 상세 조회
 export const getReviewDetail = async (reviewId) => {
   try {
     const response = await client.get(`/cinewall/review/detail/${reviewId}`);
