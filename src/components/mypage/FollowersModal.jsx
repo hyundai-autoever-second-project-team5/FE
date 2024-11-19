@@ -41,7 +41,7 @@ const FollowersModal = ({ title, open, handleClose, data = [] }) => {
                       "https://avatars.githubusercontent.com/u/89841486?v=4"
                     }
                     alt="profile"
-                    className="rounded-full"
+                    className="rounded-full w-16 h-16 object-cover"
                   />
                   <Typography variant="body2">{item.nickname}</Typography>
                 </div>
