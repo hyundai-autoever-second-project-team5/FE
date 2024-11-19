@@ -30,13 +30,14 @@ const ReviewModal = ({
   });
 
   const handlePostReview = () => {
-    postReview(newReviews).then((res) => {
-      console.log(res);
-      handleClose();
-    })
-    .catch((error) => {
-      alert("리뷰 작성 실패:", error);
-    });
+    postReview(newReviews)
+      .then((res) => {
+        console.log(res);
+        handleClose();
+      })
+      .catch((error) => {
+        alert("리뷰 작성 실패:", error);
+      });
   };
 
   useEffect(() => {
@@ -78,7 +79,7 @@ const ReviewModal = ({
               "https://img.sbs.co.kr/newsnet/etv/upload/2023/10/10/30000880790.jpg"
             }
             alt="poster"
-            className="w-[160px] max-w-[200px] sm:w-full"
+            className="w-[120px] h-[160px] object-cover max-w-[200px] sm:w-full sm:h-auto"
           />
           <div className="flex flex-col w-full gap-2">
             <Typography variant="body1" style={{ fontWeight: "600" }}>
@@ -88,7 +89,10 @@ const ReviewModal = ({
               value={newReviews.rate}
               allowHalf
               character={
-                <FontAwesomeIcon icon={faStar} style={{ fontSize: "24px" }} />
+                <FontAwesomeIcon
+                  icon={faStar}
+                  style={{ fontSize: isTablet ? "16px" : "24px" }}
+                />
               }
               onChange={(value) =>
                 setNewReviews({ ...newReviews, rate: value })
