@@ -8,7 +8,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 const SwiperHeader = () => {
-  const movieIds = [872585, 619803, 453395, 912649, 575265]; // 영화 ID 리스트
+  const movieIds = [872585, 619803, 453395, 912649, 672]; // 영화 ID 리스트
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
