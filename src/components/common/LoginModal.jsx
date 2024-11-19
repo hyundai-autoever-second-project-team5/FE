@@ -46,6 +46,7 @@ const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
     certificationNumber: "pending",
   });
   const [emailHelperText, setEmailHelperText] = useState("");
+  const [loginFailure, setLoginFailure] = useState("");
 
   const [imageUrl, setImageUrl] = useState("");
 
@@ -88,22 +89,29 @@ const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
   // 로그인
   const handleSignIn = () => {
     postSignIn(loginData).then((res) => {
-      const authToken = res.headers["authorization"];
-      const token = authToken.replace("Bearer ", "");
-      new Promise((resolve) => {
-        setCookie("accessToken", token);
-        resolve();
-      })
-        .then(() => {
-          refetch();
+      if (res.data.available) {
+        setLoginFailure("");
+        const authToken = res.headers["authorization"];
+        const token = authToken.replace("Bearer ", "");
+        new Promise((resolve) => {
+          setCookie("accessToken", token);
+          resolve();
         })
-        .then((userData) => {
-          if (userData?.data?.survey === false) {
-            surveyRefetch();
-            handleSurveyOpen();
-          }
-        });
-      handleClose();
+          .then(() => {
+            refetch();
+          })
+          .then((userData) => {
+            if (userData?.data?.survey === false) {
+              surveyRefetch();
+              handleSurveyOpen();
+            }
+          });
+        handleClose();
+      } else {
+        setLoginFailure(
+          "가입하지 않은 사용자 아이디 또는 틀린 비밀번호입니다."
+        );
+      }
     });
   };
 
@@ -213,6 +221,11 @@ const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
             }
           />
         </div>
+        {loginFailure && (
+          <Typography variant="caption" color="error">
+            {loginFailure}
+          </Typography>
+        )}
         <div className="flex flex-col gap-2 my-3">
           <Button
             variant="contained"

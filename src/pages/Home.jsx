@@ -54,8 +54,6 @@ const Home = () => {
     });
   }, [userData]);
 
-  useEffect(() => {}, []);
-
   return (
     <>
       <div className="w-full m-auto">
@@ -69,13 +67,13 @@ const Home = () => {
           {recommends.length && (
             <SwiperCardList title={"추천순"} data={recommends} />
           )}
-          {userMovies.length && (
+          {userMovies && userMovies?.length && (
             <SwiperCardList
               title={`${userData?.nickname}님 이런 영화는 어때요?`}
               data={userMovies}
             />
           )}
-          {userLikes.length && (
+          {userLikes?.length && (
             <SwiperCardList
               title={`${userData?.nickname}님의 찜리스트`}
               data={userLikes}
