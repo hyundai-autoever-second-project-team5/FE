@@ -12,6 +12,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { getReviewDetail, postReview } from "../../api/review";
 import { useGetUserInfo } from "../../hook/useGetUserInfo";
+import { getCookie } from "../../api/cookie";
+import { useGetLatestMovies } from "../../hook/useGetLatestMovies";
+import { useGetLikeMovies } from "../../hook/useGetLikeMovies";
+import { useGetUserMovies } from "../../hook/useGetUserMovies";
+import { useGetPopularMovies } from "../../hook/useGetPopularMovies";
 
 const ReviewModal = ({
   open,
@@ -22,6 +27,14 @@ const ReviewModal = ({
   movieTitle,
   posterSrc,
 }) => {
+  const { refetch: likedMoviesRefetch } = useGetLikeMovies(
+    getCookie("accessToken")
+  );
+  const { refetch: userMoviesRefetch } = useGetUserMovies(
+    getCookie("accessToken")
+  );
+  const { refetch: latestMoviesRefetch } = useGetLatestMovies();
+  const { refetch: popularMoviesRefetch } = useGetPopularMovies();
   const isTablet = useMediaQuery("(max-width:680px)");
   const [newReviews, setNewReviews] = React.useState({
     id: movieId,
@@ -32,7 +45,10 @@ const ReviewModal = ({
   const handlePostReview = () => {
     postReview(newReviews)
       .then((res) => {
-        console.log(res);
+        likedMoviesRefetch();
+        userMoviesRefetch();
+        latestMoviesRefetch();
+        popularMoviesRefetch();
         handleClose();
       })
       .catch((error) => {
