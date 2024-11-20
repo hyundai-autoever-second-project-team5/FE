@@ -133,7 +133,6 @@ const MyPage = () => {
     }
   }, [data?.userId, profileUserId]);
 
-  console.log("Reviews:", myReviews);
   return (
     <div className="relative w-full max-w-[1400px] m-auto px-5 pt-20 pb-5 z-20">
       {/* 프로필 섹션 */}
@@ -289,6 +288,7 @@ const MyPage = () => {
 
       {/* 포스터 수집 */}
       <div className="flex flex-col w-full mb-5">
+        <div className="mb-4 text-2xl font-bold text-white"> 내가 수집한 포스터 </div>
         <PosterSlide data={posters} />
       </div>
       <SwiperCommentList title={"내가 작성한 리뷰"} data={myReviews} />

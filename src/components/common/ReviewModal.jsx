@@ -63,7 +63,7 @@ const ReviewModal = ({
         handleClose();
       })
       .catch((error) => {
-        alert("리뷰 작성 실패:", error);
+        alert("리뷰는 영화마다 한개씩 작성할 수 있습니다.", error);
       });
   };
 

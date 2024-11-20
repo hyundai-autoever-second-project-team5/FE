@@ -47,8 +47,32 @@ const Card = ({
         <div className="z-50 light"></div>
         <div className="relative flex flex-col w-full transition duration-300 transform rounded-md card hover:scale-105">
           {rank && (
-            <div className="absolute top-1 left-1 w-[40px] h-[40px]  bg-black rounded-md flex items-center justify-center bg-opacity-70 backdrop-blur-md">
-              <Typography variant="h6" fontWeight={800} color="white">
+            <div className="absolute z-50 flex items-center justify-center p-3 -right-5 -top-10">
+              <Typography
+                variant="h4"
+                sx={{
+                  fontFamily: "Playfair Display",
+                  fontWeight: "900",
+                  color:
+                    index === 0
+                      ? "#FFD700"
+                      : index === 1
+                      ? "#C0C0C0"
+                      : index === 2
+                      ? "#CD7F32"
+                      : "#ffffff", 
+                  textShadow:
+                    index === 0
+                      ? "4px 4px 6px rgba(255, 215, 0, 0.3), 0 0 10px rgba(255, 215, 0, 0.5)"
+                      : index === 1
+                      ? "4px 4px 6px rgba(192, 192, 192, 0.3), 0 0 10px rgba(192, 192, 192, 0.5)"
+                      : index === 2
+                      ? "4px 4px 6px rgba(205, 127, 50, 0.3), 0 0 10px rgba(205, 127, 50, 0.5)"
+                      : "4px 4px 6px rgba(0,0,0,0.5)",
+                  fontSize: "4rem",
+                  letterSpacing: "-5px",
+                }}
+              >
                 {index + 1}
               </Typography>
             </div>
