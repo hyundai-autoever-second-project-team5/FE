@@ -288,6 +288,7 @@ const MyPage = () => {
 
       {/* 포스터 수집 */}
       <div className="flex flex-col w-full mb-5">
+        <div className="mb-4 text-2xl font-bold text-white"> 내가 수집한 포스터 </div>
         <PosterSlide data={posters} />
       </div>
       <SwiperCommentList title={"내가 작성한 리뷰"} data={myReviews} />

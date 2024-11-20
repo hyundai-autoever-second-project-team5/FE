@@ -110,14 +110,14 @@ const MovieInfo = () => {
 
   return (
     <>
-      <div className="text-gray-200 ">
-        <div className="flex flex-col items-start justify-start sm:flex-row">
+      <div className="text-gray-200">
+        <div className="flex flex-col items-stretch justify-start sm:flex-row min-h-[500px]">
           {/* 영화 포스터 */}
-          <div className="relative w-full sm:max-w-[180px] md:max-w-[250px] lg:max-w-[350px] overflow-hidden">
+          <div className="relative w-full h-full sm:max-w-[180px] md:max-w-[250px] lg:max-w-[350px] overflow-hidden">
             <img
               src={posterSrc}
               alt={`${movie.title} 포스터`}
-              className="w-full"
+              className="object-cover w-full h-full"
             />
             <div className="absolute inset-0 w-full bg-gradient-to-l from-black to-transparent"></div>
           </div>
@@ -171,7 +171,7 @@ const MovieInfo = () => {
             <p className="mb-4">
               {movie.overview || "줄거리 정보가 없습니다."}
             </p>
-            <div className="w-full h-[300px] lg:max-w-[700px] lg:h-[400px]">
+            <div className="flex min-h-[200px]">
               <ScoreChart data={chart} />
             </div>
           </div>
@@ -199,13 +199,13 @@ const MovieInfo = () => {
           ))}
         </div>
       </div>
-      <ReviewModal 
-      open={open} 
-      handleClose={handleClose}
-      posterSrc={posterSrc}
-      movieTitle={movieTitle}
-      movieId={movieId}
-      // movieId={movieId}
+      <ReviewModal
+        open={open}
+        handleClose={handleClose}
+        posterSrc={posterSrc}
+        movieTitle={movieTitle}
+        movieId={movieId}
+        // movieId={movieId}
       />
     </>
   );
