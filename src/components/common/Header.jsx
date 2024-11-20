@@ -86,15 +86,13 @@ const Header = () => {
             : "bg-transparent"
         }`}
       >
-        <div className="flex flex-row justify-between max-w-[1400px] w-full px-5">
-          <Typography
-            variant="h4"
-            color="white"
+        <div className="flex flex-row justify-between items-center max-w-[1400px] w-full px-5">
+          <div
+            className="text-lg sm:text-3xl text-white font-semibold cursor-pointer"
             onClick={() => navigation("/")}
-            className="cursor-pointer"
           >
             CineWall
-          </Typography>
+          </div>
           <div className="flex flex-row gap-3">
             <Search />
             <div className="flex flex-row items-center gap-2">
@@ -107,7 +105,7 @@ const Header = () => {
                       "https://avatars.githubusercontent.com/u/89841486?v=4"
                     }
                     alt="profile"
-                    className="object-cover w-10 h-10 rounded-full"
+                    className="flex-shrink-0 object-cover w-10 h-10 rounded-full"
                   />
                   <IconButton
                     onClick={handleMenuClick}

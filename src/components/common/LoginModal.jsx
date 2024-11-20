@@ -32,6 +32,21 @@ const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
     id: "",
     password: "",
   });
+
+  const textFieldSx = {
+  '& .MuiOutlinedInput-root': {
+    '&:hover fieldset': {
+      borderColor: 'rgba(108, 0, 0, 0.8)', 
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: '#191919', 
+    },
+  },
+  '& .MuiInputLabel-root.Mui-focused': {
+    color: '#191919', 
+  },
+};
+
   const [signUpData, setSignUpData] = React.useState({
     id: "",
     nickname: "",
@@ -46,6 +61,7 @@ const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
     certificationNumber: "pending",
   });
   const [emailHelperText, setEmailHelperText] = useState("");
+  const [loginFailure, setLoginFailure] = useState("");
 
   const [imageUrl, setImageUrl] = useState("");
 
@@ -88,22 +104,29 @@ const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
   // 로그인
   const handleSignIn = () => {
     postSignIn(loginData).then((res) => {
-      const authToken = res.headers["authorization"];
-      const token = authToken.replace("Bearer ", "");
-      new Promise((resolve) => {
-        setCookie("accessToken", token);
-        resolve();
-      })
-        .then(() => {
-          refetch();
+      if (res.data.available) {
+        setLoginFailure("");
+        const authToken = res.headers["authorization"];
+        const token = authToken.replace("Bearer ", "");
+        new Promise((resolve) => {
+          setCookie("accessToken", token);
+          resolve();
         })
-        .then((userData) => {
-          if (userData?.data?.survey === false) {
-            surveyRefetch();
-            handleSurveyOpen();
-          }
-        });
-      handleClose();
+          .then(() => {
+            refetch();
+          })
+          .then((userData) => {
+            if (userData?.data?.survey === false) {
+              surveyRefetch();
+              handleSurveyOpen();
+            }
+          });
+        handleClose();
+      } else {
+        setLoginFailure(
+          "가입하지 않은 사용자 아이디 또는 틀린 비밀번호입니다."
+        );
+      }
     });
   };
 
@@ -198,12 +221,14 @@ const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
         <Typography variant="h5">로그인</Typography>
         <div className="flex flex-col gap-2 my-2">
           <TextField
+            sx={textFieldSx}
             label="아이디"
             className="w-full"
             value={loginData.id}
             onChange={(e) => setLoginData({ ...loginData, id: e.target.value })}
           />
           <TextField
+          sx={textFieldSx}
             type="password"
             label="비밀번호"
             className="w-full"
@@ -213,6 +238,11 @@ const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
             }
           />
         </div>
+        {loginFailure && (
+          <Typography variant="caption" color="error">
+            {loginFailure}
+          </Typography>
+        )}
         <div className="flex flex-col gap-2 my-3">
           <Button
             variant="contained"
@@ -252,12 +282,12 @@ const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
     return (
       <>
         <Typography variant="h5">회원가입</Typography>
-        <div className="w-full flex flex-col items-center justify-center gap-3 mb-5">
+        <div className="flex flex-col items-center justify-center w-full gap-3 mb-5">
           {imageUrl ? (
             <img
               src={imageUrl}
               alt="프로필 이미지"
-              className="w-24 h-24 rounded-full object-cover"
+              className="object-cover w-24 h-24 rounded-full"
             />
           ) : (
             <img
@@ -273,6 +303,7 @@ const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
         </div>
         <div className="flex flex-col gap-2 my-2">
           <TextField
+          sx={textFieldSx}
             label="닉네임"
             className="w-full"
             value={signUpData.nickname}
@@ -282,6 +313,7 @@ const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
           />
           <div className="flex flex-row w-full gap-2">
             <TextField
+            sx={textFieldSx}
               label="아이디"
               className="w-full"
               value={signUpData.id}
@@ -314,6 +346,7 @@ const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
           </div>
           <div className="flex flex-row w-full gap-2">
             <TextField
+            sx={textFieldSx}
               label="이메일"
               className="w-full"
               value={signUpData.email}
@@ -352,6 +385,7 @@ const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
           </div>
           <div className="flex flex-row w-full gap-2">
             <TextField
+            sx={textFieldSx}
               label="인증번호"
               className="w-full"
               value={signUpData.certificationNumber}
@@ -406,6 +440,7 @@ const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
             </Button>
           </div>
           <TextField
+          sx={textFieldSx}
             type="password"
             label="비밀번호"
             className="w-full"
@@ -451,7 +486,16 @@ const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
   };
 
   return (
-    <Modal open={open} onClose={handleCloseWithReset}>
+    <Modal
+      open={open}
+      onClose={handleCloseWithReset}
+      sx={{
+        "& .MuiBackdrop-root": {
+          backgroundColor: "rgba(0, 0, 0, 0.6)",
+          backdropFilter: "blur(4px)",
+        },
+      }}
+    >
       <Box
         sx={{
           position: "absolute",
@@ -459,10 +503,11 @@ const LoginModal = ({ open, handleClose, handleSurveyOpen }) => {
           left: "50%",
           transform: "translate(-50%, -50%)",
           width: isMobile ? "90%" : 400,
-          bgcolor: "background.paper",
+          bgcolor: "rgba(250, 250, 250, 0.6)", 
+          backdropFilter: "blur(8px)",
           boxShadow: 24,
           p: 3,
-          borderRadius: "8px",
+          borderRadius: "12px",
         }}
       >
         {isLogin ? renderLoginPage() : renderSignUpPage()}

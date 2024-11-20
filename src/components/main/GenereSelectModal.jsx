@@ -56,33 +56,35 @@ const GenereSelectModal = ({ open, handleClose }) => {
         }}
       >
         <Typography variant="h5" className="font-bold mb-2">
-          {data?.nickname}님의 영화 취향 조사
+          {data && data?.nickname}님의 영화 취향 조사
         </Typography>
         <div className="grid grid-cols-4 gap-2 overflow-y-scroll h-[500px] mb-2">
-          {movies?.map((item) => (
-            <div
-              key={item.genre_id}
-              className={`relative cursor-pointer ${
-                result.includes(item.genre_id)
-                  ? "border-4 border-primary" // 선택된 이미지 스타일
-                  : "border-2 border-transparent"
-              }`}
-              onClick={() => handleMovieClick(item.genre_id)}
-            >
-              <img
-                src={item.poster_path}
-                alt={item.poster_path}
-                className="h-[200px] object-cover"
-              />
-              {result.includes(item.genre_id) && (
-                <div className="absolute inset-0 bg-primary bg-opacity-50 flex items-center justify-center text-white font-bold">
-                  <div className="w-10 h-10 rounded-full p-2 bg-white text-primary flex items-center justify-center text-lg">
-                    {result.indexOf(item.genre_id) + 1} {/* 선택된 순서 표시 */}
+          {movies &&
+            movies?.map((item) => (
+              <div
+                key={item.genre_id}
+                className={`relative cursor-pointer ${
+                  result.includes(item.genre_id)
+                    ? "border-4 border-primary" // 선택된 이미지 스타일
+                    : "border-2 border-transparent"
+                }`}
+                onClick={() => handleMovieClick(item.genre_id)}
+              >
+                <img
+                  src={item.poster_path}
+                  alt={item.poster_path}
+                  className="h-[200px] object-cover"
+                />
+                {result.includes(item.genre_id) && (
+                  <div className="absolute inset-0 bg-primary bg-opacity-50 flex items-center justify-center text-white font-bold">
+                    <div className="w-10 h-10 rounded-full p-2 bg-white text-primary flex items-center justify-center text-lg">
+                      {result.indexOf(item.genre_id) + 1}{" "}
+                      {/* 선택된 순서 표시 */}
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
-          ))}
+                )}
+              </div>
+            ))}
         </div>
         <div className="flex flex-row justify-end gap-2 mt-auto">
           <Button

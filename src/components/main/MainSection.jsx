@@ -1,25 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
 import {
   faCircleInfo,
-  faMagnifyingGlass,
   faPlay,
   faPause, // 새로 추가: 정지 아이콘
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom"; // navigate 훅을 추가
-import { getUserInfo } from "../../api/user";
 
 const MainSection = ({ videoUrl, movieTitle, movieOverview, movieId }) => {
   const [isPlaying, setIsPlaying] = useState(true); // 비디오의 초기 상태는 '재생'으로 설정
   const videoRef = useRef(null); // 비디오 DOM 요소에 접근
   const navigate = useNavigate(); // navigate 훅을 사용하여 페이지 이동
-
-  const handleGetInfo = () => {
-    getUserInfo().then((res) => {
-      console.log(res);
-    });
-  };
 
   // 비디오 상태가 변경되면, 자동으로 재생/정지 설정
   useEffect(() => {

@@ -26,8 +26,8 @@ const FollowersModal = ({ title, open, handleClose, data = [] }) => {
         <Typography variant="h5" style={{ fontWeight: "600" }}>
           {title}
         </Typography>
-        <div className="flex flex-col gap-5 mt-2">
-          <div className="grid grid-cols-5 gap-2">
+        <div className="flex flex-col gap-5 mt-2 h-[400px] overflow-y-auto">
+          <div className="grid grid-cols-5 gap-1">
             {data &&
               data?.map((item) => (
                 <div

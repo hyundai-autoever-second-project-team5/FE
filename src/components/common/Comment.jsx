@@ -20,7 +20,8 @@ const Comment = ({
   content,
   likes,
   heart,
-  updateLike, // 부모로부터 전달받은 함수
+  movieId,
+  // updateLike, // 부모로부터 전달받은 함수
 }) => {
   const [open, setOpen] = React.useState(false);
   const { refetch } = useGetComments();
@@ -39,12 +40,12 @@ const Comment = ({
         await detailunlikeReview(id);
         setLiked(false);
         setHearCount(heartCount - 1);
-        updateLike(id, false);
+        // updateLike(id, false);
       } else {
         await detaillikeReview(id);
         setLiked(true);
         setHearCount(heartCount + 1);
-        updateLike(id, true);
+        // updateLike(id, true);
       }
     } catch (error) {
       console.error("좋아요 처리에 실패했습니다.", error);
@@ -107,6 +108,7 @@ const Comment = ({
         reviewId={id}
         content={content}
         writerId={writerId}
+        movieId={movieId}
       />
     </>
   );
