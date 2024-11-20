@@ -188,8 +188,33 @@ const MyPage = () => {
             className="w-[140px] h-[140px] rounded-full object-cover"
           />
           <div className="flex flex-col gap-2">
-            <Typography variant="h5" color="white">
+            <Typography
+              variant="h5"
+              color="white"
+              style={{ display: "flex", alignItems: "center" }}
+            >
               {isUser ? data?.nickname : profileInfo?.nickname}
+              {isUser && data?.powerReviewer && (
+                <span
+                  style={{
+                    marginLeft: "10px",
+                    color: "#FFD700",
+                    fontWeight: "bold",
+                    display: "inline-flex",
+                    alignItems: "center", // 텍스트와 이미지를 수평 정렬
+                  }}
+                >
+                  <img
+                    src="/images/power.png"
+                    alt="골드 배지"
+                    style={{
+                      width: "16px", // 이미지 크기
+                      height: "16px",
+                      marginRight: "5px", // 텍스트와 이미지 사이 간격
+                    }}
+                  />
+                </span>
+              )}
             </Typography>
             <Typography variant="body1" color="white">
               {isUser ? data?.id : profileInfo?.id}
@@ -288,7 +313,10 @@ const MyPage = () => {
 
       {/* 포스터 수집 */}
       <div className="flex flex-col w-full mb-5">
-        <div className="mb-4 text-2xl font-bold text-white"> 내가 수집한 포스터 </div>
+        <div className="mb-4 text-2xl font-bold text-white">
+          {" "}
+          내가 수집한 포스터{" "}
+        </div>
         <PosterSlide data={posters} />
       </div>
       <SwiperCommentList title={"내가 작성한 리뷰"} data={myReviews} />
