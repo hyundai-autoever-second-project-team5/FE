@@ -31,6 +31,7 @@ import { useLocation } from "react-router-dom";
 
 const MyPage = () => {
   const { data } = useGetUserInfo(getCookie("accessToken"));
+  console.log("리뷰 왕인지 확인하는 거 확인하려구요", data);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const profileUserId = searchParams.get("userId");
@@ -63,7 +64,6 @@ const MyPage = () => {
   const handleFollowingClose = () => setFollowingOpen(false);
   const handleLikesOpen = () => setLikesOpen(true);
   const handleLikesClose = () => setLikesOpen(false);
-
   const handleFollowing = () => {
     if (followingState) {
       deleteFollowing(profileInfo?.userId).then((res) =>
