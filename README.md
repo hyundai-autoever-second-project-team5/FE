@@ -15,3 +15,6 @@ feature/#이슈번호: 기능 추가
 
 아이콘 - fontawsome   
 스타일 - tailwindcss
+
+[프로젝트 정리]
+https://hissing-piano-8f4.notion.site/Cine-Wall-1b351e4434c880619543fb7e11f1ccc4
